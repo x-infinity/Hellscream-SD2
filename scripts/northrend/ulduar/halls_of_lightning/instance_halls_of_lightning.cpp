@@ -43,6 +43,7 @@ struct MANGOS_DLL_DECL instance_halls_of_lightning : public ScriptedInstance
     uint64 m_uiLokenGUID;
     uint64 m_uiVolkhanGUID;
 
+    uint64 m_uiBjarngrimDoorGUID;
     uint64 m_uiVolkhanDoorGUID;
     uint64 m_uiIonarDoorGUID;
     uint64 m_uiLokenDoorGUID;
@@ -57,6 +58,7 @@ struct MANGOS_DLL_DECL instance_halls_of_lightning : public ScriptedInstance
         m_uiIonarGUID            = 0;
         m_uiLokenGUID            = 0;
 
+        m_uiBjarngrimDoorGUID    = 0;
         m_uiVolkhanDoorGUID      = 0;
         m_uiIonarDoorGUID        = 0;
         m_uiLokenDoorGUID        = 0;
@@ -86,6 +88,10 @@ struct MANGOS_DLL_DECL instance_halls_of_lightning : public ScriptedInstance
     {
         switch(pGo->GetEntry())
         {
+            case GO_BJARNGRIM_DOOR:
+                m_uiBjarngrimDoorGUID = pGo->GetGUID();
+                if (m_auiEncounter[0] == DONE)
+                    pGo->SetGoState(GO_STATE_ACTIVE);
             case GO_VOLKHAN_DOOR:
                 m_uiVolkhanDoorGUID = pGo->GetGUID();
                 if (m_auiEncounter[1] == DONE)
@@ -112,6 +118,8 @@ struct MANGOS_DLL_DECL instance_halls_of_lightning : public ScriptedInstance
         switch(uiType)
         {
             case TYPE_BJARNGRIM:
+                if (uiData == DONE)
+                    DoUseDoorOrButton(m_uiBjarngrimDoorGUID);
                 m_auiEncounter[0] = uiData;
                 break;
             case TYPE_VOLKHAN:
