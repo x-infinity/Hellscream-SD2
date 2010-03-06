@@ -151,9 +151,7 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
 
             if (m_uiSummonTimer < uiDiff && m_bHadCastCorrSoul)
             {
-                pCorruptSoul = m_creature->SummonCreature(NPC_CORRUPTED_SOUL_FRAGMENT, pCorrSoulTarget->GetPositionX(), pCorrSoulTarget->GetPositionY(), pCorrSoulTarget->GetPositionZ(), 0, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 30000);
-                pCorruptSoul->GetMotionMaster()->Clear(false);
-                pCorruptSoul->GetMotionMaster()->MoveChase(m_creature , 3.0f);
+                m_creature->SummonCreature(NPC_CORRUPTED_SOUL_FRAGMENT, pCorrSoulTarget->GetPositionX(), pCorrSoulTarget->GetPositionY(), pCorrSoulTarget->GetPositionZ(), 0, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 30000); // drop it in future and use a spell which summon corrupted soul
                 m_bHadCastCorrSoul = false;
 
                 m_uiSummonTimer = 4000;
@@ -184,6 +182,20 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
         }
     }
 };
+
+struct MANGOS_DLL_DECL npc_corrupted_soulAI : public ScriptedAI
+{
+    npc_corrupted_soulAI(Creature *pCreature) : ScriptedAI(pCreature)
+    {
+        m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        m_bIsRegularMode = pCreature->GetMap()->IsRegularDifficulty();
+        Reset();
+    }
+    UpdateAI(const uint32 uiDiff)
+    {
+        m_creature
+    }
+}
 
 CreatureAI* GetAI_boss_bronjahm(Creature* pCreature)
 {
