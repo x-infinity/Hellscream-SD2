@@ -22,3 +22,83 @@ SDCategory: The Forge of Souls
 EndScriptData */
 
 #include "precompiled.h"
+#include "forge_of_souls.h"
+
+enum
+{
+    SPEEL_PHANTOM_BLAST_N = 68982,
+    SPEEL_PHANTOM_BLAST_H = 70322,
+    SPELL_MIRRORED_SOUL   = 69051,
+    SPELL_WELL_OF_SOULS   = 68920, // visual effect?
+    SPELL_WELL_OF_SOULS_N = 68863,
+    SPELL_WELL_OF_SOULS_H = 70323,
+    SPELL_UNLEASHED_SOULS = 68939,
+    SPELL_WAILING_SOULS1  = 68912,
+    SPELL_WAILING_SOULS2  = 68899,
+    SPELL_WAILING_SOULS_N = 68873,
+    SPELL_WAILING_SOULS_H = 70324
+};
+
+struct MANGOS_DLL_DECL boss_devourer_of_soulsAI : public ScriptedAI
+{
+    boss_devourer_of_soulsAI(Creature* pCreature) : ScriptedAI(pCreature)
+    {
+        m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        m_bIsRegularMode = pCreature->GetMap()->IsRegularDifficulty();
+        Reset();
+    }
+
+    ScriptedInstance* m_pInstance;
+    bool m_bIsRegularMode;
+
+    void Reset()
+    {
+    }
+
+    void Aggro(Unit* pWho)
+    {
+        //DoScriptText(SAY_AGGRO, m_creature);
+    }
+
+    void KilledUnit(Unit* pVictim)
+    {
+        /*switch(urand(0, 3))
+        {
+            case 0: DoScriptText(SAY_SLAY_1, m_creature); break;
+            case 1: DoScriptText(SAY_SLAY_2, m_creature); break;
+            case 2: DoScriptText(SAY_SLAY_3, m_creature); break;
+            case 3: DoScriptText(SAY_SLAY_4, m_creature); break;
+        }*/
+    }
+
+    void JustDied(Unit* pKiller)
+    {
+        //DoScriptText(SAY_DEATH, m_creature);
+
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_DEVOURER, DONE);
+    }
+
+    void UpdateAI(const uint32 uiDiff)
+    {
+        if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
+            return;
+
+        DoMeleeAttackIfReady();
+    }
+};
+
+CreatureAI* GetAI_boss_devourer_of_souls(Creature* pCreature)
+{
+    return new boss_devourer_of_soulsAI(pCreature);
+}
+
+void AddSC_boss_devourer_of_souls()
+{
+    Script *newscript;
+
+    newscript = new Script;
+    newscript->Name = "boss_devourer_of_souls";
+    newscript->GetAI = &GetAI_boss_devourer_of_souls;
+    newscript->RegisterSelf();
+}
