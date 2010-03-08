@@ -28,7 +28,7 @@ enum {
     SPELL_MAGICS_BANE_N         = 68793,
     SPELL_MAGICS_BANE_H         = 69050,
     SPELL_CORRUPT_SOUL_VISUAL   = 68839,
-    //SPELL_DRAW_CORRUPTED_SOUL   = 68846,
+    SPELL_DRAW_CORRUPTED_SOUL   = 68846,
     SPELL_CONSUME_SOUL_N        = 68858,
     SPELL_CONSUME_SOUL_H        = 69047,
     SPELL_SHADOW_BOLT           = 70043,
@@ -151,7 +151,7 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
 
             if (m_uiSummonTimer < uiDiff && m_bHadCastCorrSoul)
             {
-                m_creature->SummonCreature(NPC_CORRUPTED_SOUL_FRAGMENT, pCorrSoulTarget->GetPositionX(), pCorrSoulTarget->GetPositionY(), pCorrSoulTarget->GetPositionZ(), 0, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 30000); // drop it in future and use a spell which summon corrupted soul
+                DoCastSpellIfCan(pCorrSoulTarget, SPELL_DRAW_CORRUPTED_SOUL);
                 m_bHadCastCorrSoul = false;
 
                 m_uiSummonTimer = 4000;
@@ -188,18 +188,35 @@ struct MANGOS_DLL_DECL npc_corrupted_soulAI : public ScriptedAI
     npc_corrupted_soulAI(Creature *pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
-        m_bIsRegularMode = pCreature->GetMap()->IsRegularDifficulty();
+        //m_bIsRegularMode = pCreature->GetMap()->IsRegularDifficulty();
         Reset();
     }
-    UpdateAI(const uint32 uiDiff)
+
+    ScriptedInstance* m_pInstance;
+
+    void Reset()
     {
-        m_creature
     }
-}
+
+    void UpdateAI(const uint32 uiDiff)
+    {
+        //Unit* pBronjahm = m_creature->SelectRandomFriendlyTarget(0, 15.0f);
+        if (Unit* pBronjahm = m_creature->SelectRandomFriendlyTarget(0, 15.0f))
+        {
+            m_creature->GetMotionMaster()->Clear();
+            m_creature->GetMotionMaster()->MoveChase(pBronjahm, 3.0f);
+        }
+    }
+};
 
 CreatureAI* GetAI_boss_bronjahm(Creature* pCreature)
 {
     return new boss_bronjahmAI(pCreature);
+}
+
+CreatureAI* GetAI_npc_corrupted_soul(Creature* pCreature)
+{
+    return new npc_corrupted_soulAI(pCreature);
 }
 
 void AddSC_boss_bronjahm()
@@ -208,5 +225,14 @@ void AddSC_boss_bronjahm()
     NewScript = new Script;
     NewScript->Name = "boss_bronjahm";
     NewScript->GetAI = &GetAI_boss_bronjahm;
+    NewScript->RegisterSelf();
+}
+
+void AddSC_npc_corrupted_soul()
+{
+    Script* NewScript;
+    NewScript = new Script;
+    NewScript->Name = "npc_corrupted_soul";
+    NewScript->GetAI = &GetAI_npc_corrupted_soul;
     NewScript->RegisterSelf();
 }
