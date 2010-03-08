@@ -43,6 +43,17 @@ enum
     NPC_BLAUMEUX                = 16065,
     NPC_RIVENDARE               = 30549,
 
+    // Gothik
+    NPC_GOTHIK                  = 16060,
+    NPC_SUB_BOSS_TRIGGER        = 16137,                    //summon locations
+    NPC_UNREL_TRAINEE           = 16124,
+    NPC_UNREL_DEATH_KNIGHT      = 16125,
+    NPC_UNREL_RIDER             = 16126,
+    NPC_SPECT_TRAINEE           = 16127,
+    NPC_SPECT_DEATH_KNIGTH      = 16148,
+    NPC_SPECT_RIDER             = 16150,
+    NPC_SPECT_HORSE             = 16149,
+
     // End boss adds
     NPC_SOLDIER_FROZEN          = 16427,
     NPC_UNSTOPPABLE_ABOM        = 16428,
@@ -96,7 +107,14 @@ enum
     GO_CONS_PORTAL              = 181576,
 
     AREATRIGGER_FROSTWYRM       = 4120,                    //not needed here, but AT to be scripted
-    AREATRIGGER_KELTHUZAD       = 4112
+    AREATRIGGER_KELTHUZAD       = 4112,
+    AREATRIGGER_GOTHIK          = 4116
+};
+
+struct GothTrigger
+{
+    bool bIsRightSide;
+    bool bIsAnchorHigh;
 };
 
 class MANGOS_DLL_DECL instance_naxxramas : public ScriptedInstance
@@ -119,6 +137,13 @@ class MANGOS_DLL_DECL instance_naxxramas : public ScriptedInstance
         const char* Save() { return strInstData.c_str(); }
         void Load(const char* chrIn);
 
+        // goth
+        void SetGothTriggers();
+        Creature* GetClosestAnchorForGoth(Creature* pSource, bool bRightSide);
+        void GetGothSummonPointCreatures(std::list<Creature*> &lList, bool bRightSide);
+        bool IsInRightSideGothArea(Unit* pUnit);
+
+        // kel
         void SetChamberCenterCoords(float fX, float fY, float fZ);
         void GetChamberCenterCoords(float &fX, float &fY, float &fZ) { fX = m_fChamberCenterX; fY = m_fChamberCenterY; fZ = m_fChamberCenterZ; }
 
@@ -159,9 +184,13 @@ class MANGOS_DLL_DECL instance_naxxramas : public ScriptedInstance
         uint64 m_uiMaexOuterGUID;
         uint64 m_uiMaexInnerGUID;
 
+        uint64 m_uiGothikGUID;
         uint64 m_uiGothCombatGateGUID;
         uint64 m_uiGothikEntryDoorGUID;
         uint64 m_uiGothikExitDoorGUID;
+        std::list<uint64> m_lGothTriggerList;
+        UNORDERED_MAP<uint64, GothTrigger> m_mGothTriggerMap;
+
         uint64 m_uiHorsemenDoorGUID;
         uint64 m_uiHorsemenChestGUID;
 

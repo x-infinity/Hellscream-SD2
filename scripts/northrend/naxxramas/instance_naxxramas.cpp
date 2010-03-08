@@ -58,6 +58,7 @@ instance_naxxramas::instance_naxxramas(Map* pMap) : ScriptedInstance(pMap),
     m_uiMaexOuterGUID(0),
     m_uiMaexInnerGUID(0),
 
+    m_uiGothikGUID(0),
     m_uiGothCombatGateGUID(0),
     m_uiGothikEntryDoorGUID(0),
     m_uiGothikExitDoorGUID(0),
@@ -87,15 +88,17 @@ void instance_naxxramas::OnCreatureCreate(Creature* pCreature)
 {
     switch(pCreature->GetEntry())
     {
-        case NPC_ANUB_REKHAN: m_uiAnubRekhanGUID = pCreature->GetGUID(); break;
-        case NPC_FAERLINA:    m_uiFaerlinanGUID = pCreature->GetGUID();  break;
-        case NPC_THADDIUS:    m_uiThaddiusGUID = pCreature->GetGUID();   break;
-        case NPC_STALAGG:     m_uiStalaggGUID = pCreature->GetGUID();    break;
-        case NPC_FEUGEN:      m_uiFeugenGUID = pCreature->GetGUID();     break;
-        case NPC_ZELIEK:      m_uiZeliekGUID = pCreature->GetGUID();     break;
-        case NPC_THANE:       m_uiThaneGUID = pCreature->GetGUID();      break;
-        case NPC_BLAUMEUX:    m_uiBlaumeuxGUID = pCreature->GetGUID();   break;
-        case NPC_RIVENDARE:   m_uiRivendareGUID = pCreature->GetGUID();  break;
+        case NPC_ANUB_REKHAN:       m_uiAnubRekhanGUID = pCreature->GetGUID();  break;
+        case NPC_FAERLINA:          m_uiFaerlinanGUID = pCreature->GetGUID();   break;
+        case NPC_THADDIUS:          m_uiThaddiusGUID = pCreature->GetGUID();    break;
+        case NPC_STALAGG:           m_uiStalaggGUID = pCreature->GetGUID();     break;
+        case NPC_FEUGEN:            m_uiFeugenGUID = pCreature->GetGUID();      break;
+        case NPC_ZELIEK:            m_uiZeliekGUID = pCreature->GetGUID();      break;
+        case NPC_THANE:             m_uiThaneGUID = pCreature->GetGUID();       break;
+        case NPC_BLAUMEUX:          m_uiBlaumeuxGUID = pCreature->GetGUID();    break;
+        case NPC_RIVENDARE:         m_uiRivendareGUID = pCreature->GetGUID();   break;
+        case NPC_GOTHIK:            m_uiGothikGUID = pCreature->GetGUID();      break;
+        case NPC_SUB_BOSS_TRIGGER:  m_lGothTriggerList.push_back(pCreature->GetGUID()); break;
     }
 }
 
@@ -296,13 +299,28 @@ void instance_naxxramas::SetData(uint32 uiType, uint32 uiData)
                 DoUseDoorOrButton(m_uiGothikEntryDoorGUID);
             break;
         case TYPE_GOTHIK:
-            m_auiEncounter[7] = uiData;
-            DoUseDoorOrButton(m_uiGothikEntryDoorGUID);
-            if (uiData == DONE)
+            switch(uiData)
             {
-                DoUseDoorOrButton(m_uiGothikExitDoorGUID);
-                DoUseDoorOrButton(m_uiHorsemenDoorGUID);
+                case IN_PROGRESS:
+                    DoUseDoorOrButton(m_uiGothikEntryDoorGUID);
+                    DoUseDoorOrButton(m_uiGothCombatGateGUID);
+                    break;
+                case SPECIAL:
+                    DoUseDoorOrButton(m_uiGothCombatGateGUID);
+                    break;
+                case FAIL:
+                    if (m_auiEncounter[7] == IN_PROGRESS)
+                        DoUseDoorOrButton(m_uiGothCombatGateGUID);
+
+                    DoUseDoorOrButton(m_uiGothikEntryDoorGUID);
+                    break;
+                case DONE:
+                    DoUseDoorOrButton(m_uiGothikEntryDoorGUID);
+                    DoUseDoorOrButton(m_uiGothikExitDoorGUID);
+                    DoUseDoorOrButton(m_uiHorsemenDoorGUID);
+                    break;
             }
+            m_auiEncounter[7] = uiData;
             break;
         case TYPE_FOUR_HORSEMEN:
             m_auiEncounter[8] = uiData;
@@ -485,8 +503,79 @@ uint64 instance_naxxramas::GetData64(uint32 uiData)
             return m_uiStalaggGUID;
         case NPC_FEUGEN:
             return m_uiFeugenGUID;
+        case NPC_GOTHIK:
+            return m_uiGothikGUID;
     }
     return 0;
+}
+
+void instance_naxxramas::SetGothTriggers()
+{
+    Creature* pGoth = instance->GetCreature(m_uiGothikGUID);
+
+    if (!pGoth)
+        return;
+
+    for(std::list<uint64>::iterator itr = m_lGothTriggerList.begin(); itr != m_lGothTriggerList.end(); ++itr)
+    {
+        if (Creature* pTrigger = instance->GetCreature(*itr))
+        {
+            GothTrigger pGt;
+            pGt.bIsAnchorHigh = (pTrigger->GetPositionZ() >= (pGoth->GetPositionZ() - 5.0f));
+            pGt.bIsRightSide = IsInRightSideGothArea(pTrigger);
+
+            m_mGothTriggerMap[pTrigger->GetGUID()] = pGt;
+        }
+    }
+}
+
+Creature* instance_naxxramas::GetClosestAnchorForGoth(Creature* pSource, bool bRightSide)
+{
+    std::list<Creature* > lList;
+
+    for (UNORDERED_MAP<uint64, GothTrigger>::iterator itr = m_mGothTriggerMap.begin(); itr != m_mGothTriggerMap.end(); ++itr)
+    {
+        if (!itr->second.bIsAnchorHigh)
+            continue;
+
+        if (itr->second.bIsRightSide != bRightSide)
+            continue;
+
+        if (Creature* pCreature = instance->GetCreature(itr->first))
+            lList.push_back(pCreature);
+    }
+
+    if (!lList.empty())
+    {
+        lList.sort(ObjectDistanceOrder(pSource));
+        return lList.front();
+    }
+
+    return NULL;
+}
+
+void instance_naxxramas::GetGothSummonPointCreatures(std::list<Creature*> &lList, bool bRightSide)
+{
+    for (UNORDERED_MAP<uint64, GothTrigger>::iterator itr = m_mGothTriggerMap.begin(); itr != m_mGothTriggerMap.end(); ++itr)
+    {
+        if (itr->second.bIsAnchorHigh)
+            continue;
+
+        if (itr->second.bIsRightSide != bRightSide)
+            continue;
+
+        if (Creature* pCreature = instance->GetCreature(itr->first))
+            lList.push_back(pCreature);
+    }
+}
+
+bool instance_naxxramas::IsInRightSideGothArea(Unit* pUnit)
+{
+    if (GameObject* pCombatGate = instance->GetGameObject(m_uiGothCombatGateGUID))
+        return (pCombatGate->GetPositionY() >= pUnit->GetPositionY());
+
+    error_log("SD2: left/right side check, Gothik combat area failed.");
+    return true;
 }
 
 void instance_naxxramas::SetChamberCenterCoords(float fX, float fY, float fZ)
