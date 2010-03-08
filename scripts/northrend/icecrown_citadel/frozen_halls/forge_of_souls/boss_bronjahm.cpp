@@ -48,9 +48,7 @@ enum {
     SAY_SOULSTORM    = -1730004,
     SAY_KILL1        = -1730005,
     SAY_KILL2        = -1730006,
-    SAY_DEATH        = -1730007,
-
-    NPC_CORRUPTED_SOUL_FRAGMENT = 36535
+    SAY_DEATH        = -1730007
 };
 
 struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
@@ -67,15 +65,12 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
 
     uint32 m_uiMagicsBaneTimer;
     uint32 m_uiCorruptSoulTimer;
-    //uint32 m_uiConsumeSoulTimer;
     uint32 m_uiShadowBoltTimer;
     uint32 m_uiFearTimer;
     uint32 m_uiSummonTimer;
 
     Unit* pCorrSoulTarget;
-    Creature* pCorruptSoul;
     bool m_bPhase2;
-    bool m_bHadCastCorrSoul;
 
     void Reset()
     {
@@ -83,11 +78,9 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
         m_uiCorruptSoulTimer = 45000;
         m_uiShadowBoltTimer = 10000;
         m_uiFearTimer = 10000;
-        m_uiSummonTimer = 4000;
+        m_uiSummonTimer = 49000;
 
         m_bPhase2 = false;
-        m_bHadCastCorrSoul = false;
-        pCorruptSoul = 0;
         pCorrSoulTarget = 0;
     }
 
@@ -140,26 +133,15 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
             } else
                 m_uiMagicsBaneTimer -= uiDiff;
 
-            if (m_uiCorruptSoulTimer < uiDiff)
+            /*if (m_uiCorruptSoulTimer < uiDiff)
             {
                 DoCastSpellIfCan(pCorrSoulTarget, SPELL_CORRUPT_SOUL_VISUAL);
-                m_bHadCastCorrSoul = true;
+                //m_creature->SummonCreature(NPC_CORRUPTED_SOUL_FRAGMENT, pCorrSoulTarget->GetPositionX(), pCorrSoulTarget->GetPositionY(), pCorrSoulTarget->GetPositionZ(), 0, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 30000);
+                DoCastSpellIfCan(pCorrSoulTarget, SPELL_DRAW_CORRUPTED_SOUL);
 
                 m_uiCorruptSoulTimer = 45000;
             } else
-                m_uiCorruptSoulTimer -= uiDiff;
-
-            if (m_uiSummonTimer < uiDiff && m_bHadCastCorrSoul)
-            {
-                DoCastSpellIfCan(pCorrSoulTarget, SPELL_DRAW_CORRUPTED_SOUL);
-                m_bHadCastCorrSoul = false;
-
-                m_uiSummonTimer = 4000;
-            } else
-                m_uiSummonTimer -= uiDiff;
-            
-            if (pCorruptSoul)
-                CorruptedAI();
+                m_uiCorruptSoulTimer -= uiDiff;*/
 
             if (m_uiShadowBoltTimer < uiDiff)
             {
@@ -167,19 +149,15 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
                 m_uiShadowBoltTimer = 10000;
             } else
                 m_uiShadowBoltTimer -= uiDiff;
+
+            // chash here, must fix in near future
+            if (Unit* pCorrSoul = m_creature->SelectRandomFriendlyTarget(0, 10.0f))
+                if (pCorrSoul->GetEntry() == NPC_CORRUPTED_SOUL_FRAGMENT)
+                    if(float distanceToSoul = m_creature->GetDistance2d((WorldObject*)pCorrSoul) <= 5.0f)
+                        DoCastSpellIfCan(m_creature, m_bIsRegularMode ? SPELL_CONSUME_SOUL_N : SPELL_CONSUME_SOUL_H);
         }
         
         DoMeleeAttackIfReady();
-    }
-    // TODO write AI for Corrupted Soul
-    void CorruptedAI()
-    {
-        if (float distanceToSoul = m_creature->GetDistance2d((WorldObject*)pCorruptSoul) <= 5.0f)
-        {
-            DoCastSpellIfCan(m_creature, m_bIsRegularMode ? SPELL_CONSUME_SOUL_N : SPELL_CONSUME_SOUL_H);
-            pCorruptSoul->RemoveFromWorld();
-            pCorruptSoul = 0;
-        }
     }
 };
 
@@ -188,7 +166,6 @@ struct MANGOS_DLL_DECL npc_corrupted_soulAI : public ScriptedAI
     npc_corrupted_soulAI(Creature *pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
-        //m_bIsRegularMode = pCreature->GetMap()->IsRegularDifficulty();
         Reset();
     }
 
@@ -200,12 +177,25 @@ struct MANGOS_DLL_DECL npc_corrupted_soulAI : public ScriptedAI
 
     void UpdateAI(const uint32 uiDiff)
     {
-        //Unit* pBronjahm = m_creature->SelectRandomFriendlyTarget(0, 15.0f);
-        if (Unit* pBronjahm = m_creature->SelectRandomFriendlyTarget(0, 15.0f))
+
+        if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
+            return;
+
+        Unit* pBronjahm = 0;
+
+        if (!pBronjahm)
+            if (Unit* pTarget = m_creature->SelectRandomFriendlyTarget(0, 15.0f))
+                if (pTarget->GetEntry() == NPC_BRONJAHM)
+                    pBronjahm = pTarget;
+            
+        if (pBronjahm)
         {
             m_creature->GetMotionMaster()->Clear();
-            m_creature->GetMotionMaster()->MoveChase(pBronjahm, 3.0f);
+            m_creature->GetMotionMaster()->MoveChase(pBronjahm);
         }
+
+        if (m_creature->GetDistance2d((WorldObject*) pBronjahm) <= 5.0f)
+            m_creature->ForcedDespawn();
     }
 };
 

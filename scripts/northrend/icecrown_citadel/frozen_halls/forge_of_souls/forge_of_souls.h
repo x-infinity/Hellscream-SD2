@@ -12,8 +12,9 @@ enum
     TYPE_BRONJAHM = 1,
     TYPE_DEVOURER = 2,
 
-    NPC_BRONJAHM  = 36497,
-    NPC_DEVOURER  = 36502
+    NPC_BRONJAHM                = 36497,
+    NPC_DEVOURER                = 36502,
+    NPC_CORRUPTED_SOUL_FRAGMENT = 36535
 };
 
 #endif
