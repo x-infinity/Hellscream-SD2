@@ -123,8 +123,6 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
 
         if (!m_bPhase2)
         {
-            pCorrSoulTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
-
             // first phase
             if (m_uiMagicsBaneTimer < uiDiff)
             {
@@ -133,15 +131,22 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
             } else
                 m_uiMagicsBaneTimer -= uiDiff;
 
-            /*if (m_uiCorruptSoulTimer < uiDiff)
+            if (m_uiCorruptSoulTimer < uiDiff)
             {
+                pCorrSoulTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
                 DoCastSpellIfCan(pCorrSoulTarget, SPELL_CORRUPT_SOUL_VISUAL);
-                //m_creature->SummonCreature(NPC_CORRUPTED_SOUL_FRAGMENT, pCorrSoulTarget->GetPositionX(), pCorrSoulTarget->GetPositionY(), pCorrSoulTarget->GetPositionZ(), 0, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 30000);
-                DoCastSpellIfCan(pCorrSoulTarget, SPELL_DRAW_CORRUPTED_SOUL);
 
                 m_uiCorruptSoulTimer = 45000;
             } else
-                m_uiCorruptSoulTimer -= uiDiff;*/
+                m_uiCorruptSoulTimer -= uiDiff;
+
+            if (m_uiSummonTimer < uiDiff)
+            {
+                pCorrSoulTarget->CastSpell(pCorrSoulTarget, SPELL_DRAW_CORRUPTED_SOUL, true);
+
+                m_uiSummonTimer = 49000;
+            } else
+                m_uiSummonTimer -= uiDiff;
 
             if (m_uiShadowBoltTimer < uiDiff)
             {
@@ -149,12 +154,6 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
                 m_uiShadowBoltTimer = 10000;
             } else
                 m_uiShadowBoltTimer -= uiDiff;
-
-            // chash here, must fix in near future
-            if (Unit* pCorrSoul = m_creature->SelectRandomFriendlyTarget(0, 10.0f))
-                if (pCorrSoul->GetEntry() == NPC_CORRUPTED_SOUL_FRAGMENT)
-                    if(float distanceToSoul = m_creature->GetDistance2d((WorldObject*)pCorrSoul) <= 5.0f)
-                        DoCastSpellIfCan(m_creature, m_bIsRegularMode ? SPELL_CONSUME_SOUL_N : SPELL_CONSUME_SOUL_H);
         }
         
         DoMeleeAttackIfReady();
@@ -193,9 +192,6 @@ struct MANGOS_DLL_DECL npc_corrupted_soulAI : public ScriptedAI
             m_creature->GetMotionMaster()->Clear();
             m_creature->GetMotionMaster()->MoveChase(pBronjahm);
         }
-
-        if (m_creature->GetDistance2d((WorldObject*) pBronjahm) <= 5.0f)
-            m_creature->ForcedDespawn();
     }
 };
 
