@@ -41,7 +41,9 @@ enum
     SPELL_DISRUPTING_SHOUT   = 55543,
     SPELL_DISRUPTING_SHOUT_H = 29107,
     SPELL_JAGGED_KNIFE       = 55550,
-    SPELL_HOPELESS           = 29125
+    SPELL_HOPELESS           = 29125,
+
+    NPC_DEATH_KNIGHT_UNDERSTUDY = 16803
 };
 
 struct MANGOS_DLL_DECL boss_razuviousAI : public ScriptedAI
@@ -55,6 +57,8 @@ struct MANGOS_DLL_DECL boss_razuviousAI : public ScriptedAI
 
     instance_naxxramas* m_pInstance;
     bool m_bIsRegularMode;
+
+    std::list<uint64> DeathKnightList;
 
     uint32 m_uiUnbalancingStrikeTimer;
     uint32 m_uiDisruptingShoutTimer;
@@ -97,7 +101,7 @@ struct MANGOS_DLL_DECL boss_razuviousAI : public ScriptedAI
                         pDeathKnight->Respawn();
                     }
 
-                    pDeathKnight->AI()->AttackStart(who);
+                    pDeathKnight->AI()->AttackStart(pDeathKnight->SelectRandomUnfriendlyTarget());
                 }
             }
         }

@@ -31,6 +31,19 @@ enum
     TYPE_SAPPHIRON              = 16,
     TYPE_KELTHUZAD              = 17,
 
+    DATA_ANUB_REKHAN            = 30,
+    DATA_FAERLINA               = 31,
+    DATA_GOTHIK_GATE            = 32,
+
+    DATA_THADDIUS               = 33,
+    DATA_STALAGG                = 34,
+    DATA_FEUGEN                 = 35,
+
+    DATA_KORTHAZZ               = 36,
+    DATA_RIVENDARE              = 37,
+    DATA_BLAUMEUX               = 38,
+    DATA_ZELIEK                 = 39,
+
     NPC_ANUB_REKHAN             = 15956,
     NPC_FAERLINA                = 15953,
 

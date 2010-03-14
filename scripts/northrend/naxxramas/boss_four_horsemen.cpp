@@ -101,7 +101,7 @@ struct MANGOS_DLL_DECL boss_lady_blaumeuxAI : public ScriptedAI
     boss_lady_blaumeuxAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
-        m_bIsHeroicMode = pCreature->GetMap()->IsHeroic();
+        m_bIsHeroicMode = pCreature->GetMap()->GetDifficulty();
         Reset();
     }
 
@@ -126,13 +126,13 @@ struct MANGOS_DLL_DECL boss_lady_blaumeuxAI : public ScriptedAI
         {
             m_pInstance->SetData(TYPE_FOUR_HORSEMEN, NOT_STARTED);
 
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_KORTHAZZ))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit(*m_creature, m_pInstance->GetData64(DATA_KORTHAZZ))))
                 if (!pTemp->isAlive())
                     pTemp->Respawn();
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_RIVENDARE))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit(*m_creature, m_pInstance->GetData64(DATA_RIVENDARE))))
                 if (!pTemp->isAlive())
                     pTemp->Respawn();
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_ZELIEK))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit(*m_creature, m_pInstance->GetData64(DATA_ZELIEK))))
                 if (!pTemp->isAlive())
                     pTemp->Respawn();
         }
@@ -224,7 +224,7 @@ struct MANGOS_DLL_DECL boss_rivendare_naxxAI : public ScriptedAI
     boss_rivendare_naxxAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
-        m_bIsHeroicMode = pCreature->GetMap()->IsHeroic();
+        m_bIsHeroicMode = pCreature->GetMap()->GetDifficulty();
         Reset();
     }
 
@@ -305,11 +305,11 @@ struct MANGOS_DLL_DECL boss_rivendare_naxxAI : public ScriptedAI
             return;
 
         // Mark of Blaumeux
-        if (Mark_Timer < diff)
+        if (Mark_Timer < uiDiff)
         {
             DoCast(m_creature->getVictim(),SPELL_MARK_OF_RIVENDARE);
             Mark_Timer = 15000;
-        }else Mark_Timer -= diff;
+        }else Mark_Timer -= uiDiff;
 
         // Shield Wall - All 4 horsemen will shield wall at 50% hp and 20% hp for 20 seconds
         if (ShieldWall1 && (m_creature->GetHealth()*100 / m_creature->GetMaxHealth()) < 50)
@@ -329,11 +329,11 @@ struct MANGOS_DLL_DECL boss_rivendare_naxxAI : public ScriptedAI
             }
         }
 
-        if (UnholyShadow_Timer < diff)
+        if (UnholyShadow_Timer < uiDiff)
         {
             DoCast(m_creature->getVictim(), m_bIsHeroicMode ? H_SPELL_UNHOLY_SHADOW : SPELL_UNHOLY_SHADOW);
             UnholyShadow_Timer = 15000;
-        }else UnholyShadow_Timer -= diff;
+        }else UnholyShadow_Timer -= uiDiff;
 
         DoMeleeAttackIfReady();
     }
@@ -349,7 +349,7 @@ struct MANGOS_DLL_DECL boss_thane_korthazzAI : public ScriptedAI
     boss_thane_korthazzAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
-        m_bIsHeroicMode = pCreature->GetMap()->IsHeroic();
+        m_bIsHeroicMode = pCreature->GetMap()->GetDifficulty();
         Reset();
     }
 
@@ -470,7 +470,7 @@ struct MANGOS_DLL_DECL boss_sir_zeliekAI : public ScriptedAI
     boss_sir_zeliekAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
-        m_bIsHeroicMode = pCreature->GetMap()->IsHeroic();
+        m_bIsHeroicMode = pCreature->GetMap()->GetDifficulty();
         Reset();
     }
 

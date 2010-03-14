@@ -34,7 +34,8 @@ enum
     SPELL_ENRAGE_H    = 54427,
     SPELL_BERSERK     = 26662,
 
-    NPC_ZOMBIE_CHOW   = 16360
+    NPC_ZOMBIE_CHOW   = 16360,
+    SPELL_INFECTED_WOUND = 29306
 };
 
 #define ADD_1X 3269.590f
@@ -105,7 +106,7 @@ struct MANGOS_DLL_DECL mob_zombie_chowsAI : public ScriptedAI
 
     void UpdateAI(const uint32 diff)
     {
-        if (!m_creature->SelectHostilTarget() || !m_creature->getVictim() || bIsForceMove)
+        if (!m_creature->SelectHostileTarget() || !m_creature->getVictim() || bIsForceMove)
             return;
 
         DoMeleeAttackIfReady();

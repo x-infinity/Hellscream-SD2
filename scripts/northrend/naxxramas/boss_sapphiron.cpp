@@ -163,10 +163,10 @@ struct MANGOS_DLL_DECL boss_sapphironAI : public ScriptedAI
                 if (FrostBreath_Timer < uiDiff)
                 {
                     // apply immune
-                    std::list<HostilReference*>::iterator i = m_creature->getThreatManager().getThreatList().begin();
+                    std::list<HostileReference*>::const_iterator i = m_creature->getThreatManager().getThreatList().begin();
                     for (i = m_creature->getThreatManager().getThreatList().begin(); i!= m_creature->getThreatManager().getThreatList().end();++i)
                     {
-                        Unit* pUnit = Unit::GetUnit((*m_creature), (*i)->getUnitGuid());
+                        Unit* pUnit = Unit::GetUnit(*m_creature, (*i)->getUnitGuid());
                         if (pUnit && (pUnit->GetTypeId() == TYPEID_PLAYER))
                         {
                             if (!pUnit->HasAura(SPELL_ICEBOLT))
