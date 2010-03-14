@@ -79,6 +79,28 @@ struct MANGOS_DLL_DECL boss_razuviousAI : public ScriptedAI
             case 0: DoScriptText(SAY_SLAY1, m_creature); break;
             case 1: DoScriptText(SAY_SLAY2, m_creature); break;
         }
+
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_RAZUVIOUS, IN_PROGRESS);
+
+        FindDeathKnight();
+
+        if (!DeathKnightList.empty())
+        {
+            for(std::list<uint64>::iterator itr = DeathKnightList.begin(); itr != DeathKnightList.end(); ++itr)
+            {
+                if (Creature* pDeathKnight = ((Creature*)Unit::GetUnit(*m_creature, *itr)))
+                {
+                    if (pDeathKnight->isDead())
+                    {
+                        pDeathKnight->RemoveCorpse();
+                        pDeathKnight->Respawn();
+                    }
+
+                    pDeathKnight->AI()->AttackStart(who);
+                }
+            }
+        }
     }
 
     void JustDied(Unit* pKiller)
@@ -159,7 +181,23 @@ struct MANGOS_DLL_DECL boss_razuviousAI : public ScriptedAI
 
         DoMeleeAttackIfReady();
     }
+
+    void FindDeathKnight()
+    {
+        std::list<Creature*> DeathKnight;
+        GetCreatureListWithEntryInGrid(DeathKnight, m_creature, NPC_DEATH_KNIGHT_UNDERSTUDY, 50.0f);
+
+        if (!DeathKnight.empty())
+        {
+            DeathKnightList.clear();
+
+            for(std::list<Creature*>::iterator itr = DeathKnight.begin(); itr != DeathKnight.end(); ++itr)
+                DeathKnightList.push_back((*itr)->GetGUID());
+        }
+    }
+
 };
+
 CreatureAI* GetAI_boss_razuvious(Creature* pCreature)
 {
     return new boss_razuviousAI(pCreature);

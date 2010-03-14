@@ -55,7 +55,10 @@ enum
 
 struct MANGOS_DLL_DECL mob_webwrapAI : public ScriptedAI
 {
-    mob_webwrapAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+    mob_webwrapAI(Creature* pCreature) : ScriptedAI(pCreature)
+    {
+        Reset();
+    }
 
     uint64 m_uiVictimGUID;
 

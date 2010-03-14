@@ -57,9 +57,12 @@ struct MANGOS_DLL_DECL boss_sapphironAI : public ScriptedAI
     uint32 Blizzard_Timer;
     uint32 Fly_Timer;
     uint32 Beserk_Timer;
+    uint32 m_uiCleaveTimer;
+    uint32 m_uiTailSweepTimer;
     uint32 phase;
     bool landoff;
     uint32 land_Timer;
+    std::vector<Unit*> targets;
 
     void Reset()
     {
@@ -159,6 +162,27 @@ struct MANGOS_DLL_DECL boss_sapphironAI : public ScriptedAI
             {
                 if (FrostBreath_Timer < uiDiff)
                 {
+                    // apply immune
+                    std::list<HostilReference*>::iterator i = m_creature->getThreatManager().getThreatList().begin();
+                    for (i = m_creature->getThreatManager().getThreatList().begin(); i!= m_creature->getThreatManager().getThreatList().end();++i)
+                    {
+                        Unit* pUnit = Unit::GetUnit((*m_creature), (*i)->getUnitGuid());
+                        if (pUnit && (pUnit->GetTypeId() == TYPEID_PLAYER))
+                        {
+                            if (!pUnit->HasAura(SPELL_ICEBOLT))
+                            {
+                                for(std::vector<Unit*>::iterator itr = targets.begin(); itr!= targets.end(); ++itr)
+                                {
+                                    if (*itr)
+                                    {
+                                        if (pUnit->GetDistance2d(*itr) <= 5 && (*itr)->HasAura(SPELL_ICEBOLT))
+                                            pUnit->ApplySpellImmune(0, IMMUNITY_SCHOOL, SPELL_SCHOOL_MASK_FROST, true);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     DoScriptText(EMOTE_BREATH, m_creature);
                     DoCastSpellIfCan(m_creature->getVictim(),SPELL_FROST_BREATH);
                     land_Timer = 2000;

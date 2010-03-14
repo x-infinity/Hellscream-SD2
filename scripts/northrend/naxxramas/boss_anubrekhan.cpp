@@ -40,6 +40,7 @@ enum
     SPELL_IMPALE_H              = 56090,
     SPELL_LOCUSTSWARM           = 28785,                    //This is a self buff that triggers the dmg debuff
     SPELL_LOCUSTSWARM_H         = 54021,
+    SPELL_BERSERK               = 26662,
 
     //spellId invalid
     SPELL_SUMMONGUARD           = 29508,                    //Summons 1 crypt guard at targeted location
@@ -47,7 +48,11 @@ enum
     SPELL_SELF_SPAWN_5          = 29105,                    //This spawns 5 corpse scarabs ontop of us (most likely the pPlayer casts this on death)
     SPELL_SELF_SPAWN_10         = 28864,                    //This is used by the crypt guards when they die
 
-    NPC_CRYPT_GUARD             = 16573
+    NPC_CRYPT_GUARD             = 16573,
+    SPELL_ACID_SPIT             = 28969,
+    SPELL_ACID_SPIT_H           = 56098,
+    SPELL_CLEAVE                = 40504,
+    SPELL_FRENZY                = 8269
 };
 
 struct MANGOS_DLL_DECL boss_anubrekhanAI : public ScriptedAI

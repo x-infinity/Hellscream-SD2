@@ -73,6 +73,45 @@ enum
 #define ADD_9Y -3180.766f
 #define ADD_9Z 297.423f
 
+struct MANGOS_DLL_DECL mob_zombie_chowsAI : public ScriptedAI
+{
+    mob_zombie_chowsAI(Creature* pCreature) : ScriptedAI(pCreature)
+    {
+        Reset();
+    }
+
+    bool bIsForceMove;
+
+    void Reset()
+    {
+        bIsForceMove = false;
+    }
+    void JustDied(Unit* Killer) {}
+
+    void DoMeleeAttackIfReady()
+    {
+        //If we are within range melee the target
+        if (m_creature->IsWithinDistInMap(m_creature->getVictim(), ATTACK_DISTANCE))
+        {
+            //Make sure our attack is ready and we aren't currently casting
+            if (m_creature->isAttackReady() && !m_creature->IsNonMeleeSpellCasted(false))
+            {
+                DoCast(m_creature->getVictim(), SPELL_INFECTED_WOUND, true);
+                m_creature->AttackerStateUpdate(m_creature->getVictim());
+                m_creature->resetAttackTimer();
+            }
+        }
+    }
+
+    void UpdateAI(const uint32 diff)
+    {
+        if (!m_creature->SelectHostilTarget() || !m_creature->getVictim() || bIsForceMove)
+            return;
+
+        DoMeleeAttackIfReady();
+    }
+};
+
 struct MANGOS_DLL_DECL boss_gluthAI : public ScriptedAI
 {
     boss_gluthAI(Creature* pCreature) : ScriptedAI(pCreature)
@@ -191,6 +230,11 @@ struct MANGOS_DLL_DECL boss_gluthAI : public ScriptedAI
 CreatureAI* GetAI_boss_gluth(Creature* pCreature)
 {
     return new boss_gluthAI(pCreature);
+}
+
+CreatureAI* GetAI_mob_zombie_chows(Creature* pCreature)
+{
+    return new mob_zombie_chowsAI(pCreature);
 }
 
 void AddSC_boss_gluth()
