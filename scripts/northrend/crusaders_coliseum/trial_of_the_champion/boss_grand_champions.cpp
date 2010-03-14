@@ -95,43 +95,43 @@ struct MANGOS_DLL_DECL mob_toc5_warriorAI : public ScriptedAI
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_2))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_3))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996,SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996,SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL);
 			}
 	}
 
@@ -258,43 +258,43 @@ struct MANGOS_DLL_DECL mob_toc5_mageAI : public ScriptedAI
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_2))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_3))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL);
 			}
 	}
 
@@ -417,43 +417,43 @@ struct MANGOS_DLL_DECL mob_toc5_shamanAI : public ScriptedAI
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_2))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_3))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL);
 			}
 	}
 
@@ -621,43 +621,43 @@ struct MANGOS_DLL_DECL mob_toc5_hunterAI : public ScriptedAI
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_2))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_3))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL);
 			}
 	}
 
@@ -714,11 +714,11 @@ struct MANGOS_DLL_DECL mob_toc5_hunterAI : public ScriptedAI
 		{
 			if (!m_creature->IsWithinDistInMap(m_creature->getVictim(), 8) && m_creature->IsWithinDistInMap(m_creature->getVictim(), 30))
 			{
-				m_creature->SetSpeedRate(MOVE_RUN, 0.0001f);
+				//m_creature->SetSpeed(MOVE_RUN, 0.0001);
 			}
 			else
 			{
-				m_creature->SetSpeedRate(MOVE_RUN, 1);
+				//m_creature->SetSpeed(MOVE_RUN, 1);
 			}
 			enemy_check = 100;
 		}else enemy_check -= diff;
@@ -795,43 +795,43 @@ struct MANGOS_DLL_DECL mob_toc5_rogueAI : public ScriptedAI
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(738.665771f, 661.031433f, 412.394623f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771f, 661.031433f, 412.394623f, 4.698702f);
+				pTemp->SendMonsterMove(738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 738.665771, 661.031433, 412.394623, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_2))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465,SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(746.864441f, 660.918762f, 411.695465f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441f, 660.918762f, 411.695465f, 4.698700f);
+				pTemp->SendMonsterMove(746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 746.864441, 660.918762, 411.695465, SPLINETYPE_NORMAL);
 			}
 		if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_3))))
 			if (!pTemp->isAlive())
 			{
 				pTemp->Respawn();
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL);
 			}
 			else
 			{
 				pTemp->RemoveArenaAuras(true);
 				pTemp->SetHealth(pTemp->GetMaxHealth());
-				pTemp->SendMonsterMove(754.360779f, 660.816162f, 412.395996f, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(), 1);
-				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779f, 660.816162f, 412.395996f, 4.698700f);
+				pTemp->SendMonsterMove(754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL, pTemp->GetSplineFlags(),  1);
+				pTemp->GetMap()->CreatureRelocation(pTemp, 754.360779, 660.816162, 412.395996, SPLINETYPE_NORMAL);
 			}
 	}
 

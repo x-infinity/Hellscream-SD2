@@ -323,6 +323,12 @@ scripts/northrend/crusaders_coliseum/trial_of_the_crusader/boss_twin_valkyr.cpp 
 scripts/northrend/crusaders_coliseum/trial_of_the_crusader/instance_trial_of_the_crusader.cpp \
 scripts/northrend/crusaders_coliseum/trial_of_the_crusader/trial_of_the_crusader.cpp \
 scripts/northrend/crusaders_coliseum/trial_of_the_crusader/trial_of_the_crusader.h \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/boss_argent_challenge.cpp \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/boss_black_knight.cpp \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/boss_grand_champions.cpp \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/instance_trial_of_the_champion.cpp \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/trial_of_the_champion.cpp \
+scripts/northrend/crusaders_coliseum/trial_of_the_champion/trial_of_the_champion.h \
 scripts/northrend/draktharon_keep/boss_novos.cpp \
 scripts/northrend/draktharon_keep/boss_tharonja.cpp \
 scripts/northrend/draktharon_keep/boss_trollgore.cpp \
@@ -340,8 +346,6 @@ scripts/northrend/icecrown_citadel/frozen_halls/pit_of_saron/boss_krick_and_ick.
 scripts/northrend/icecrown_citadel/frozen_halls/pit_of_saron/boss_scourgelord_tyrannus.cpp \
 scripts/northrend/icecrown_citadel/frozen_halls/forge_of_souls/boss_bronjahm.cpp \
 scripts/northrend/icecrown_citadel/frozen_halls/forge_of_souls/boss_devourer_of_souls.cpp \
-scripts/northrend/icecrown_citadel/frozen_halls/forge_of_souls/instance_forge_of_souls.cpp \
-scripts/northrend/icecrown_citadel/frozen_halls/forge_of_souls/forge_of_souls.h \
 scripts/northrend/icecrown_citadel/icecrown_citadel/blood_prince_council.cpp \
 scripts/northrend/icecrown_citadel/icecrown_citadel/boss_blood_queen_lanathel.cpp \
 scripts/northrend/icecrown_citadel/icecrown_citadel/boss_deathbringer_saurfang.cpp \
