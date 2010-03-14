@@ -63,7 +63,7 @@ struct MANGOS_DLL_DECL boss_patchwerkAI : public ScriptedAI
 
     void Reset()
     {
-        m_uiHatefulStrikeTimer = 1000;                      //1 second
+        m_uiHatefulStrikeTimer = 6000;                      //6 seconds
         m_uiBerserkTimer = MINUTE*6*IN_MILISECONDS;         //6 minutes
         m_uiSlimeboltTimer = 10000;
         m_bEnraged = false;
@@ -138,7 +138,7 @@ struct MANGOS_DLL_DECL boss_patchwerkAI : public ScriptedAI
         if (m_uiHatefulStrikeTimer < uiDiff)
         {
             DoHatefulStrike();
-            m_uiHatefulStrikeTimer = 1000;
+            m_uiHatefulStrikeTimer = 6000;
         }
         else
             m_uiHatefulStrikeTimer -= uiDiff;
