@@ -118,8 +118,8 @@ struct MANGOS_DLL_DECL boss_bronjahmAI : public ScriptedAI
         if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
             return;
         
-        if (m_creature->GetHealthPercent() < 30.0f && !m_bPhase2)
-            m_bPhase2 = true;
+        /*if (m_creature->GetHealthPercent() < 30.0f && !m_bPhase2)
+            m_bPhase2 = true;*/
 
         if (!m_bPhase2)
         {
@@ -169,9 +169,11 @@ struct MANGOS_DLL_DECL npc_corrupted_soulAI : public ScriptedAI
     }
 
     ScriptedInstance* m_pInstance;
+    Creature* m_pBrojahm;
 
     void Reset()
     {
+        m_pBrojahm = m_pInstance->instance->GetCreature(m_pInstance->GetData64(NPC_BRONJAHM));
     }
 
     void UpdateAI(const uint32 uiDiff)
@@ -180,17 +182,10 @@ struct MANGOS_DLL_DECL npc_corrupted_soulAI : public ScriptedAI
         if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
             return;
 
-        Unit* pBronjahm = 0;
-
-        if (!pBronjahm)
-            if (Unit* pTarget = m_creature->SelectRandomFriendlyTarget(0, 15.0f))
-                if (pTarget->GetEntry() == NPC_BRONJAHM)
-                    pBronjahm = pTarget;
-            
-        if (pBronjahm)
+        if (!m_pBrojahm->isAlive())
         {
-            m_creature->GetMotionMaster()->Clear();
-            m_creature->GetMotionMaster()->MoveChase(pBronjahm);
+            ScriptedAI::MoveInLineOfSight(m_pBrojahm);
+            //m_creature->GetMotionMaster()->MoveChase(m_pBrojahm);
         }
     }
 };
