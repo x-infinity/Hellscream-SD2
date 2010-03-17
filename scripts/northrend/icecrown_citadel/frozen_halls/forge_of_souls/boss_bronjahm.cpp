@@ -169,11 +169,11 @@ struct MANGOS_DLL_DECL npc_corrupted_soulAI : public ScriptedAI
     }
 
     ScriptedInstance* m_pInstance;
-    Creature* m_pBrojahm;
+    Creature* m_pBronjahm;
 
     void Reset()
     {
-        m_pBrojahm = m_pInstance->instance->GetCreature(m_pInstance->GetData64(NPC_BRONJAHM));
+        m_pBronjahm = m_pInstance->instance->GetCreature(m_pInstance->GetData64(NPC_BRONJAHM));
     }
 
     void UpdateAI(const uint32 uiDiff)
@@ -182,10 +182,9 @@ struct MANGOS_DLL_DECL npc_corrupted_soulAI : public ScriptedAI
         if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
             return;
 
-        if (!m_pBrojahm->isAlive())
+        if (m_pBronjahm)
         {
-            ScriptedAI::MoveInLineOfSight(m_pBrojahm);
-            //m_creature->GetMotionMaster()->MoveChase(m_pBrojahm);
+            m_creature->GetMotionMaster()->MoveChase(m_pBronjahm);
         }
     }
 };

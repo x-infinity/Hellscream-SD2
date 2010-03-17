@@ -57,10 +57,10 @@ struct MANGOS_DLL_DECL instance_forge_of_souls : public ScriptedInstance
 
         switch(uiType)
         {
-            case TYPE_BRONJAHM:
+            case NPC_BRONJAHM:
                 m_auiEncounter[0] = uiData;
                 break;
-            case TYPE_DEVOURER:
+            case NPC_DEVOURER:
                 m_auiEncounter[1] = uiData;
                 break;
             default:
@@ -87,10 +87,10 @@ struct MANGOS_DLL_DECL instance_forge_of_souls : public ScriptedInstance
     {
         switch(uiData)
         {
-            case TYPE_BRONJAHM:
-                return m_auiEncounter[0];
-            case TYPE_DEVOURER:
-                return m_auiEncounter[1];
+            case NPC_BRONJAHM:
+                return m_uiBronjahmGUID;
+            case NPC_DEVOURER:
+                return m_uiDevourerGUID;
         }
 
         return 0;

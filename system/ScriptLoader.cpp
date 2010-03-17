@@ -318,6 +318,9 @@ extern void AddSC_boss_ymiron();
 extern void AddSC_instance_pinnacle();
 extern void AddSC_instance_violet_hold();                   //violet_hold
 extern void AddSC_violet_hold();
+extern void AddSC_boss_bronjahm();
+extern void AddSC_npc_corrupted_soul();
+extern void AddSC_instance_forge_of_souls();
 
 extern void AddSC_borean_tundra();
 extern void AddSC_dalaran();
@@ -723,6 +726,9 @@ void AddScripts()
     AddSC_instance_pinnacle();
     AddSC_instance_violet_hold();                           //violet_hold
     AddSC_violet_hold();
+    AddSC_boss_bronjahm();
+    AddSC_npc_corrupted_soul();
+    AddSC_instance_forge_of_souls();
 
     AddSC_borean_tundra();
     AddSC_dalaran();
