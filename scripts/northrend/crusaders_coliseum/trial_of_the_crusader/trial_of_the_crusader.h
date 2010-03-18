@@ -7,23 +7,50 @@
 
 enum
 {
-    MAX_ENCOUNTER          = 5,
+    MAX_ENCOUNTER           = 5,
 
-    TYPE_NORTHREND_BEASTS  = 1,
-    TYPE_JARAXXUS          = 2,
-    TYPE_FACTION_CHAMPIONS = 3,
-    TYPE_TWIN_VALKYR       = 4,
-    TYPE_ANUBARAK          = 5,
+    TYPE_NORTHREND_BEASTS   = 0,
+    TYPE_ICE                = 1,
+    TYPE_ANGELS             = 2,
+    TYPE_JARAXXUS           = 3,
+    TYPE_ANUBARAK           = 4,
 
-    DATA_GORMOK            = 6,
-    DATA_ACIDMAW           = 7,
-    DATA_DREADSCALE        = 8,
-    DATA_ICEHOWL           = 9,
-    DATA_JARAXXUS          = 10,
-    DATA_FACTION_CHAMPIONS = 11,
-    DATA_FJOLA             = 12,
-    DATA_EYDIS             = 13,
-    DATA_ANUBARAK          = 14,
+    DATA_JARU               = 6,
+    DATA_CRUSADER_ANNOUNCER = 7,
+    DATA_JAERON             = 8,
+    DATA_ARELOS             = 9,
+    DATA_ANGELS             = 10,
+    DATA_ICE                = 11,
+    DATA_ANUB               = 12,
+    DATA_BEAST              = 13,
+
+    NPC_GORMOK              = 34796,
+    NPC_SCHLUND             = 35144,
+    NPC_MAUL                = 34799,
+
+    NPC_ICE                 = 34797,
+
+    NPC_HOLY                = 34497,
+    NPC_SHADOW              = 34496,
+
+    NPC_JARU                = 34780,
+
+    NPC_JAERON              = 34816,
+    NPC_ARELOS              = 35035,
+
+    NPC_ANUB                = 34564,
+
+    NPC_LICH_PORTAL         = 22517,
+    NPC_LICH_KING           = 35877,
+
+    GO_COLISEUM_FLOOR       = 195527,
+    
+    GO_CHAMPIONS_LOOT       = 195709,
+    GO_CHAMPIONS_LOOT_H     = 195710,
+    GO_Holy_LOOT            = 195374,
+    GO_Holy_LOOT_H          = 195375,
+    GO_Shadow_LOOT          = 195323,
+    GO_Shadow_LOOT_H        = 195324
 };
 
 #endif

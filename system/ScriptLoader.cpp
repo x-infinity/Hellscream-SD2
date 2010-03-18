@@ -262,6 +262,7 @@ extern void AddSC_northrend_beasts();                       //Crusaders' Coliseu
 extern void AddSC_boss_jaraxxus();
 extern void AddSC_boss_anubarak_trial();
 extern void AddSC_twin_valkyr();
+extern void AddSC_trial_of_the_crusader();
 extern void AddSC_instance_trial_of_the_crusader();
 extern void AddSC_boss_argent_challenge();
 extern void AddSC_boss_black_knight();
@@ -670,6 +671,7 @@ void AddScripts()
     AddSC_boss_jaraxxus();
     AddSC_boss_anubarak_trial();
     AddSC_twin_valkyr();
+    AddSC_trial_of_the_crusader();
     AddSC_instance_trial_of_the_crusader();
     AddSC_boss_argent_challenge();
     AddSC_boss_black_knight();
