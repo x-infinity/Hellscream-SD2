@@ -73,7 +73,7 @@ struct MANGOS_DLL_DECL boss_sapphironAI : public ScriptedAI
         Fly_Timer = 45000;
         Icebolt_Timer = 4000;
         land_Timer = 2000;
-        Beserk_Timer = 0;
+        Beserk_Timer = 300000;
         phase = 1;
         Icebolt_Count = 0;
         landoff = false;
@@ -205,15 +205,13 @@ struct MANGOS_DLL_DECL boss_sapphironAI : public ScriptedAI
             }
         }
 
-        if (m_creature->GetHealthPercent() <= 10.0f)
+        if (Beserk_Timer < uiDiff)
         {
-            if (Beserk_Timer < uiDiff)
-            {
-                DoScriptText(EMOTE_ENRAGE, m_creature);
-                DoCastSpellIfCan(m_creature,SPELL_BESERK);
-                Beserk_Timer = 300000;
-            }else Beserk_Timer -= uiDiff;
-        }
+            DoScriptText(EMOTE_ENRAGE, m_creature);
+            DoCastSpellIfCan(m_creature,SPELL_BESERK);
+            Beserk_Timer = 300000;
+        }else 
+            Beserk_Timer -= uiDiff;
 
         if (phase!=2)
             DoMeleeAttackIfReady();
