@@ -190,7 +190,7 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
      { 
          switch(Type) 
          { 
-            case TYPE_NORTHREND_BEASTS: 
+            case TYPE_NORTHREND_BEAST: 
                 DoUseDoorOrButton(m_uiDoorGuid);
                 if (Data == DONE) {
                     DoUseDoorOrButton(m_uiDoorGuid);
@@ -277,7 +277,7 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
                  return m_uiJaronGUID; 
              case NPC_ARELOS: 
                  return m_uiArelosGUID; 
-             case TYPE_NORTHREND_BEASTS: 
+             case TYPE_NORTHREND_BEAST: 
              case TYPE_ICE: 
              case TYPE_ANGELS: 
              case TYPE_JARAXXUS: 

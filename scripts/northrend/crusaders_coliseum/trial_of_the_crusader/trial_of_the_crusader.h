@@ -9,7 +9,7 @@ enum
 {
     MAX_ENCOUNTER           = 5,
 
-    TYPE_NORTHREND_BEASTS   = 0,
+    TYPE_NORTHREND_BEAST    = 0,
     TYPE_ICE                = 1,
     TYPE_ANGELS             = 2,
     TYPE_JARAXXUS           = 3,
@@ -46,7 +46,12 @@ enum
     GO_Shadow_LOOT_H        = 195324,
 
     GO_DOOR                 = 195589,
-    GO_FLOOR                = 195527
+    GO_FLOOR                = 195527,
+    
+    TYPE_DIFFICULTY         = 101,
+    TYPE_EVENT_TIMER        = 102,
+    TYPE_EVENT_NPC          = 103,
+    TYPE_NORTHREND_BEASTS   = 110
 };
 
 #endif

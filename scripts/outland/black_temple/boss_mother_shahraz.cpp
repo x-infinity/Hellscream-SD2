@@ -60,11 +60,6 @@ uint32 PrismaticAuras[]=
     40897,                                                  // Holy
 };
 
-struct Locations
-{
-    float x,y,z;
-};
-
 static Locations TeleportPoint[]=
 {
     {959.996f, 212.576f, 193.843f},

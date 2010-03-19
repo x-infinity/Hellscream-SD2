@@ -2689,6 +2689,22 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\sc_boss_spell_worker.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\include\sc_boss_spell_worker.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\sc_creature.cpp"
 				>
 			</File>

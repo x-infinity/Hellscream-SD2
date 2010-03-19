@@ -10,6 +10,7 @@
 #include "sc_gossip.h"
 #include "sc_grid_searchers.h"
 #include "sc_instance.h"
+#include "sc_boss_spell_worker.h"
 
 #ifdef WIN32
 #include <windows.h>
