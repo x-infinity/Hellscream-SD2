@@ -36,6 +36,23 @@ struct MANGOS_DLL_DECL boss_gormokAI : public ScriptedAI
 
     void Reset() {}
 
+    void JustDied(Unit* pKiller)
+    {
+        if (m_pInstance)
+        {
+            bool BeastDead = true;
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_SCHLUND))))
+                if (pTemp->isAlive())
+                    BeastDead = false;
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_MAUL))))
+                if (pTemp->isAlive())
+                    BeastDead = false;
+
+            if (BeastDead)
+                m_pInstance->SetData(TYPE_NORTHREND_BEASTS, DONE);
+        }
+    }
+
     void JustReachedHome()
     {
         if (m_pInstance)
@@ -72,6 +89,23 @@ struct MANGOS_DLL_DECL boss_acidmawAI : public ScriptedAI
     ScriptedInstance* m_pInstance;
 
     void Reset() {}
+
+    void JustDied(Unit* pKiller)
+    {
+        if (m_pInstance)
+        {
+            bool BeastDead = true;
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_SCHLUND))))
+                if (pTemp->isAlive())
+                    BeastDead = false;
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_GORMOK))))
+                if (pTemp->isAlive())
+                    BeastDead = false;
+
+            if (BeastDead)
+                m_pInstance->SetData(TYPE_NORTHREND_BEASTS, DONE);
+        }
+    }
 
     void JustReachedHome()
     {
@@ -110,6 +144,23 @@ struct MANGOS_DLL_DECL boss_dreadscaleAI : public ScriptedAI
 
     void Reset() {}
 
+    void JustDied(Unit* pKiller)
+    {
+        if (m_pInstance)
+        {
+            bool BeastDead = true;
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_GORMOK))))
+                if (pTemp->isAlive())
+                    BeastDead = false;
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_MAUL))))
+                if (pTemp->isAlive())
+                    BeastDead = false;
+
+            if (BeastDead)
+                m_pInstance->SetData(TYPE_NORTHREND_BEASTS, DONE);
+        }
+    }
+
     void JustReachedHome()
     {
         if (m_pInstance)
@@ -146,6 +197,12 @@ struct MANGOS_DLL_DECL boss_icehowlAI : public ScriptedAI
     ScriptedInstance* m_pInstance;
 
     void Reset() {}
+
+    void JustDied(Unit* pKiller)
+    {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_ICE, DONE);
+    }
 
     void JustReachedHome()
     {

@@ -19,10 +19,13 @@ enum
     DATA_CRUSADER_ANNOUNCER = 7,
     DATA_JAERON             = 8,
     DATA_ARELOS             = 9,
-    DATA_ANGELS             = 10,
     DATA_ICE                = 11,
     DATA_ANUB               = 12,
-    DATA_BEAST              = 13,
+    DATA_GORMOK             = 13,
+    DATA_SCHLUND            = 14,
+    DATA_MAUL               = 15,
+    DATA_FJOLA              = 16,
+    DATA_EIDYS              = 17,
 
     NPC_GORMOK              = 34796,
     NPC_SCHLUND             = 35144,
@@ -50,7 +53,10 @@ enum
     GO_Holy_LOOT            = 195374,
     GO_Holy_LOOT_H          = 195375,
     GO_Shadow_LOOT          = 195323,
-    GO_Shadow_LOOT_H        = 195324
+    GO_Shadow_LOOT_H        = 195324,
+
+    GO_DOOR                 = 195589,
+    GO_FLOOR                = 195527
 };
 
 #endif

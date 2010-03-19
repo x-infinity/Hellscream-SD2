@@ -60,30 +60,36 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
  
     uint64 m_uiChampionsLootGUID; 
     uint64 m_uiShadowLootGUID; 
-    uint64 m_uiHolyLootGUID; 
+    uint64 m_uiHolyLootGUID;
+
+    uint64 m_uiDoorGuid;
+    uint64 m_uiFloodGuid;
  
     void Initialize() 
     { 
-        m_uiChampionsLootGUID    = 0; 
+        m_uiChampionsLootGUID   = 0; 
         m_uiHolyGUID            = 0; 
         m_uiHolyLootGUID        = 0; 
-        m_uiShadowGUID            = 0; 
-        m_uiShadowLootGUID        = 0; 
+        m_uiShadowGUID          = 0; 
+        m_uiShadowLootGUID      = 0; 
         m_uiJaruGUID            = 0; 
  
         m_uiAnubGUID            = 0; 
  
-        m_uiIceGUID                = 0; 
+        m_uiIceGUID             = 0; 
  
-        m_uiJaronGUID            = 0; 
-        m_uiArelosGUID            = 0; 
+        m_uiJaronGUID           = 0; 
+        m_uiArelosGUID          = 0; 
         m_uiAnnounceGUID        = 0; 
  
-        m_uiAngel                = 0; 
-        m_uiBeast                = 0; 
-        m_uiGormokGUID            = 0; 
-        m_uiSchlundGUID            = 0; 
-        m_uiMaulGUID            = 0; 
+        m_uiAngel               = 0; 
+        m_uiBeast               = 0; 
+        m_uiGormokGUID          = 0; 
+        m_uiSchlundGUID         = 0; 
+        m_uiMaulGUID            = 0;
+
+        m_uiDoorGuid            = 0;
+        m_uiFloodGuid           = 0;
  
         memset(&m_auiEncounter, 0, sizeof(m_auiEncounter)); 
     } 
@@ -174,6 +180,11 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
          case GO_Shadow_LOOT_H: 
             m_uiShadowLootGUID = pGo->GetGUID();
             break; 
+         case GO_DOOR:
+            m_uiDoorGuid = pGo->GetGUID();
+            break;
+         case GO_FLOOR:
+            m_uiFloodGuid = pGo->GetGUID();
          } 
      } 
   
@@ -181,29 +192,42 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
      { 
          switch(Type) 
          { 
-             case DATA_CRUSADER_ANNOUNCER: 
-                 m_uiAnnounceGUID = Data; 
-                 break; 
             case TYPE_NORTHREND_BEASTS: 
-                 if (Data == DONE) 
-                 m_auiEncounter[0] = Data; 
-                 break; 
-            case TYPE_ICE: 
-                 if (Data == DONE) 
-                 m_auiEncounter[1] = Data; 
-                 break; 
+                DoUseDoorOrButton(m_uiDoorGuid);
+                if (Data == DONE) {
+                    DoUseDoorOrButton(m_uiDoorGuid);
+                    m_auiEncounter[0] = Data;
+                }
+                break; 
+            case TYPE_ICE:
+                DoUseDoorOrButton(m_uiDoorGuid);
+                if (Data == DONE) {
+                    DoUseDoorOrButton(m_uiDoorGuid);
+                    m_auiEncounter[1] = Data;
+                }
+                break; 
             case TYPE_ANGELS: 
-                 if (Data == DONE) 
-                 m_auiEncounter[2] = Data; 
-                 break; 
+                DoUseDoorOrButton(m_uiDoorGuid);
+                if (Data == DONE) {
+                    DoUseDoorOrButton(m_uiDoorGuid);
+                    m_auiEncounter[2] = Data;
+                }
+                break; 
             case TYPE_JARAXXUS: 
-                 if (Data == DONE) 
-                 m_auiEncounter[3] = Data; 
-                 break; 
-            case TYPE_ANUBARAK: 
-                 if (Data == DONE) 
-                 m_auiEncounter[4] = Data; 
-                 break; 
+                DoUseDoorOrButton(m_uiDoorGuid);
+                if (Data == DONE) {
+                    DoUseDoorOrButton(m_uiDoorGuid);
+                    m_auiEncounter[3] = Data; 
+                }
+                break; 
+            case TYPE_ANUBARAK:
+                //GameObject* pFloor = instance->GetGameObject(m_uiFloodGuid);
+                DoUseDoorOrButton(m_uiDoorGuid);
+                if (Data == DONE) {
+                    DoUseDoorOrButton(m_uiDoorGuid);
+                    m_auiEncounter[4] = Data;
+                }
+                break; 
          } 
   
          if (Data == DONE) 
@@ -226,6 +250,16 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
          { 
              case DATA_JARU: 
                 return m_uiJaruGUID; 
+             case DATA_GORMOK:
+                 return m_uiGormokGUID;
+             case DATA_SCHLUND:
+                 return m_uiSchlundGUID;
+             case DATA_MAUL:
+                 return m_uiMaulGUID;
+             case DATA_FJOLA:
+                 return m_uiHolyGUID;
+             case DATA_EIDYS:
+                 return m_uiShadowGUID;
          } 
          return 0; 
      } 

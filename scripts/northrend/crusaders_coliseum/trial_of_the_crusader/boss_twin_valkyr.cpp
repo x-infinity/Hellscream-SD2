@@ -30,11 +30,28 @@ EndScriptData */
 
 struct MANGOS_DLL_DECL boss_fjolaAI : public ScriptedAI
 {
-    boss_fjolaAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+    boss_fjolaAI(Creature* pCreature) : ScriptedAI(pCreature) {
+        m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        Reset();
+    }
 
     ScriptedInstance* m_pInstance;
 
     void Reset() {}
+
+    void JustDied(Unit* Killer)
+    {
+        if (m_pInstance)
+        {
+            bool AngelDead = true;
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_EIDYS))))
+                if (pTemp->isAlive())
+                    AngelDead = false;
+
+            if (AngelDead)
+                m_pInstance->SetData(TYPE_ANGELS, DONE);
+        }
+    }
 
     void Aggro(Unit* pWho)
     {
@@ -61,9 +78,28 @@ CreatureAI* GetAI_boss_fjola(Creature* pCreature)
 
 struct MANGOS_DLL_DECL boss_eydisAI : public ScriptedAI
 {
-    boss_eydisAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+    boss_eydisAI(Creature* pCreature) : ScriptedAI(pCreature) {
+        m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        Reset();
+    }
+
+    ScriptedInstance* m_pInstance;
 
     void Reset() {}
+
+    void JustDied(Unit* Killer)
+    {
+        if (m_pInstance)
+        {
+            bool AngelDead = true;
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_FJOLA))))
+                if (pTemp->isAlive())
+                    AngelDead = false;
+
+            if (AngelDead)
+                m_pInstance->SetData(TYPE_ANGELS, DONE);
+        }
+    }
 
     void Aggro(Unit* pWho)
     {
