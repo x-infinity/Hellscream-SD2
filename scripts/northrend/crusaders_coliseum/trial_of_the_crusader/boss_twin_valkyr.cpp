@@ -44,7 +44,7 @@ struct MANGOS_DLL_DECL boss_fjolaAI : public ScriptedAI
         if (m_pInstance)
         {
             bool AngelDead = true;
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_EIDYS))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(NPC_EIDYS))))
                 if (pTemp->isAlive())
                     AngelDead = false;
 
@@ -92,7 +92,7 @@ struct MANGOS_DLL_DECL boss_eydisAI : public ScriptedAI
         if (m_pInstance)
         {
             bool AngelDead = true;
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_FJOLA))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(NPC_FJOLA))))
                 if (pTemp->isAlive())
                     AngelDead = false;
 

@@ -15,17 +15,7 @@ enum
     TYPE_JARAXXUS           = 3,
     TYPE_ANUBARAK           = 4,
 
-    DATA_JARU               = 6,
     DATA_CRUSADER_ANNOUNCER = 7,
-    DATA_JAERON             = 8,
-    DATA_ARELOS             = 9,
-    DATA_ICE                = 11,
-    DATA_ANUB               = 12,
-    DATA_GORMOK             = 13,
-    DATA_SCHLUND            = 14,
-    DATA_MAUL               = 15,
-    DATA_FJOLA              = 16,
-    DATA_EIDYS              = 17,
 
     NPC_GORMOK              = 34796,
     NPC_SCHLUND             = 35144,
@@ -33,8 +23,8 @@ enum
 
     NPC_ICE                 = 34797,
 
-    NPC_HOLY                = 34497,
-    NPC_SHADOW              = 34496,
+    NPC_FJOLA                = 34497,
+    NPC_EIDYS              = 34496,
 
     NPC_JARU                = 34780,
 

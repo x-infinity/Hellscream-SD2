@@ -129,13 +129,11 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
                  break; 
     
              // Angels! 
-             case NPC_HOLY: 
-                 m_uiHolyGUID = pCreature->GetGUID(); 
-                 m_uiAngel = pCreature->GetGUID(); 
+             case NPC_FJOLA: 
+                 m_uiHolyGUID = pCreature->GetGUID();
                  break; 
-             case NPC_SHADOW: 
-                 m_uiShadowGUID = pCreature->GetGUID(); 
-                 m_uiAngel = pCreature->GetGUID(); 
+             case NPC_EIDYS: 
+                 m_uiShadowGUID = pCreature->GetGUID();
                  break; 
   
          // Jaruxxus 
@@ -158,7 +156,7 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
          } 
      } 
   
-     void OnGameObjectCreate(GameObject* pGo, bool add) 
+     void OnObjectCreate(GameObject* pGo) 
      { 
          switch(pGo->GetEntry()) 
         { 
@@ -248,17 +246,17 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
      { 
          switch(uiData) 
          { 
-             case DATA_JARU: 
+             case NPC_JARU: 
                 return m_uiJaruGUID; 
-             case DATA_GORMOK:
+             case NPC_GORMOK:
                  return m_uiGormokGUID;
-             case DATA_SCHLUND:
+             case NPC_SCHLUND:
                  return m_uiSchlundGUID;
-             case DATA_MAUL:
+             case NPC_MAUL:
                  return m_uiMaulGUID;
-             case DATA_FJOLA:
+             case NPC_FJOLA:
                  return m_uiHolyGUID;
-             case DATA_EIDYS:
+             case NPC_EIDYS:
                  return m_uiShadowGUID;
          } 
          return 0; 
@@ -275,14 +273,14 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
          { 
              case DATA_CRUSADER_ANNOUNCER: 
                  return m_uiAnnounceGUID; 
-             case DATA_JAERON: 
+             case NPC_JAERON: 
                  return m_uiJaronGUID; 
-             case DATA_ARELOS: 
+             case NPC_ARELOS: 
                  return m_uiArelosGUID; 
-            case TYPE_NORTHREND_BEASTS: 
+             case TYPE_NORTHREND_BEASTS: 
              case TYPE_ICE: 
-            case TYPE_ANGELS: 
-            case TYPE_JARAXXUS: 
+             case TYPE_ANGELS: 
+             case TYPE_JARAXXUS: 
              case TYPE_ANUBARAK: 
                  return m_auiEncounter[uiType]; 
          } 

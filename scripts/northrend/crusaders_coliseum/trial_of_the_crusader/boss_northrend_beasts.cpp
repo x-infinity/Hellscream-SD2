@@ -41,10 +41,10 @@ struct MANGOS_DLL_DECL boss_gormokAI : public ScriptedAI
         if (m_pInstance)
         {
             bool BeastDead = true;
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_SCHLUND))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(NPC_SCHLUND))))
                 if (pTemp->isAlive())
                     BeastDead = false;
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_MAUL))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(NPC_MAUL))))
                 if (pTemp->isAlive())
                     BeastDead = false;
 
@@ -95,10 +95,10 @@ struct MANGOS_DLL_DECL boss_acidmawAI : public ScriptedAI
         if (m_pInstance)
         {
             bool BeastDead = true;
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_SCHLUND))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(NPC_SCHLUND))))
                 if (pTemp->isAlive())
                     BeastDead = false;
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_GORMOK))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(NPC_GORMOK))))
                 if (pTemp->isAlive())
                     BeastDead = false;
 
@@ -149,10 +149,10 @@ struct MANGOS_DLL_DECL boss_dreadscaleAI : public ScriptedAI
         if (m_pInstance)
         {
             bool BeastDead = true;
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_GORMOK))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(NPC_GORMOK))))
                 if (pTemp->isAlive())
                     BeastDead = false;
-            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_MAUL))))
+            if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(NPC_MAUL))))
                 if (pTemp->isAlive())
                     BeastDead = false;
 

@@ -63,8 +63,8 @@ struct MANGOS_DLL_DECL npc_crusader_anouncerAI : public ScriptedAI
 
         if(m_pInstance->GetData(TYPE_NORTHREND_BEASTS) == DONE && m_pInstance->GetData(TYPE_ICE) == DONE && m_pInstance->GetData(TYPE_ANGELS) == NOT_STARTED && m_pInstance->GetData(TYPE_JARAXXUS) == NOT_STARTED && m_pInstance->GetData(TYPE_ANUBARAK) == NOT_STARTED)
         {
-	        m_creature->SummonCreature(NPC_HOLY, 580.457764f, 177.184662f, 395.136548f, 1.565907f, TEMPSUMMON_MANUAL_DESPAWN, 0);
-            m_creature->SummonCreature(NPC_SHADOW, 544.791504f, 174.521866f, 394.679626f, 5.363310f, TEMPSUMMON_MANUAL_DESPAWN, 0);
+	        m_creature->SummonCreature(NPC_FJOLA, 580.457764f, 177.184662f, 395.136548f, 1.565907f, TEMPSUMMON_MANUAL_DESPAWN, 0);
+            m_creature->SummonCreature(NPC_EIDYS, 544.791504f, 174.521866f, 394.679626f, 5.363310f, TEMPSUMMON_MANUAL_DESPAWN, 0);
 		    m_pInstance->SetData(TYPE_ANGELS, IN_PROGRESS);
         }
 
