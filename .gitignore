@@ -44,6 +44,7 @@ install-sh
 ltmain.sh
 missing
 stamp-h1
+revision.h
 
 Makefile.in
 Makefile
