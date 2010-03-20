@@ -69,7 +69,7 @@ struct SpellTable
 class MANGOS_DLL_DECL BossAura : public Aura
 {
 public:
-    BossAura(const SpellEntry *spell, SpellEffectIndex eff, int32 *bp, Unit *target, Unit *caster) : Aura(spell, eff, bp, target, caster, NULL) {}
+    BossAura(const SpellEntry *spell, SpellEffectIndex eff, int32 *bp, Unit *target, Unit *caster) : Aura(spell, eff, bp, target, caster) {}
 };
 
 #endif
