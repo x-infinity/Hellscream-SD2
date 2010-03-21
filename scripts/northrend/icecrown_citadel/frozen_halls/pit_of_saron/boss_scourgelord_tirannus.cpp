@@ -10,9 +10,9 @@ enum
         SPELL_FEAR                              = 68950
 };
 
-struct MANGOS_DLL_DECL boss_forgemaster_gafrostAI : public ScriptedAI
+struct MANGOS_DLL_DECL boss_scourgelord_tirannusAI : public ScriptedAI
 {
-    boss_forgemaster_gafrostAI(Creature* pCreature) : ScriptedAI(pCreature)
+    boss_scourgelord_tirannusAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
         Regular = pCreature->GetMap()->IsRegularDifficulty();
@@ -24,17 +24,17 @@ struct MANGOS_DLL_DECL boss_forgemaster_gafrostAI : public ScriptedAI
 
     void Reset()
     {
-        if(pInstance) pInstance->SetData(TYPE_GAFROST, NOT_STARTED);
+        if(pInstance) pInstance->SetData(TYPE_TIRANNUS, NOT_STARTED);
     }
 
     void Aggro(Unit *who) 
     {
-        if(pInstance) pInstance->SetData(TYPE_GAFROST, IN_PROGRESS);
+        if(pInstance) pInstance->SetData(TYPE_TIRANNUS, IN_PROGRESS);
     }
 
     void JustDied(Unit *killer)
     {
-        if(pInstance) pInstance->SetData(TYPE_GAFROST, DONE);
+        if(pInstance) pInstance->SetData(TYPE_TIRANNUS, DONE);
     }
 
     void UpdateAI(const uint32 diff)
@@ -47,18 +47,18 @@ struct MANGOS_DLL_DECL boss_forgemaster_gafrostAI : public ScriptedAI
 };
 
 
-CreatureAI* GetAI_boss_forgemaster_gafrost(Creature* pCreature)
+CreatureAI* GetAI_boss_scourgelord_tirannus(Creature* pCreature)
 {
-    return new boss_forgemaster_gafrostAI(pCreature);
+    return new boss_scourgelord_tirannusAI(pCreature);
 }
 
 
-void AddSC_boss_forgemaster_gafrost()
+void AddSC_boss_scourgelord_tirannus()
 {
     Script *newscript;
     newscript = new Script;
-    newscript->Name = "boss_forgemaster_gafrost";
-    newscript->GetAI = &GetAI_boss_forgemaster_gafrost;
+    newscript->Name = "boss_scourgelord_tirannus";
+    newscript->GetAI = &GetAI_boss_scourgelord_tirannus;
     newscript->RegisterSelf();
 
 }
