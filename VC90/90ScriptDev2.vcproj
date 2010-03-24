@@ -2701,6 +2701,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\sc_boss_spell_worker.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\sc_boss_spell_worker.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\sc_creature.cpp"
 				>
 			</File>
