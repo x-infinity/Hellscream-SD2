@@ -1063,15 +1063,15 @@
 						>
 					</File>
 					<File
+						RelativePath="..\scripts\eastern_kingdoms\uldaman\instance_uldaman.cpp"
+						>
+					</File>
+					<File
 						RelativePath="..\scripts\eastern_kingdoms\uldaman\uldaman.cpp"
 						>
 					</File>
 					<File
 						RelativePath="..\scripts\eastern_kingdoms\uldaman\uldaman.h"
-						>
-					</File>
-					<File
-						RelativePath="..\scripts\eastern_kingdoms\uldaman\instance_uldaman.cpp"
 						>
 					</File>
 				</Filter>
@@ -1309,6 +1309,34 @@
 					<Filter
 						Name="culling_of_stratholme"
 						>
+						<File
+							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\boss_lord_epoch.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\boss_malganis.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\boss_meathook.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\boss_salramm.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\culling_of_stratholme.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\def_culling_of_stratholme.h"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\instance_culling_of_stratholme.cpp"
+							>
+						</File>
 					</Filter>
 					<Filter
 						Name="dark_portal"
@@ -1950,11 +1978,75 @@
 						Name="ulduar"
 						>
 						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_algalon.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_auriaya.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_freya.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_hodir.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_ignis.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_iron_council.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_kologarn.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_leviathan.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_mimiron.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_razorscale.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_thorim.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_vezax.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_xt_002.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_yogg_saron.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\def_ulduar.h"
+							>
+						</File>
+						<File
 							RelativePath="..\scripts\northrend\ulduar\ulduar\instance_ulduar.cpp"
 							>
 						</File>
 						<File
 							RelativePath="..\scripts\northrend\ulduar\ulduar\ulduar.h"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\ulduar_teleport.cpp"
 							>
 						</File>
 					</Filter>
