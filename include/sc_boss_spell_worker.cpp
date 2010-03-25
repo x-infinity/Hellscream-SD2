@@ -2,6 +2,7 @@
  * This program is free software licensed under GPL version 2
  * Please see the included DOCS/LICENSE.TXT for more information */
 
+#include "precompiled.h"
 #ifdef DEF_BOSS_SPELL_WORKER_H
 
     bool QuerySpellPeriod(uint32 m_uiSpellIdx, uint32 diff)
