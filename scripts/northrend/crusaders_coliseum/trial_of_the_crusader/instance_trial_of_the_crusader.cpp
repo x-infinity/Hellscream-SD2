@@ -389,7 +389,8 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
             case TYPE_DIFFICULTY:   return Difficulty;
             case TYPE_NORTHREND_BEASTS:    return m_auiNorthrendBeasts;
             case TYPE_EVENT_TIMER:  return m_auiEventTimer;
-            case TYPE_EVENT_NPC: switch (m_auiEncounter[8]) 
+            case TYPE_EVENT_NPC: 
+                switch (m_auiEncounter[8]) 
                                  {
                                  case 110:
                                  case 140:

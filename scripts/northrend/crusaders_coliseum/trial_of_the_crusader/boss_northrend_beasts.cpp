@@ -205,17 +205,17 @@ struct MANGOS_DLL_DECL mob_snobold_vassalAI : public ScriptedAI
     void Aggro(Unit *who)
     {
         if (!m_pInstance) return;
-        /*defaultTarget = who;
-        CastBossSpell(SPELL_SNOBOLLED);*/ //Crash here
+        defaultTarget = who;
+        DoCast(who, m_BossSpell[SPELL_SNOBOLLED].m_uiSpellEntry[Difficulty]);
     }
 
     void JustDied(Unit* pKiller)
     {
-    /*if (defaultTarget && defaultTarget->isAlive())
-                  defaultTarget->RemoveAurasDueToSpell(m_BossSpell[SPELL_SNOBOLLED].m_uiSpellEntry[Difficulty]);*/
-    if (Creature* pTemp = (Creature*)Unit::GetUnit((*m_creature),m_pInstance->GetData64(NPC_GORMOK)))
-        if (pTemp->isAlive() && pTemp->GetAura(m_BossSpell[SPELL_RISING_ANGER].m_uiSpellEntry[Difficulty], EFFECT_INDEX_0)->modStackAmount(-1))
-                  pTemp->RemoveAurasDueToSpell(m_BossSpell[SPELL_RISING_ANGER].m_uiSpellEntry[Difficulty]);
+        if (defaultTarget && defaultTarget->isAlive())
+                      defaultTarget->RemoveAurasDueToSpell(m_BossSpell[SPELL_SNOBOLLED].m_uiSpellEntry[Difficulty]);
+        if (Creature* pTemp = (Creature*)Unit::GetUnit((*m_creature),m_pInstance->GetData64(NPC_GORMOK)))
+            if (pTemp && pTemp->isAlive() && pTemp->GetAura(m_BossSpell[SPELL_RISING_ANGER].m_uiSpellEntry[Difficulty], EFFECT_INDEX_0)->modStackAmount(-1))
+                      pTemp->RemoveAurasDueToSpell(m_BossSpell[SPELL_RISING_ANGER].m_uiSpellEntry[Difficulty]);
     }
 
     void UpdateAI(const uint32 uiDiff)
