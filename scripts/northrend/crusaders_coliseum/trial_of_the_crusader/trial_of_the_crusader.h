@@ -19,6 +19,8 @@ enum
     TYPE_EVENT                  = 8,
     MAX_ENCOUNTERS              = 9,
 
+    DATA_WORMS                  = 10,
+
     NPC_BARRENT                 = 34816,
     NPC_TIRION                  = 34996,
     NPC_FIZZLEBANG              = 35458,

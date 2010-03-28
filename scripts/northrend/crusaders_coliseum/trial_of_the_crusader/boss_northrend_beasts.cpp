@@ -296,7 +296,7 @@ struct MANGOS_DLL_DECL boss_acidmawAI : public ScriptedAI
     {
 
         if ((!m_creature->SelectHostileTarget() || !m_creature->getVictim()) 
-        && (m_pInstance->GetData(TYPE_NORTHREND_BEASTS) != ACIDMAW_SUBMERGED))
+        && (m_pInstance->GetData(DATA_WORMS) != ACIDMAW_SUBMERGED))
             return;
 
     switch (stage) 
@@ -311,7 +311,7 @@ struct MANGOS_DLL_DECL boss_acidmawAI : public ScriptedAI
                 if (QuerySpellPeriod(SPELL_SLIME_POOL, uiDiff))
                     CastBossSpell(SPELL_SLIME_POOL);
 
-                if (m_pInstance->GetData(TYPE_NORTHREND_BEASTS) == ACIDMAW_SUBMERGED)
+                if (m_pInstance->GetData(DATA_WORMS) == ACIDMAW_SUBMERGED)
                      stage = 1;
 
                     break;}
@@ -320,7 +320,7 @@ struct MANGOS_DLL_DECL boss_acidmawAI : public ScriptedAI
                     m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                     stage = 2;
                     DoScriptText(-1713557,m_creature);
-                    m_pInstance->SetData(TYPE_NORTHREND_BEASTS, ACIDMAW_SUBMERGED);
+                    m_pInstance->SetData(DATA_WORMS, ACIDMAW_SUBMERGED);
                     break;}
         case 2: {
                 if (QuerySpellPeriod(SPELL_ACID_SPIT, uiDiff))
@@ -332,10 +332,10 @@ struct MANGOS_DLL_DECL boss_acidmawAI : public ScriptedAI
                 if (QuerySpellPeriod(SPELL_SWEEP_0, uiDiff))
                     CastBossSpell(SPELL_SWEEP_0);
 
-                if (QuerySpellPeriod(SPELL_SUBMERGE_0, uiDiff) && m_pInstance->GetData(TYPE_NORTHREND_BEASTS) == ACIDMAW_SUBMERGED) 
-                    m_pInstance->SetData(TYPE_NORTHREND_BEASTS, DREADSCALE_SUBMERGED);
+                if (QuerySpellPeriod(SPELL_SUBMERGE_0, uiDiff) && m_pInstance->GetData(DATA_WORMS) == ACIDMAW_SUBMERGED) 
+                    m_pInstance->SetData(DATA_WORMS, DREADSCALE_SUBMERGED);
 
-                if (m_pInstance->GetData(TYPE_NORTHREND_BEASTS) != ACIDMAW_SUBMERGED) 
+                if (m_pInstance->GetData(DATA_WORMS) != ACIDMAW_SUBMERGED) 
                         stage = 3;
 
                     break;}
@@ -344,7 +344,7 @@ struct MANGOS_DLL_DECL boss_acidmawAI : public ScriptedAI
                     m_creature->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                     m_creature->RemoveAurasDueToSpell(m_BossSpell[SPELL_SUBMERGE_0].m_uiSpellEntry[Difficulty]);
                     stage = 0;
-                    m_pInstance->SetData(TYPE_NORTHREND_BEASTS, DREADSCALE_SUBMERGED);
+                    m_pInstance->SetData(DATA_WORMS, DREADSCALE_SUBMERGED);
                     break;}
         }
 
@@ -416,7 +416,7 @@ struct MANGOS_DLL_DECL boss_dreadscaleAI : public ScriptedAI
     void UpdateAI(const uint32 uiDiff)
     {
         if ((!m_creature->SelectHostileTarget() || !m_creature->getVictim()) 
-        && (m_pInstance->GetData(TYPE_NORTHREND_BEASTS) != DREADSCALE_SUBMERGED))
+        && (m_pInstance->GetData(DATA_WORMS) != DREADSCALE_SUBMERGED))
             return;
 
         switch (stage) 
@@ -431,7 +431,7 @@ struct MANGOS_DLL_DECL boss_dreadscaleAI : public ScriptedAI
                 if (QuerySpellPeriod(SPELL_SLIME_POOL, uiDiff))
                     CastBossSpell(SPELL_SLIME_POOL);
 
-                if (m_pInstance->GetData(TYPE_NORTHREND_BEASTS) == DREADSCALE_SUBMERGED)
+                if (m_pInstance->GetData(DATA_WORMS) == DREADSCALE_SUBMERGED)
                      stage = 1;
 
                     break;}
@@ -440,7 +440,7 @@ struct MANGOS_DLL_DECL boss_dreadscaleAI : public ScriptedAI
                     m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                     stage = 2;
                     DoScriptText(-1713557,m_creature);
-                    m_pInstance->SetData(TYPE_NORTHREND_BEASTS, DREADSCALE_SUBMERGED);
+                    m_pInstance->SetData(DATA_WORMS, DREADSCALE_SUBMERGED);
                     break;}
         case 2: {
                 if (QuerySpellPeriod(SPELL_FIRE_SPIT, uiDiff))
@@ -453,9 +453,9 @@ struct MANGOS_DLL_DECL boss_dreadscaleAI : public ScriptedAI
                     CastBossSpell(SPELL_SWEEP_0);
 
                 if (QuerySpellPeriod(SPELL_SUBMERGE_0, uiDiff) && m_pInstance->GetData(TYPE_NORTHREND_BEASTS) == DREADSCALE_SUBMERGED) 
-                    m_pInstance->SetData(TYPE_NORTHREND_BEASTS, ACIDMAW_SUBMERGED);
+                    m_pInstance->SetData(DATA_WORMS, ACIDMAW_SUBMERGED);
 
-                if (m_pInstance->GetData(TYPE_NORTHREND_BEASTS) != DREADSCALE_SUBMERGED)
+                if (m_pInstance->GetData(DATA_WORMS) != DREADSCALE_SUBMERGED)
                     stage = 3;
 
                     break;}
@@ -464,7 +464,7 @@ struct MANGOS_DLL_DECL boss_dreadscaleAI : public ScriptedAI
                     m_creature->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                     m_creature->RemoveAurasDueToSpell(m_BossSpell[SPELL_SUBMERGE_0].m_uiSpellEntry[Difficulty]);
                     stage = 0;
-                    m_pInstance->SetData(TYPE_NORTHREND_BEASTS, ACIDMAW_SUBMERGED);
+                    m_pInstance->SetData(DATA_WORMS, ACIDMAW_SUBMERGED);
                     break;}
         }
 

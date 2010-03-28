@@ -445,7 +445,6 @@ struct MANGOS_DLL_DECL boss_lich_king_tocAI : public ScriptedAI
                 m_creature->CastSpell(m_creature,69016,false);
                 if(pInstance) pInstance->SetData(TYPE_LICH_KING,DONE);
 
-               pInstance->SetData(TYPE_ANUBARAK,IN_PROGRESS);
                   m_creature->SummonCreature(NPC_ANUBARAK, SpawnLoc[19].x, SpawnLoc[19].y, SpawnLoc[19].z, 5, TEMPSUMMON_CORPSE_TIMED_DESPAWN, DESPAWN_TIME);
                   if (Creature* pTemp = (Creature*)Unit::GetUnit((*m_creature),pInstance->GetData64(NPC_ANUBARAK))) {
                                 pTemp->GetMotionMaster()->MovePoint(0, SpawnLoc[20].x, SpawnLoc[20].y, SpawnLoc[20].z);

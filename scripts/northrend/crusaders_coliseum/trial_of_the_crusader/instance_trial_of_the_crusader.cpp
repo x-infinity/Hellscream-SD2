@@ -35,6 +35,7 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
     uint32 m_auiEventTimer;
     uint32 m_auiEventNPCId;
     uint32 m_auiNorthrendBeasts;
+    uint32 m_uiWorms;
     uint8 Difficulty;
     std::string m_strInstData;
 
@@ -125,6 +126,7 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
         m_uiDataDamageEydis_t = 0;
         m_uiLich0GUID = 0;
         m_uiLich1GUID = 0;
+        m_uiWorms = 0;
 
         m_auiNorthrendBeasts = NOT_STARTED;
 
@@ -280,6 +282,7 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
                 };
             };
             break;
+
         case TYPE_VALKIRIES: 
             DoUseDoorOrButton(m_uiDoorGUID);
             if (m_auiEncounter[4] == SPECIAL && uiData == SPECIAL) uiData = DONE;
@@ -353,6 +356,9 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
         case DATA_CASTING_EYDIS:
             m_uiEydisCasting = uiData;
             uiData = NOT_STARTED;
+            break;
+        case DATA_WORMS:
+            m_uiWorms = uiData;
             break;
         }
 
@@ -578,6 +584,7 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
                                 return m_uiDataDamageEydis_t;
         case DATA_CASTING_FJOLA: return m_uiFjolaCasting;
         case DATA_CASTING_EYDIS: return m_uiEydisCasting;
+        case DATA_WORMS: return m_uiWorms;
         }
 
         return 0;
