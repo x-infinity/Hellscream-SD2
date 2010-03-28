@@ -89,6 +89,12 @@ struct MANGOS_DLL_DECL mob_toc5_warriorAI : public ScriptedAI
         intercept_check = 1000;
     }
 
+    void JustReachedHome()
+    {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_GRAND_CHAMPIONS, FAIL);
+    }
+
     void EnterEvadeMode()
     {
         if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_1))))
@@ -252,6 +258,12 @@ struct MANGOS_DLL_DECL mob_toc5_mageAI : public ScriptedAI
         Polymorph_Timer = 15000;
     }
 
+    void JustReachedHome()
+    {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_GRAND_CHAMPIONS, FAIL);
+    }
+
     void EnterEvadeMode()
     {
         if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_1))))
@@ -409,6 +421,12 @@ struct MANGOS_DLL_DECL mob_toc5_shamanAI : public ScriptedAI
         Earth_Shield_Timer = 5000;
         Healing_Wave_Timer = 13000;
         Hex_Timer = 10000;
+    }
+
+    void JustReachedHome()
+    {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_GRAND_CHAMPIONS, FAIL);
     }
 
     void EnterEvadeMode()
@@ -615,6 +633,12 @@ struct MANGOS_DLL_DECL mob_toc5_hunterAI : public ScriptedAI
         disengage_check;
     }
 
+    void JustReachedHome()
+    {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_GRAND_CHAMPIONS, FAIL);
+    }
+
     void EnterEvadeMode()
     {
         if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_CHAMPION_1))))
@@ -787,6 +811,12 @@ struct MANGOS_DLL_DECL mob_toc5_rogueAI : public ScriptedAI
         Eviscerate_Timer = 15000;
         FoK_Timer = 10000;
         Poison_Timer = 7000;
+    }
+
+    void JustReachedHome()
+    {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_GRAND_CHAMPIONS, FAIL);
     }
 
     void EnterEvadeMode()

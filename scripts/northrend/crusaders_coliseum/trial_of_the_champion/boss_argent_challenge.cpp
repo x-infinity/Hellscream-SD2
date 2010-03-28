@@ -95,6 +95,12 @@ struct MANGOS_DLL_DECL boss_eadricAI : public ScriptedAI
         m_creature->SetHealth(m_creature->GetMaxHealth());
     }
 
+    void JustReachedHome()
+    {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_ARGENT_CHALLENGE, FAIL);
+    }
+
     void Aggro(Unit* pWho)
     {
         if (!m_pInstance)
@@ -189,6 +195,12 @@ struct MANGOS_DLL_DECL boss_paletressAI : public ScriptedAI
         Shield_Check = 1000;
         summoned = false;
         shielded = false;
+    }
+
+    void JustReachedHome()
+    {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_ARGENT_CHALLENGE, FAIL);
     }
 
     void EnterEvadeMode()

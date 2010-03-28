@@ -155,6 +155,15 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
         return true;
      }
 
+    bool IsEncounterInProgress() const
+    {
+        for (uint8 i = 1; i < MAX_ENCOUNTERS - 2; ++i) // MAX_ENCOUNTERS - 2 - cause: we doesn't need 2 last encounters for this func
+            if (m_auiEncounter[i] == IN_PROGRESS)
+                return true;
+        return false;
+    }
+
+
      void OnCreatureCreate(Creature* pCreature)
      {
         switch(pCreature->GetEntry())
@@ -252,8 +261,8 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
             m_auiEncounter[1] = uiData;
             break;
         case TYPE_JARAXXUS:
-            DoUseDoorOrButton(m_uiDoorGUID);
             m_auiEncounter[2] = uiData;
+            DoUseDoorOrButton(m_uiDoorGUID);
             break;
         case TYPE_CRUSADERS:
             m_auiEncounter[3] = uiData;

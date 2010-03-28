@@ -99,11 +99,8 @@ struct MANGOS_DLL_DECL instance_trial_of_the_champion : public ScriptedInstance
     bool IsEncounterInProgress() const
     {
         for(uint8 i = 0; i < MAX_ENCOUNTER; ++i)
-        {
             if (m_auiEncounter[i] == IN_PROGRESS)
                 return true;
-        }
-
         return false;
     }
 

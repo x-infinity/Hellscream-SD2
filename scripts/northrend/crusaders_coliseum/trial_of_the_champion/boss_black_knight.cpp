@@ -152,6 +152,12 @@ struct MANGOS_DLL_DECL boss_black_knightAI : public ScriptedAI
         ghoul = false;
     }
 
+    void JustReachedHome()
+    {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_BLACK_KNIGHT, FAIL);
+    }
+
     void EnterEvadeMode()
     {
         m_creature->SetDisplayId(29837);

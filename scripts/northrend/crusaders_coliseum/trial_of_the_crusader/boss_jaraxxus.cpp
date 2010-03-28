@@ -245,6 +245,8 @@ struct MANGOS_DLL_DECL mob_legion_flameAI : public ScriptedAI
 
     void JustDied(Unit* Killer)
     {
+        if (!m_pInstance) return;
+        m_pInstance->SetData(TYPE_JARAXXUS,DONE);
     }
 
     void Aggro(Unit *who)
