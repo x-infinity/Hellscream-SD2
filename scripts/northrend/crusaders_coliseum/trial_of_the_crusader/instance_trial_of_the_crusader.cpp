@@ -157,7 +157,13 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
 
     bool IsEncounterInProgress() const
     {
-        for (uint8 i = 1; i < MAX_ENCOUNTERS - 2; ++i) // MAX_ENCOUNTERS - 2 - cause: we doesn't need 2 last encounters for this func
+        if (m_auiEncounter[1] == IN_PROGRESS)
+            if (m_auiNorthrendBeasts == GORMOK_IN_PROGRESS ||
+                m_auiNorthrendBeasts == WORMS_IN_PROGRESS ||
+                m_auiNorthrendBeasts == ICEHOWL_IN_PROGRESS)
+                return true;
+
+        for (uint8 i = 2; i < MAX_ENCOUNTERS - 2; ++i) // MAX_ENCOUNTERS - 2 - cause: we doesn't need 2 last encounters for this func
             if (m_auiEncounter[i] == IN_PROGRESS)
                 return true;
         return false;

@@ -62,6 +62,17 @@ enum BossSpells
     BOSS_SPELL_COUNT
 };
 
+enum Gossips
+{
+    SAY_ON_RESET          = -1713517,
+    SAY_ON_KILL           = -1713525,
+    SAY_ON_AGGRO          = -1713514,
+    SAY_INCINERATE_FLESH  = -1713522,
+    SAY_LEGION_FLAME_1    = -1713518,
+    SAY_INFERNAL_ERUPTION = -1713520,
+    SAY_NETHER_POWER      = -1713519
+};
+
 static SpellTable m_BossSpell[]=
 {
 // Name                  10     25     10H    25H
@@ -124,7 +135,7 @@ struct MANGOS_DLL_DECL boss_jaraxxusAI : public ScriptedAI
             m_portalsCount = 1;
             m_volcanoCount = 4;
         }
-        DoScriptText(-1713517,m_creature);
+        DoScriptText(SAY_ON_RESET, m_creature);
     }
 
     uint64 CallGuard(uint64 npctype, TempSummonType type, uint32 _summontime )
@@ -148,7 +159,7 @@ struct MANGOS_DLL_DECL boss_jaraxxusAI : public ScriptedAI
     void JustDied(Unit* pKiller)
     {
         if (!m_pInstance) return;
-            DoScriptText(-1713525,m_creature);
+            DoScriptText(SAY_ON_KILL, m_creature);
             m_pInstance->SetData(TYPE_JARAXXUS, DONE);
             m_pInstance->SetData(TYPE_EVENT,2000);
             m_pInstance->SetData(TYPE_STAGE,0);
@@ -159,7 +170,7 @@ struct MANGOS_DLL_DECL boss_jaraxxusAI : public ScriptedAI
         if (!m_pInstance) return;
         m_creature->SetInCombatWithZone();
         m_pInstance->SetData(TYPE_JARAXXUS, IN_PROGRESS);
-        DoScriptText(-1713514,m_creature);
+        DoScriptText(SAY_ON_AGGRO,m_creature);
         CastBossSpell(SPELL_NETHER_POWER);
     }
 
@@ -175,18 +186,18 @@ struct MANGOS_DLL_DECL boss_jaraxxusAI : public ScriptedAI
                     CastBossSpell(SPELL_FEL_LIGHTING);
 
         if (QuerySpellPeriod(SPELL_INCINERATE_FLESH, uiDiff)) {
-                    DoScriptText(-1713522,m_creature,currentTarget);
+                    DoScriptText(SAY_INCINERATE_FLESH,m_creature,currentTarget);
                     CastBossSpell(SPELL_INCINERATE_FLESH);
                     }
 
         if (QuerySpellPeriod(SPELL_LEGION_FLAME_1, uiDiff)) {
-                    DoScriptText(-1713518,m_creature,currentTarget);
+                    DoScriptText(SAY_LEGION_FLAME_1,m_creature,currentTarget);
                     CastBossSpell(SPELL_LEGION_FLAME_1);
                     };
 
         if (QuerySpellPeriod(SPELL_INFERNAL_ERUPTION, uiDiff)
                              && m_volcanoCount > 0) {
-                    DoScriptText(-1713520,m_creature);
+                    DoScriptText(SAY_INFERNAL_ERUPTION,m_creature);
 //                    CastBossSpell(SPELL_INFERNAL_ERUPTION);
                 if (CallGuard(NPC_INFERNAL_VOLCANO, TEMPSUMMON_MANUAL_DESPAWN, 5000))
                     --m_volcanoCount;
@@ -196,7 +207,7 @@ struct MANGOS_DLL_DECL boss_jaraxxusAI : public ScriptedAI
                              && m_portalsCount > 0
                              &&  m_creature->GetHealthPercent() <= 90.0f)
                              {
-                DoScriptText(-1713519,m_creature);
+                DoScriptText(SAY_NETHER_POWER,m_creature);
                 if (CallGuard(NPC_NETHER_PORTAL, TEMPSUMMON_MANUAL_DESPAWN, 5000))
                     --m_portalsCount;
                 };
@@ -287,6 +298,10 @@ CreatureAI* GetAI_mob_legion_flame(Creature* pCreature)
     return new mob_legion_flameAI(pCreature);
 }
 
+enum
+{
+   SAY_INFERNAL_ERUPTION_MINION = -1713524
+};
 struct MANGOS_DLL_DECL mob_infernal_volcanoAI : public ScriptedAI
 {
     mob_infernal_volcanoAI(Creature* pCreature) : ScriptedAI(pCreature)
@@ -345,7 +360,7 @@ struct MANGOS_DLL_DECL mob_infernal_volcanoAI : public ScriptedAI
         if (m_Timer < diff && m_Count > 0) {
             DoCast(m_creature,m_BossSpell[SPELL_INFERNAL_ERUPTION].m_uiSpellEntry[Difficulty]);
             m_Timer=urand(m_BossSpell[SPELL_INFERNAL_ERUPTION].m_uiSpellTimerMin[Difficulty],m_BossSpell[SPELL_INFERNAL_ERUPTION].m_uiSpellTimerMax[Difficulty]);
-            DoScriptText(-1713524,m_creature);
+            DoScriptText(SAY_INFERNAL_ERUPTION_MINION,m_creature);
             --m_Count;
             } else m_Timer -= diff;
 
@@ -419,6 +434,11 @@ CreatureAI* GetAI_mob_fel_infernal(Creature* pCreature)
     return new mob_fel_infernalAI(pCreature);
 }
 
+enum
+{
+    SAY_NETHER_PORTAL = -1713521
+};
+
 struct MANGOS_DLL_DECL mob_nether_portalAI : public ScriptedAI
 {
     mob_nether_portalAI(Creature* pCreature) : ScriptedAI(pCreature)
@@ -475,7 +495,7 @@ struct MANGOS_DLL_DECL mob_nether_portalAI : public ScriptedAI
 
         if (m_Timer < diff && m_Count > 0) {
             DoCast(m_creature,m_BossSpell[SPELL_NETHER_PORTAL].m_uiSpellEntry[Difficulty]);
-            DoScriptText(-1713521,m_creature);
+            DoScriptText(SAY_NETHER_PORTAL,m_creature);
             --m_Count;
             m_Timer = 60000;
             } else m_Timer -= diff;
@@ -490,6 +510,11 @@ CreatureAI* GetAI_mob_nether_portal(Creature* pCreature)
 {
     return new mob_nether_portalAI(pCreature);
 }
+
+enum
+{
+    SAY_AGGRO = -1713523
+};
 
 struct MANGOS_DLL_DECL mob_mistress_of_painAI : public ScriptedAI
 {
@@ -527,7 +552,8 @@ struct MANGOS_DLL_DECL mob_mistress_of_painAI : public ScriptedAI
     void Aggro(Unit *who)
     {
         if (!m_pInstance) return;
-        DoScriptText(-1713523,m_creature, who);
+        DoScriptText(SAY_AGGRO,m_creature, who);
+        m_pInstance->SetData(TYPE_JARAXXUS, IN_PROGRESS);
     }
 
     void UpdateAI(const uint32 uiDiff)

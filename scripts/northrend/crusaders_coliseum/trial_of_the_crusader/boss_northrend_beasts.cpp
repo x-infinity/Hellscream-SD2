@@ -288,6 +288,8 @@ struct MANGOS_DLL_DECL boss_acidmawAI : public ScriptedAI
 
     void Aggro(Unit* pWho)
     {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_NORTHREND_BEASTS, WORMS_IN_PROGRESS);
     }
 
     void UpdateAI(const uint32 uiDiff)
@@ -407,6 +409,8 @@ struct MANGOS_DLL_DECL boss_dreadscaleAI : public ScriptedAI
 
     void Aggro(Unit* pWho)
     {
+        if (m_pInstance)
+            m_pInstance->SetData(TYPE_NORTHREND_BEASTS, WORMS_IN_PROGRESS);
     }
 
     void UpdateAI(const uint32 uiDiff)

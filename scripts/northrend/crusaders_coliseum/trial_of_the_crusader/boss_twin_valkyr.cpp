@@ -149,7 +149,7 @@ struct MANGOS_DLL_DECL boss_fjolaAI : public ScriptedAI
             return;
 
         m_pInstance->SetData(DATA_DAMAGE_FJOLA, uiDamage);
-        //uiDamage += m_pInstance->GetData(DATA_DAMAGE_EYDIS);
+        uiDamage += m_pInstance->GetData(DATA_DAMAGE_EYDIS);
     }
 
     void UpdateAI(const uint32 uiDiff)
@@ -240,7 +240,7 @@ struct MANGOS_DLL_DECL boss_eydisAI : public ScriptedAI
             return;
 
         m_pInstance->SetData(DATA_DAMAGE_EYDIS, uiDamage);
-        //uiDamage += m_pInstance->GetData(DATA_DAMAGE_FJOLA);
+        uiDamage += m_pInstance->GetData(DATA_DAMAGE_FJOLA);
     }
 
     void UpdateAI(const uint32 uiDiff)
