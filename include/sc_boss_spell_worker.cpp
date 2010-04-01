@@ -1,6 +1,7 @@
 /* Copyright (C) 2009 - 2010 by /dev/rsa for ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  * This program is free software licensed under GPL version 2
  * Please see the included DOCS/LICENSE.TXT for more information */
+#include "precompiled.h"
 #include "sc_boss_spell_worker.h"
 #ifdef DEF_BOSS_SPELL_WORKER_H
 

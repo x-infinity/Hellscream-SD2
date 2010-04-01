@@ -7,7 +7,7 @@
 #include "Unit.h"
 #include "precompiled.h"
 #include "Database/DatabaseEnv.h"
-#include "ScriptMgr.h"
+#include "../ScriptMgr.h"
 
 #ifndef DEF_BOSS_SPELL_WORKER_H
 #define DEF_BOSS_SPELL_WORKER_H
