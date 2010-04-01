@@ -142,7 +142,7 @@ class MANGOS_DLL_DECL BossSpellWorker
 
     private:
 
-        BossSpellTableParameters getBSWCastType(uint pTemp);
+        BossSpellTableParameters getBSWCastType(uint32 pTemp);
 
         uint8         FindSpellIDX(uint32 SpellID);
 
