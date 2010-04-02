@@ -1,6 +1,7 @@
 /* Copyright (C) 2009 - 2010 by /dev/rsa for ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  * This program is free software licensed under GPL version 2
  * Please see the included DOCS/LICENSE.TXT for more information */
+
 #include "precompiled.h"
 #include "sc_boss_spell_worker.h"
 #ifdef DEF_BOSS_SPELL_WORKER_H
@@ -11,12 +12,13 @@ BossSpellWorker::BossSpellWorker(ScriptedAI* bossAI)
 {
      boss = bossAI->m_creature;
      bossID = boss->GetEntry();
+	 debug_log("BSW: Initializing BossSpellWorker object for boss %u",bossID);
      bossSpellCount = 0;
      currentTarget = NULL;
-     currentDifficulty = RAID_DIFFICULTY_10MAN_NORMAL;
      memset(&m_uiSpell_Timer, 0, sizeof(m_uiSpell_Timer));
      memset(&m_BossSpell,0,sizeof(m_BossSpell));
-     debug_log("BSW: Initializing BossSpellWorker object for boss %u",bossID);
+	 Map* pMap = boss->GetMap();
+	 currentDifficulty = pMap->GetDifficulty();
      LoadSpellTable();
 };
 
