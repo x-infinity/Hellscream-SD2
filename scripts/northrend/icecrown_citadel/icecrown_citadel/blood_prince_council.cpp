@@ -17,9 +17,8 @@
 /* ScriptData
 SDName: blood_prince_council
 SD%Complete: 0%
-SDComment: by /dev/rsa
+SDComment:
 SDCategory: Icecrown Citadel
 EndScriptData */
 
 #include "precompiled.h"
-#include "def_spire.h"

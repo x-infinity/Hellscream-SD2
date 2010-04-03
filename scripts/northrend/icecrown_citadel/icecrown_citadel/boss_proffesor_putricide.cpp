@@ -17,9 +17,8 @@
 /* ScriptData
 SDName: boss_proffesor_putricide
 SD%Complete: 0%
-SDComment: by /dev/rsa
+SDComment:
 SDCategory: Icecrown Citadel
 EndScriptData */
 
 #include "precompiled.h"
-#include "def_spire.h"
