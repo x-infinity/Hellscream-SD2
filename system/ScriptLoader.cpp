@@ -299,6 +299,7 @@ extern void AddSC_instance_vault_of_archavon();             //vault_of_archavon
 extern void AddSC_boss_koralon();
 extern void AddSC_boss_emalon();
 extern void AddSC_boss_archavon();
+
 extern void AddSC_boss_bjarngrim();                         //Ulduar, halls_of_lightning
 extern void AddSC_boss_ionar();
 extern void AddSC_boss_loken();
@@ -306,9 +307,27 @@ extern void AddSC_boss_volkhan();
 extern void AddSC_instance_halls_of_lightning();
 extern void AddSC_boss_maiden_of_grief();                   //Ulduar, halls_of_stone
 extern void AddSC_boss_sjonnir();
+extern void AddSC_boss_krystallus();
 extern void AddSC_halls_of_stone();
 extern void AddSC_instance_halls_of_stone();
-extern void AddSC_instance_ulduar();                        //ulduar
+
+extern void AddSC_boss_leviathan();                         //ulduar
+extern void AddSC_boss_ignis();
+extern void AddSC_boss_razorscale();
+extern void AddSC_boss_xt002();
+extern void AddSC_boss_iron_council();
+extern void AddSC_boss_kologarn();
+extern void AddSC_boss_auriaya();
+extern void AddSC_boss_thorim();
+extern void AddSC_boss_mimiron();
+extern void AddSC_boss_hodir();
+extern void AddSC_boss_freya();
+extern void AddSC_boss_vezax();
+extern void AddSC_boss_yogg_saron();
+extern void AddSC_boss_algalon();
+extern void AddSC_ulduar_teleport();
+extern void AddSC_instance_ulduar();
+
 extern void AddSC_boss_ingvar();                            //utgarde_keep
 extern void AddSC_boss_keleseth();
 extern void AddSC_boss_skarvald_and_dalronn();
@@ -729,6 +748,7 @@ void AddScripts()
     AddSC_boss_koralon();
     AddSC_boss_emalon();
     AddSC_boss_archavon();
+
     AddSC_boss_bjarngrim();                                 //Ulduar, halls_of_lightning
     AddSC_boss_ionar();
     AddSC_boss_loken();
@@ -736,9 +756,28 @@ void AddScripts()
     AddSC_instance_halls_of_lightning();
     AddSC_boss_maiden_of_grief();                           //Ulduar, halls_of_stone
     AddSC_boss_sjonnir();
+
+    AddSC_boss_krystallus();
     AddSC_halls_of_stone();
     AddSC_instance_halls_of_stone();
-    AddSC_instance_ulduar();                                //ulduar
+
+    AddSC_boss_leviathan();                                 //ulduar
+    AddSC_boss_ignis();
+    AddSC_boss_razorscale();
+    AddSC_boss_xt002();
+    AddSC_boss_iron_council();
+    AddSC_boss_kologarn();
+    AddSC_boss_auriaya();
+    AddSC_boss_thorim();
+    AddSC_boss_mimiron();
+    AddSC_boss_hodir();
+    AddSC_boss_freya();
+    AddSC_boss_vezax();
+    AddSC_boss_yogg_saron();
+    AddSC_boss_algalon();
+    AddSC_ulduar_teleport();
+    AddSC_instance_ulduar();
+
     AddSC_boss_ingvar();                                    //utgarde_keep
     AddSC_boss_keleseth();
     AddSC_boss_skarvald_and_dalronn();
