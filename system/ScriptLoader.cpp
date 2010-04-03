@@ -332,6 +332,28 @@ extern void AddSC_sholazar_basin();
 extern void AddSC_storm_peaks();
 extern void AddSC_zuldrak();
 
+//IceCrown Citadel
+extern void AddSC_instance_icecrown_spire();
+extern void AddSC_icecrown_spire();
+extern void AddSC_icecrown_teleporter();
+extern void AddSC_boss_lord_marrowgar();
+extern void AddSC_boss_lady_deathwhisper();
+extern void AddSC_boss_deathbringer_saurfang();
+
+extern void AddSC_instance_forge_of_souls();
+extern void AddSC_boss_devourer_of_souls();
+extern void AddSC_boss_bronjahm();
+
+extern void AddSC_instance_pit_of_saron();
+extern void AddSC_boss_forgemaster_gafrost();
+extern void AddSC_boss_krick();
+extern void AddSC_boss_scourgelord_tirannus();
+
+extern void AddSC_instance_halls_of_reflection();
+extern void AddSC_boss_falryn();
+extern void AddSC_boss_marwyn();
+//extern void AddSC_boss_lich_king_fh();
+
 //outland
 extern void AddSC_boss_exarch_maladaar();                   //auchindoun, auchenai_crypts
 extern void AddSC_boss_nexusprince_shaffar();               //auchindoun, mana_tombs
@@ -739,6 +761,27 @@ void AddScripts()
     AddSC_sholazar_basin();
     AddSC_storm_peaks();
     AddSC_zuldrak();
+
+    AddSC_instance_icecrown_spire();
+    AddSC_icecrown_spire();
+    AddSC_icecrown_teleporter();
+    AddSC_boss_lord_marrowgar();
+    AddSC_boss_lady_deathwhisper();
+    AddSC_boss_deathbringer_saurfang();
+
+    AddSC_instance_forge_of_souls();
+    AddSC_boss_devourer_of_souls();
+    AddSC_boss_bronjahm();
+
+    AddSC_instance_pit_of_saron();
+    AddSC_boss_forgemaster_gafrost();
+    AddSC_boss_krick();
+    AddSC_boss_scourgelord_tirannus();
+
+    AddSC_instance_halls_of_reflection();
+    AddSC_boss_falryn();
+    AddSC_boss_marwyn();
+//    AddSC_boss_lich_king_fh();
 
     //outland
     AddSC_boss_exarch_maladaar();                           //auchindoun, auchenai_crypts
