@@ -228,6 +228,13 @@ extern void AddSC_mob_anubisath_sentinel();
 extern void AddSC_instance_temple_of_ahnqiraj();
 extern void AddSC_zulfarrak();                              //zulfarrak
 
+extern void AddSC_boss_lord_epoch();			// culling of stratholme
+extern void AddSC_culling_of_stratholme();
+extern void AddSC_boss_malganis();
+extern void AddSC_boss_meathook();
+extern void AddSC_instance_culling_of_stratholme();
+extern void AddSC_boss_salramm();
+
 extern void AddSC_ashenvale();
 extern void AddSC_azshara();
 extern void AddSC_azuremyst_isle();
@@ -266,6 +273,13 @@ extern void AddSC_boss_jaraxxus();
 extern void AddSC_boss_anubarak_trial();
 extern void AddSC_twin_valkyr();
 extern void AddSC_instance_trial_of_the_crusader();
+
+extern void AddSC_trial_of_the_champion();                  //trial_of_the_champion
+extern void AddSC_boss_argent_challenge(); 
+extern void AddSC_boss_black_knight();
+extern void AddSC_boss_grand_champions();
+extern void AddSC_instance_trial_of_the_champion();
+
 extern void AddSC_boss_novos();                             //draktharon_keep
 extern void AddSC_boss_tharonja();
 extern void AddSC_boss_trollgore();
@@ -677,6 +691,13 @@ void AddScripts()
     AddSC_instance_temple_of_ahnqiraj();
     AddSC_zulfarrak();                                      //zulfarrak
 
+    AddSC_boss_lord_epoch();                                //culling of stratholme
+    AddSC_culling_of_stratholme();
+    AddSC_boss_malganis();
+    AddSC_boss_meathook();
+    AddSC_instance_culling_of_stratholme();
+    AddSC_boss_salramm();
+
     AddSC_ashenvale();
     AddSC_azshara();
     AddSC_azuremyst_isle();
@@ -715,6 +736,13 @@ void AddScripts()
     AddSC_boss_anubarak_trial();
     AddSC_twin_valkyr();
     AddSC_instance_trial_of_the_crusader();
+
+    AddSC_trial_of_the_champion();                            //trial_of_the_champion
+    AddSC_boss_argent_challenge();
+    AddSC_boss_black_knight();
+    AddSC_boss_grand_champions();
+    AddSC_instance_trial_of_the_champion();
+
     AddSC_boss_novos();                                     //draktharon_keep
     AddSC_boss_tharonja();
     AddSC_boss_trollgore();
