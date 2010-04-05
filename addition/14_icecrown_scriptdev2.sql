@@ -1,4 +1,4 @@
-INSERT INTO `script_texts` (`entry`,`content_loc8`, `content_default`, `sound`, `type`, `language`, `emote`, `comment`) VALUES
+﻿INSERT INTO `script_texts` (`entry`,`content_loc8`, `content_default`, `sound`, `type`, `language`, `emote`, `comment`) VALUES
 ('-1631000','Это начало и конец, смертные. Никто не может войти в Храм!','This is the beginning AND the end, mortals. None may enter the master\'s sanctum!','16950','1','0','0','marrowgar SAY_INTRO'),
 ('-1631001','Проклятые несут миру смерть и разрушение!','The Scourge will wash over this world as a swarm of death and destruction!','16941','1','0','0','marrowgar SAY_AGGRO'),
 ('-1631002','Шторм костей!','BONE STORM!','16946','1','0','0','marrowgar SAY_BONESTORM'),

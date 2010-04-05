@@ -1,4 +1,4 @@
--- Entrance
+﻿-- Entrance
 UPDATE `areatrigger_teleport` SET `required_level` = '80' WHERE `areatrigger_teleport`.`id` =5670;
 
 DELETE FROM `gameobject` WHERE `guid` = 913334;
