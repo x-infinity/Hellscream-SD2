@@ -5,6 +5,7 @@ DELETE FROM `creature` WHERE `map` = 649 AND `id` IN
 
 -- announcers
 UPDATE `creature_template` SET `npcflag`=1, `scriptname`='npc_toc_announcer' WHERE `entry`=34816;
+DELETE FROM `creature` WHERE `map` = 649 AND `id` = 35766;
 UPDATE `creature_template` SET `scriptname`='boss_lich_king_toc' WHERE `entry`=35877;
 UPDATE `creature_template` SET `minhealth`= 20000, `maxhealth` = 20000, `faction_A`= 1770, `faction_H` = 1770,  `scriptname`='npc_fizzlebang_toc' WHERE `entry`=35458;
 UPDATE `creature_template` SET `scriptname`='npc_tirion_toc' WHERE `entry`=34996;
@@ -55,14 +56,18 @@ UPDATE `creature_template` SET `scriptname`='mob_snobold_vassal', `AIName` ='' W
 
 UPDATE `creature_template` SET `scriptname`='boss_dreadscale', `AIName` ='' WHERE `entry`=34799;
 UPDATE `creature_template` SET `scriptname`='boss_acidmaw', `AIName` ='' WHERE `entry`=35144;
+UPDATE `creature_template` SET `scriptname`='mob_slime_pool', `minlevel` = 80, `maxlevel` = 80, `AIName` ='', `faction_A`= 14, `faction_H` = 14, `modelid_A` = 12349, `modelid_H` = 12349 WHERE `entry` = 35176;
+-- Model id for slime_pool need change!
+
 UPDATE `creature_template` SET `scriptname`='boss_icehowl', `AIName` ='' WHERE `entry`=34797;
+
 UPDATE `creature_template` SET `lootid`= 0 WHERE  `entry` IN (34796,34799,35144);
 DELETE FROM `creature_loot_template`  WHERE  `entry` IN (34796,34799,35144);
 
 -- Jaraxxus
 UPDATE `creature_template` SET `scriptname`='boss_jaraxxus', `AIName` ='' WHERE `entry`= 34780;
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` IN (34780, 34784, 34813, 34815, 34825, 34826);
-UPDATE `creature_template` SET `scriptname`='mob_legion_flame', `minlevel` = 80, `maxlevel` = 80, `modelid_A` = 11686, `modelid_A2` = 11686, `modelid_H` = 11686, `modelid_H2` = 11686, `AIName` ='', `faction_A`= 14, `faction_H` = 14 WHERE entry = 34784;
+UPDATE `creature_template` SET `scriptname`='mob_legion_flame', `minlevel` = 82, `maxlevel` = 82, `modelid_A` = 11686, `modelid_A2` = 11686, `modelid_H` = 11686, `modelid_H2` = 11686, `AIName` ='', `faction_A`= 14, `faction_H` = 14 WHERE `entry` = 34784;
 UPDATE `creature_template` SET `scriptname`='mob_infernal_volcano', `AIName` ='' WHERE `entry` = 34813;
 UPDATE `creature_template` SET `scriptname`='mob_fel_infernal', `AIName` ='' WHERE `entry` = 34815;
 UPDATE `creature_template` SET `scriptname`='mob_nether_portal', `AIName` ='' WHERE `entry` = 34825;
@@ -78,15 +83,9 @@ UPDATE `creature_template` SET `npcflag`=1, `scriptname`='mob_dark_essence', `AI
 -- Anub'arak
 UPDATE `creature_template` SET `scriptname`='boss_anubarak_trial', `AIName` ='' WHERE `entry`=34564;
 
-UPDATE `creature_template` SET `modelid_A` = 25144, `modelid_A2` = 0, `modelid_H` = 25144, `modelid_H2` = 0, `faction_A` = 16, `faction_H` = 16, `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 34606;
-DELETE FROM `creature_ai_scripts` WHERE `creature_id` IN (34606, 34605, 34607, 34564);
-INSERT INTO `creature_ai_scripts` (`id`, `creature_id`, `event_type`, `event_inverse_phase_mask`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `event_param3`, `event_param4`, `action1_type`, `action1_param1`, `action1_param2`, `action1_param3`, `action2_type`, `action2_param1`, `action2_param2`, `action2_param3`, `action3_type`, `action3_param1`, `action3_param2`, `action3_param3`, `comment`) VALUES
-(3460651, 34606, 0, 0, 60, 3,  1000, 15000, 60000, 60000, 11, 66193, 0, 47, 0, 0, 0, 0, 0, 0, 0, 0, 'Frost Sphere - Permafrost'),
-(3460654, 34606, 0, 0, 60, 5,  1000, 15000, 60000, 60000, 11, 67855, 0, 47, 0, 0, 0, 0, 0, 0, 0, 0, 'Frost Sphere - Permafrost'),
-(3460652, 34606, 0, 0, 60, 9,  1000, 15000, 60000, 60000, 11, 67856, 0, 47, 0, 0, 0, 0, 0, 0, 0, 0, 'Frost Sphere - Permafrost'),
-(3460653, 34606, 0, 0, 60, 16, 1000, 15000, 60000, 60000, 11, 67857, 0, 47, 0, 0, 0, 0, 0, 0, 0, 0, 'Frost Sphere - Permafrost');
-
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` IN (34606, 34605, 34607, 34564, 34660);
+UPDATE `creature_template` SET `modelid_A` = 25144, `modelid_A2` = 0, `modelid_H` = 25144, `modelid_H2` = 0, `faction_A` = 14, `faction_H` = 14, `AIName` = '', `ScriptName` = 'mob_frost_sphere' WHERE `entry` = 34606;
 UPDATE `creature_template` SET `scriptname`='mob_swarm_scarab', `AIName` ='' WHERE `entry`=34605;
 UPDATE `creature_template` SET `scriptname`='mob_nerubian_borrower', `AIName` ='' WHERE `entry`=34607;
+UPDATE `creature_template` SET `scriptname`='mob_anubarak_spike', `faction_A` = 14, `minlevel` = 80, `maxlevel` = 80,`faction_H` = 14, `AIName` ='' WHERE `entry`=34660;
 
-UPDATE `creature_template` SET `unit_flags`='512' WHERE `entry` in ('34992','34994');

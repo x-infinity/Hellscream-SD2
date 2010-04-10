@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 - 2010 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
+/* Copyright (C) 2006 - 2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -45,12 +45,12 @@ struct MANGOS_DLL_DECL boss_patchwerkAI : public ScriptedAI
 {
     boss_patchwerkAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
-        m_pInstance = (instance_naxxramas*)pCreature->GetInstanceData();
+        m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
         m_bIsRegularMode = pCreature->GetMap()->IsRegularDifficulty();
         Reset();
     }
 
-    instance_naxxramas* m_pInstance;
+    ScriptedInstance* m_pInstance;
     bool m_bIsRegularMode;
 
     uint32 m_uiHatefulStrikeTimer;
@@ -119,12 +119,10 @@ struct MANGOS_DLL_DECL boss_patchwerkAI : public ScriptedAI
                     pTarget = pTempTarget;
                 }
             }
-
             --uiTargets;
         }
-
         if (pTarget)
-            DoCastSpellIfCan(pTarget, m_bIsRegularMode ? SPELL_HATEFULSTRIKE : SPELL_HATEFULSTRIKE_H);
+            DoCast(pTarget, m_bIsRegularMode ? SPELL_HATEFULSTRIKE : SPELL_HATEFULSTRIKE_H);
     }
 
     void UpdateAI(const uint32 uiDiff)
@@ -146,7 +144,7 @@ struct MANGOS_DLL_DECL boss_patchwerkAI : public ScriptedAI
         {
             if (m_creature->GetHealthPercent() < 5.0f)
             {
-                DoCastSpellIfCan(m_creature, SPELL_ENRAGE);
+                DoCast(m_creature, SPELL_ENRAGE);
                 DoScriptText(EMOTE_ENRAGE, m_creature);
                 m_bEnraged = true;
             }
@@ -157,7 +155,7 @@ struct MANGOS_DLL_DECL boss_patchwerkAI : public ScriptedAI
         {
             if (m_uiBerserkTimer < uiDiff)
             {
-                DoCastSpellIfCan(m_creature, SPELL_BERSERK);
+                DoCast(m_creature, SPELL_BERSERK);
                 DoScriptText(EMOTE_BERSERK, m_creature);
                 m_bBerserk = true;
             }
@@ -169,7 +167,7 @@ struct MANGOS_DLL_DECL boss_patchwerkAI : public ScriptedAI
             // Slimebolt - casted only while Berserking to prevent kiting
             if (m_uiSlimeboltTimer < uiDiff)
             {
-                DoCastSpellIfCan(m_creature->getVictim(), SPELL_SLIMEBOLT);
+                DoCast(m_creature->getVictim(), SPELL_SLIMEBOLT);
                 m_uiSlimeboltTimer = 5000;
             }
             else
