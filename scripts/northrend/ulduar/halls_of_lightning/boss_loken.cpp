@@ -1,18 +1,18 @@
 /* Copyright (C) 2006 - 2010 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- */
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+*/
 
 /* ScriptData
 SDName: Boss Loken
@@ -26,28 +26,28 @@ EndScriptData */
 
 enum
 {
-    SAY_AGGRO                           = -1602018,
-    SAY_INTRO_1                         = -1602019,
-    SAY_INTRO_2                         = -1602020,
-    SAY_SLAY_1                          = -1602021,
-    SAY_SLAY_2                          = -1602022,
-    SAY_SLAY_3                          = -1602023,
-    SAY_DEATH                           = -1602024,
-    SAY_NOVA_1                          = -1602025,
-    SAY_NOVA_2                          = -1602026,
-    SAY_NOVA_3                          = -1602027,
-    SAY_75HEALTH                        = -1602028,
-    SAY_50HEALTH                        = -1602029,
-    SAY_25HEALTH                        = -1602030,
-    EMOTE_NOVA                          = -1602031,
+    SAY_AGGRO = -1602018,
+    SAY_INTRO_1 = -1602019,
+    SAY_INTRO_2 = -1602020,
+    SAY_SLAY_1 = -1602021,
+    SAY_SLAY_2 = -1602022,
+    SAY_SLAY_3 = -1602023,
+    SAY_DEATH = -1602024,
+    SAY_NOVA_1 = -1602025,
+    SAY_NOVA_2 = -1602026,
+    SAY_NOVA_3 = -1602027,
+    SAY_75HEALTH = -1602028,
+    SAY_50HEALTH = -1602029,
+    SAY_25HEALTH = -1602030,
+    EMOTE_NOVA = -1602031,
 
-    SPELL_ARC_LIGHTNING                 = 52921,
-    SPELL_LIGHTNING_NOVA_N              = 52960,
-    SPELL_LIGHTNING_NOVA_H              = 59835,
+    SPELL_ARC_LIGHTNING = 52921,
+    SPELL_LIGHTNING_NOVA_N = 52960,
+    SPELL_LIGHTNING_NOVA_H = 59835,
 
-    SPELL_PULSING_SHOCKWAVE_N           = 52961,
-    SPELL_PULSING_SHOCKWAVE_H           = 59836,
-    SPELL_PULSING_SHOCKWAVE_AURA        = 59414
+    SPELL_PULSING_SHOCKWAVE_N = 52961,
+    SPELL_PULSING_SHOCKWAVE_H = 59836,
+    SPELL_PULSING_SHOCKWAVE_AURA = 59414
 };
 
 /*######
@@ -126,31 +126,31 @@ struct MANGOS_DLL_DECL boss_lokenAI : public ScriptedAI
         {
             // workaround for PULSING_SHOCKWAVE
             /*if (m_uiPulsingShockwave_Timer < uiDiff)
-            {
-                Map *map = m_creature->GetMap();
-                if (map->IsDungeon())
-                {
-                    Map::PlayerList const &PlayerList = map->GetPlayers();
+{
+Map *map = m_creature->GetMap();
+if (map->IsDungeon())
+{
+Map::PlayerList const &PlayerList = map->GetPlayers();
 
-                    if (PlayerList.isEmpty())
-                        return;
+if (PlayerList.isEmpty())
+return;
 
-                    for (Map::PlayerList::const_iterator i = PlayerList.begin(); i != PlayerList.end(); ++i)
-                        if (i->getSource()->isAlive() && i->getSource()->isTargetableForAttack())
-                        {
-                            int32 dmg;
-                            float m_fDist = m_creature->GetDistance(i->getSource());
+for (Map::PlayerList::const_iterator i = PlayerList.begin(); i != PlayerList.end(); ++i)
+if (i->getSource()->isAlive() && i->getSource()->isTargetableForAttack())
+{
+int32 dmg;
+float m_fDist = m_creature->GetDistance(i->getSource());
 
-                            if (m_fDist <= 1.0f) // Less than 1 yard
-                                dmg = (m_bIsRegularMode ? 800 : 850); // need to correct damage
-                            else // Further from 1 yard
-                                dmg = round((m_bIsRegularMode ? 200 : 250) * m_fDist) + (m_bIsRegularMode ? 800 : 850); // need to correct damage
+if (m_fDist <= 1.0f) // Less than 1 yard
+dmg = (m_bIsRegularMode ? 800 : 850); // need to correct damage
+else // Further from 1 yard
+dmg = round((m_bIsRegularMode ? 200 : 250) * m_fDist) + (m_bIsRegularMode ? 800 : 850); // need to correct damage
 
-                            m_creature->CastCustomSpell(i->getSource(), (m_bIsRegularMode ? 52942 : 59837), &dmg, 0, 0, false);
-                        }
-                }
-                m_uiPulsingShockwave_Timer = 2000;
-            }else m_uiPulsingShockwave_Timer -= uiDiff;*/
+m_creature->CastCustomSpell(i->getSource(), (m_bIsRegularMode ? 52942 : 59837), &dmg, 0, 0, false);
+}
+}
+m_uiPulsingShockwave_Timer = 2000;
+}else m_uiPulsingShockwave_Timer -= uiDiff;*/
         }
         else
         {
@@ -226,3 +226,4 @@ void AddSC_boss_loken()
     newscript->GetAI = &GetAI_boss_loken;
     newscript->RegisterSelf();
 }
+

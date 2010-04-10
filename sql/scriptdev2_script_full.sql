@@ -3,7 +3,7 @@
 --
 
 DELETE FROM sd2_db_version;
-INSERT INTO sd2_db_version (version) VALUES ('ScriptDev2 (for MaNGOS 9603+) ');
+INSERT INTO sd2_db_version (version) VALUES ('ScriptDev2 (for MaNGOS 9641+) ');
 
 --
 -- Below contains data for table `script_texts` mainly used in C++ parts.
@@ -872,6 +872,7 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
 (-1509000,'%s senses your fear.',0,2,0,0,'moam EMOTE_AGGRO'),
 (-1509001,'%s bristles with energy!',0,2,0,0,'moan EMOTE_MANA_FULL'),
+(-1509028,'%s drains your mana and turns to stone.',0,2,0,0,'moam EMOTE_ENERGIZING'),
 
 (-1509002,'%s sets eyes on $N!',0,2,0,0,'buru EMOTE_TARGET'),
 
@@ -1217,7 +1218,11 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1533139,'The central gate opens!',0,3,0,0,'gothik EMOTE_GATE'),
 (-1533140,'Brazenly you have disregarded powers beyond your understanding.',0,1,0,0,'gothik SAY_SPEECH_2'),
 (-1533141,'You have fought hard to invade the realm of the harvester.',0,1,0,0,'gothik SAY_SPEECH_3'),
-(-1533142,'Now there is only one way out - to walk the lonely path of the damned.',0,1,0,0,'gothik SAY_SPEECH_4');
+(-1533142,'Now there is only one way out - to walk the lonely path of the damned.',0,1,0,0,'gothik SAY_SPEECH_4'),
+
+(-1533143,'An aura of necrotic energy blocks all healing!',0,3,0,0,'Loatheb EMOTE_AURA_BLOCKING'),
+(-1533144,'The power of Necrotic Aura begins to wane!',0,3,0,0,'Loatheb EMOTE_AURA_WANE'),
+(-1533145,'The aura fades away, allowing healing once more!',0,3,0,0,'Loatheb EMOTE_AURA_FADING');
 
 -- -1 534 000 THE BATTLE OF MT. HYJAL
 INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
