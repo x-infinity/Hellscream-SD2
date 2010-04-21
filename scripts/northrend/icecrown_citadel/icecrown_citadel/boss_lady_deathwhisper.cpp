@@ -243,11 +243,11 @@ struct MANGOS_DLL_DECL mob_vengeful_shadeAI : public ScriptedAI
         m_creature->SetInCombatWithZone();
         if (Unit* pTarget= SelectUnit(SELECT_TARGET_RANDOM, 0) ) {
                 m_creature->GetMotionMaster()->MoveChase(pTarget);
-                m_creature->SetSpeedRate(MOVE_RUN, 0.8);
+                m_creature->SetSpeedRate(MOVE_RUN, 0.8f);
                 } else
         if (Unit* pTarget = Unit::GetUnit((*m_creature),m_pInstance->GetData64(NPC_LADY_DEATHWHISPER))) {
                 m_creature->GetMotionMaster()->MoveChase(pTarget);
-                m_creature->SetSpeedRate(MOVE_RUN, 0.8);
+                m_creature->SetSpeedRate(MOVE_RUN, 0.8f);
                 }
     }
 
@@ -270,7 +270,7 @@ struct MANGOS_DLL_DECL mob_vengeful_shadeAI : public ScriptedAI
             m_uiRangeCheck_Timer = 1000;
             if (m_creature->getVictim()) {
                                   m_creature->GetMotionMaster()->MoveChase(m_creature->getVictim());
-                                  m_creature->SetSpeedRate(MOVE_RUN, 0.8);
+                                  m_creature->SetSpeedRate(MOVE_RUN, 0.8f);
                                   }
         }
         else m_uiRangeCheck_Timer -= uiDiff;

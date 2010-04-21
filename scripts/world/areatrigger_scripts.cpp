@@ -26,6 +26,15 @@ at_aldurthar_gate               5284,5285,5286,5287
 at_coilfang_waterfall           4591
 at_legion_teleporter            4560 Teleporter TO Invasion Point: Cataclysm
 at_ravenholdt
+at_warsong_slaughterhouse
+at_warsong_grainery
+at_torp_farm
+at_stormwind_counting_house
+at_stormwind_auction_house
+at_stormwind_barber_shop
+at_orgrimmar_bank
+at_orgrimmar_auction_house
+at_orgrimmar_barber_shop
 at_warsong_farms
 at_stormwright_shelf            5108
 EndContentData */
@@ -179,6 +188,78 @@ bool AreaTrigger_at_stormwright_shelf(Player* pPlayer, AreaTriggerEntry* pAt)
     return true;
 }
 
+/*######
+## Quest 24849
+######*/
+ 
+enum
+{
+    QUEST_HOT_ON_THE_TRAIL_ALI = 24849,
+    NPC_CREDIT_STORMWIND_COUNTING_HOUSE = 45672,
+    NPC_CREDIT_STORMWIND_AUCTION_HOUSE = 45669,
+    NPC_CREDIT_STORMWIND_BARBER_SHOP = 45671
+};
+ 
+bool AreaTrigger_at_stormwind_counting_house(Player* pPlayer, AreaTriggerEntry *pAt)
+{
+       if (!pPlayer->isDead() && pPlayer->GetQuestStatus(QUEST_HOT_ON_THE_TRAIL_ALI) == QUEST_STATUS_INCOMPLETE)
+               pPlayer->KilledMonsterCredit(NPC_CREDIT_STORMWIND_COUNTING_HOUSE, 0);
+ 
+    return true;
+}
+ 
+bool AreaTrigger_at_stomrwind_auction_house(Player* pPlayer, AreaTriggerEntry *pAt)
+{
+    if (!pPlayer->isDead() && pPlayer->GetQuestStatus(QUEST_HOT_ON_THE_TRAIL_ALI) == QUEST_STATUS_INCOMPLETE)
+        pPlayer->KilledMonsterCredit(NPC_CREDIT_STORMWIND_AUCTION_HOUSE, 0);
+ 
+    return true;
+}
+ 
+bool AreaTrigger_at_stormwind_barber_shop(Player* pPlayer, AreaTriggerEntry *pAt)
+{
+    if (!pPlayer->isDead() && pPlayer->GetQuestStatus(QUEST_HOT_ON_THE_TRAIL_ALI) == QUEST_STATUS_INCOMPLETE)
+        pPlayer->KilledMonsterCredit(NPC_CREDIT_STORMWIND_BARBER_SHOP, 0);
+ 
+    return true;
+}
+ 
+/*######
+## Quest 24851
+######*/
+ 
+enum
+{
+    QUEST_HOT_ON_THE_TRAIL_HORDE = 24851,
+    NPC_CREDIT_ORGRIMMAR_BANK = 45673,
+    NPC_CREDIT_ORGRIMMAR_AUCTION_HOUSE = 45674,
+    NPC_CREDIT_ORGRIMMAR_BARBER_SHOP = 45675
+};
+ 
+bool AreaTrigger_at_orgrimmar_bank(Player* pPlayer, AreaTriggerEntry *pAt)
+{
+       if (!pPlayer->isDead() && pPlayer->GetQuestStatus(QUEST_HOT_ON_THE_TRAIL_HORDE) == QUEST_STATUS_INCOMPLETE)
+               pPlayer->KilledMonsterCredit(NPC_CREDIT_ORGRIMMAR_BANK, 0);
+ 
+    return true;
+}
+ 
+bool AreaTrigger_at_orgrimmar_auction_house(Player* pPlayer, AreaTriggerEntry *pAt)
+{
+    if (!pPlayer->isDead() && pPlayer->GetQuestStatus(QUEST_HOT_ON_THE_TRAIL_HORDE) == QUEST_STATUS_INCOMPLETE)
+        pPlayer->KilledMonsterCredit(NPC_CREDIT_ORGRIMMAR_AUCTION_HOUSE, 0);
+ 
+    return true;
+}
+ 
+bool AreaTrigger_at_orgrimmar_barber_shop(Player* pPlayer, AreaTriggerEntry *pAt)
+{
+    if (!pPlayer->isDead() && pPlayer->GetQuestStatus(QUEST_HOT_ON_THE_TRAIL_HORDE) == QUEST_STATUS_INCOMPLETE)
+        pPlayer->KilledMonsterCredit(NPC_CREDIT_ORGRIMMAR_BARBER_SHOP, 0);
+ 
+    return true;
+}
+
 void AddSC_areatrigger_scripts()
 {
     Script *newscript;
@@ -211,5 +292,35 @@ void AddSC_areatrigger_scripts()
     newscript = new Script;
     newscript->Name = "at_stormwright_shelf";
     newscript->pAreaTrigger = &AreaTrigger_at_stormwright_shelf;
+    newscript->RegisterSelf();
+	
+	newscript = new Script;
+    newscript->Name = "at_stormwind_counting_house";
+    newscript->pAreaTrigger = &AreaTrigger_at_stormwind_counting_house;
+    newscript->RegisterSelf();
+ 
+    newscript = new Script;
+    newscript->Name = "at_stormwind_auction_house";
+    newscript->pAreaTrigger = &AreaTrigger_at_stomrwind_auction_house;
+    newscript->RegisterSelf();
+ 
+    newscript = new Script;
+    newscript->Name = "at_stormwind_barber_shop";
+    newscript->pAreaTrigger = &AreaTrigger_at_stormwind_barber_shop;
+    newscript->RegisterSelf();
+ 
+    newscript = new Script;
+    newscript->Name = "at_orgrimmar_bank";
+    newscript->pAreaTrigger = &AreaTrigger_at_orgrimmar_bank;
+    newscript->RegisterSelf();
+ 
+    newscript = new Script;
+    newscript->Name = "at_orgrimmar_auction_house";
+    newscript->pAreaTrigger = &AreaTrigger_at_orgrimmar_auction_house;
+    newscript->RegisterSelf();
+ 
+    newscript = new Script;
+    newscript->Name = "at_orgrimmar_barber_shop";
+    newscript->pAreaTrigger = &AreaTrigger_at_orgrimmar_barber_shop;
     newscript->RegisterSelf();
 }

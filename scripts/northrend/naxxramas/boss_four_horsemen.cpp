@@ -110,7 +110,7 @@ struct MANGOS_DLL_DECL boss_lady_blaumeuxAI : public ScriptedAI
 
     uint32 Mark_Timer;
     uint32 VoidZone_Timer;
-    uint32 ShadowBolt_Timer;
+	uint32 ShadowBolt_Timer;
     bool ShieldWall1;
     bool ShieldWall2;
 
@@ -118,11 +118,11 @@ struct MANGOS_DLL_DECL boss_lady_blaumeuxAI : public ScriptedAI
     {
         Mark_Timer = 20000;                                 // First Horsemen Mark is applied at 20 sec.
         VoidZone_Timer = 12000;                             // right
-        ShadowBolt_Timer = 5000;
+		ShadowBolt_Timer = 5000;
         ShieldWall1 = true;
         ShieldWall2 = true;
-
-        if (m_pInstance)
+	
+	if (m_pInstance)
         {
             m_pInstance->SetData(TYPE_FOUR_HORSEMEN, NOT_STARTED);
 
@@ -136,13 +136,12 @@ struct MANGOS_DLL_DECL boss_lady_blaumeuxAI : public ScriptedAI
                 if (!pTemp->isAlive())
                     pTemp->Respawn();
         }
-    }
+	}
 
     void Aggro(Unit *who)
     {
         DoScriptText(SAY_BLAU_AGGRO, m_creature);
-
-        if (m_pInstance)
+		if (m_pInstance)
             m_pInstance->SetData(TYPE_FOUR_HORSEMEN, IN_PROGRESS);
     }
 
@@ -154,8 +153,7 @@ struct MANGOS_DLL_DECL boss_lady_blaumeuxAI : public ScriptedAI
     void JustDied(Unit* Killer)
     {
         DoScriptText(SAY_BLAU_DEATH, m_creature);
-
-        if (m_pInstance)
+		if (m_pInstance)
         {
             bool HorsemenDead = true;
             if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_KORTHAZZ))))
@@ -238,7 +236,7 @@ struct MANGOS_DLL_DECL boss_rivendare_naxxAI : public ScriptedAI
 
     void Reset()
     {
-        Mark_Timer = 20000;
+		Mark_Timer = 20000;
         UnholyShadow_Timer = 15000;
         ShieldWall1 = true;
         ShieldWall2 = true;
@@ -255,7 +253,7 @@ struct MANGOS_DLL_DECL boss_rivendare_naxxAI : public ScriptedAI
                     pTemp->Respawn();
             if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_ZELIEK))))
                 if (!pTemp->isAlive())
-                    pTemp->Respawn();
+                   pTemp->Respawn();
         }
     }
 
@@ -267,21 +265,14 @@ struct MANGOS_DLL_DECL boss_rivendare_naxxAI : public ScriptedAI
             case 1: DoScriptText(SAY_RIVE_AGGRO2, m_creature); break;
             case 2: DoScriptText(SAY_RIVE_AGGRO3, m_creature); break;
         }
-
-        if (m_pInstance)
+		if (m_pInstance)
             m_pInstance->SetData(TYPE_FOUR_HORSEMEN, IN_PROGRESS);
     }
 
     void KilledUnit(Unit* Victim)
     {
         DoScriptText(urand(0, 1) ? SAY_RIVE_SLAY1 : SAY_RIVE_SLAY2, m_creature);
-    }
-
-    void JustDied(Unit* Killer)
-    {
-        DoScriptText(SAY_RIVE_DEATH, m_creature);
-
-        if (m_pInstance)
+		if (m_pInstance)
         {
             bool HorsemenDead = true;
             if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_KORTHAZZ))))
@@ -299,12 +290,17 @@ struct MANGOS_DLL_DECL boss_rivendare_naxxAI : public ScriptedAI
         }
     }
 
+    void JustDied(Unit* Killer)
+    {
+        DoScriptText(SAY_RIVE_DEATH, m_creature);
+    }
+
     void UpdateAI(const uint32 uiDiff)
     {
         if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
             return;
-
-        // Mark of Blaumeux
+			
+		// Mark of Blaumeux
         if (Mark_Timer < uiDiff)
         {
             DoCast(m_creature->getVictim(),SPELL_MARK_OF_RIVENDARE);
@@ -367,8 +363,7 @@ struct MANGOS_DLL_DECL boss_thane_korthazzAI : public ScriptedAI
         Meteor_Timer = 30000;                               // wrong
         ShieldWall1 = true;
         ShieldWall2 = true;
-
-        if (m_pInstance)
+		if (m_pInstance)
         {
             m_pInstance->SetData(TYPE_FOUR_HORSEMEN, NOT_STARTED);
 
@@ -387,16 +382,14 @@ struct MANGOS_DLL_DECL boss_thane_korthazzAI : public ScriptedAI
     void Aggro(Unit *who)
     {
         DoScriptText(SAY_KORT_AGGRO, m_creature);
-
-        if (m_pInstance)
+		if (m_pInstance)
             m_pInstance->SetData(TYPE_FOUR_HORSEMEN, IN_PROGRESS);
     }
 
     void KilledUnit(Unit* Victim)
     {
         DoScriptText(SAY_KORT_SLAY, m_creature);
-
-        if (m_pInstance)
+		if (m_pInstance)
         {
             bool HorsemenDead = true;
             if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_RIVENDARE))))
@@ -479,7 +472,7 @@ struct MANGOS_DLL_DECL boss_sir_zeliekAI : public ScriptedAI
 
     uint32 Mark_Timer;
     uint32 HolyWrath_Timer;
-    uint32 HolyBolt_Timer;
+	uint32 HolyBolt_Timer;
     bool ShieldWall1;
     bool ShieldWall2;
 
@@ -487,11 +480,10 @@ struct MANGOS_DLL_DECL boss_sir_zeliekAI : public ScriptedAI
     {
         Mark_Timer = 20000;                                 // First Horsemen Mark is applied at 20 sec.
         HolyWrath_Timer = 12000;                            // right
-        HolyBolt_Timer = 5000;
+		HolyBolt_Timer = 5000;
         ShieldWall1 = true;
         ShieldWall2 = true;
-
-        if (m_pInstance)
+		if (m_pInstance)
         {
             m_pInstance->SetData(TYPE_FOUR_HORSEMEN, NOT_STARTED);
 
@@ -510,8 +502,7 @@ struct MANGOS_DLL_DECL boss_sir_zeliekAI : public ScriptedAI
     void Aggro(Unit *who)
     {
         DoScriptText(SAY_ZELI_AGGRO, m_creature);
-
-        if (m_pInstance)
+		if (m_pInstance)
             m_pInstance->SetData(TYPE_FOUR_HORSEMEN, IN_PROGRESS);
     }
 
@@ -523,8 +514,7 @@ struct MANGOS_DLL_DECL boss_sir_zeliekAI : public ScriptedAI
     void JustDied(Unit* Killer)
     {
         DoScriptText(SAY_ZELI_DEATH, m_creature);
-
-        if (m_pInstance)
+		if (m_pInstance)
         {
             bool HorsemenDead = true;
             if (Creature* pTemp = ((Creature*)Unit::GetUnit((*m_creature), m_pInstance->GetData64(DATA_KORTHAZZ))))

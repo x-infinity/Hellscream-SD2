@@ -404,14 +404,6 @@
 			<Filter
 				Name="custom"
 				>
-				<File
-					RelativePath="..\scripts\custom\npc_arena_honor.cpp"
-					>
-				</File>
- 				<File
-					RelativePath="..\scripts\custom\teleguy.cpp"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="eastern_kingdoms"
@@ -1670,38 +1662,6 @@
 					<Filter
 						Name="trial_of_the_crusader"
 						>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\boss_anubarak_trial.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\boss_faction_champions.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\boss_jaraxxus.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\boss_northrend_beasts.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\boss_twin_valkyr.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\instance_trial_of_the_crusader.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\trial_of_the_crusader.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\trial_of_the_crusader.h"
-							>
-						</File>
 					</Filter>
 				</Filter>
 				<Filter
@@ -2019,10 +1979,6 @@
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\ulduar\halls_of_stone\boss_krystallus.cpp"
-							>
-						</File>
-						<File
 							RelativePath="..\scripts\northrend\ulduar\halls_of_stone\boss_sjonnir.cpp"
 							>
 						</File>
@@ -2042,66 +1998,6 @@
 					<Filter
 						Name="ulduar"
 						>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_algalon.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_auriaya.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_freya.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_hodir.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_ignis.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_iron_council.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_kologarn.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_leviathan.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_mimiron.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_razorscale.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_thorim.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_vezax.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_xt_002.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_yogg_saron.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\ulduar_teleport.cpp"
-							>
-						</File>
 						<File
 							RelativePath="..\scripts\northrend\ulduar\ulduar\instance_ulduar.cpp"
 							>

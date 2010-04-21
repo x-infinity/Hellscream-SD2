@@ -62,6 +62,7 @@ static Say PeonDies[]=
 #define SAY_DIE             -1540017
 
 #define SPELL_DEATH_COIL            30500
+#define H_SPELL_DEATH_COIL          41070                   // probably wrong spell but fits good...
 #define SPELL_DARK_SPIN             30502                   // core bug spell attack caster :D
 #define SPELL_SHADOW_FISSURE        30496                   // Summon the ShadowFissure NPC
 
@@ -71,6 +72,7 @@ static Say PeonDies[]=
 #define SPELL_HEMORRHAGE            30478
 
 #define SPELL_CONSUMPTION           30497
+#define H_SPELL_CONSUMPTION         35952
 #define SPELL_TEMPORARY_VISUAL      39312                   // this is wrong, a temporary solution. spell consumption already has the purple visual, but doesn't display as it should
 
 struct MANGOS_DLL_DECL boss_grand_warlock_nethekurseAI : public ScriptedAI
@@ -219,7 +221,7 @@ struct MANGOS_DLL_DECL boss_grand_warlock_nethekurseAI : public ScriptedAI
 
         //triggered spell of consumption does not properly show it's SpellVisual, wrong spellid?
         summoned->CastSpell(summoned,SPELL_TEMPORARY_VISUAL,true);
-        summoned->CastSpell(summoned,SPELL_CONSUMPTION,false,0,0,m_creature->GetGUID());
+        summoned->CastSpell(summoned, m_bIsRegularMode ? SPELL_CONSUMPTION : H_SPELL_CONSUMPTION,false,0,0,m_creature->GetGUID());
     }
 
     void KilledUnit(Unit* victim)
@@ -291,7 +293,7 @@ struct MANGOS_DLL_DECL boss_grand_warlock_nethekurseAI : public ScriptedAI
             if (DeathCoil_Timer < diff)
             {
                 if (Unit *target = SelectUnit(SELECT_TARGET_RANDOM,0))
-                    DoCastSpellIfCan(target,SPELL_DEATH_COIL);
+                    DoCastSpellIfCan(target,m_bIsRegularMode ? SPELL_DEATH_COIL : H_SPELL_DEATH_COIL);
                 DeathCoil_Timer = urand(15000, 20000);
             }else DeathCoil_Timer -= diff;
 

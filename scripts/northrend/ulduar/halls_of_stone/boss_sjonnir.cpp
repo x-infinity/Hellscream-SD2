@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 - 2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
+/* Copyright (C) 2006 - 2010 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -59,8 +59,8 @@ struct Locations
 
 static Locations PipeLoc[]=
 {
-    {1295.44, 734.07, 200.3}, // left
-    {1297.7,  595.6,  199.9}, // right
+    {1295.44f, 734.07f, 200.3f}, // left
+    {1297.7f,  595.6f,  199.9f}, // right
 };
 
 /*######

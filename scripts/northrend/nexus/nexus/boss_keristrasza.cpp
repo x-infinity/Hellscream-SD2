@@ -84,7 +84,10 @@ struct MANGOS_DLL_DECL boss_keristraszaAI : public ScriptedAI
         if (m_creature->isAlive())
         {   
             if (m_pInstance->GetData(TYPE_KERISTRASZA) != SPECIAL)
+			{
+				m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                 m_creature->CastSpell(m_creature, SPELL_FROZEN_PRISON, true);
+			}
         }
     }
 
@@ -93,6 +96,20 @@ struct MANGOS_DLL_DECL boss_keristraszaAI : public ScriptedAI
         DoScriptText(SAY_AGGRO, m_creature);
 
         m_creature->CastSpell(m_creature, SPELL_INTENSE_COLD, true);
+    }
+	
+	void AttackStart(Unit* pWho)
+    {
+        if(m_creature->HasAura(SPELL_FROZEN_PRISON))
+            return;
+
+        if (m_creature->Attack(pWho, true))
+        {
+            m_creature->AddThreat(pWho);
+            m_creature->SetInCombatWith(pWho);
+            pWho->SetInCombatWith(m_creature);
+            m_creature->GetMotionMaster()->MoveChase(pWho);
+        }
     }
 
     void JustDied(Unit* pKiller)

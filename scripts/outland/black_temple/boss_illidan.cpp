@@ -220,6 +220,12 @@ enum Phase
     PHASE_DEMON_SEQUENCE    =   6,
 };
 
+struct Locations
+{
+    float x, y, z;
+    uint32 id;
+};
+
 static Locations GlaivePosition[]=
 {
     {695.105f, 305.303f, 354.256f},
@@ -257,6 +263,19 @@ static Locations SpiritSpawns[]=
 {
     {755.5426f, 309.9156f, 312.2129f, SPIRIT_OF_UDALO},
     {755.5426f, 298.7923f, 312.0834f, SPIRIT_OF_OLUM}
+};
+
+struct WayPoints
+{
+    WayPoints(uint32 _id, float _x, float _y, float _z)
+    {
+        id = _id;
+        x = _x;
+        y = _y;
+        z = _z;
+    }
+    uint32 id;
+    float x, y, z;
 };
 
 struct Animation                                            // For the demon transformation

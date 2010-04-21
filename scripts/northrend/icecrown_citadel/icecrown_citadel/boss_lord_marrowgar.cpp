@@ -60,7 +60,7 @@ struct MANGOS_DLL_DECL boss_lord_marrowgarAI : public ScriptedAI
     uint32 m_uiColdFlame_Timer;
     uint32 m_uiBoneStrike_Timer;
     bool m_uiBoneStorm;
-    bool m_uiBoneStorm_Timer;
+    uint32 m_uiBoneStorm_Timer;
     uint32 m_uiBerserk_Timer;
     uint32 m_uiBoneStormStrike_Timer;
     uint8 health;

@@ -25,7 +25,7 @@ EndScriptData */
 
 enum 
 {
-PORTALS_COUNT = 8
+	PORTALS_COUNT = 8
 };
 
 struct t_Locations
@@ -40,14 +40,14 @@ struct t_Locations
 
 static t_Locations PortalLoc[]=
 {
-{"Hammer light",-17.1928, 2211.44, 30.1158,0,true,true,TYPE_TELEPORT}, //
-{"Spire",-503.62, 2211.47, 62.8235,1,false,true,TYPE_MARROWGAR},  //
-{"Cephalic shaft",-615.145, 2211.47, 199.972,2,false,true,TYPE_DEATHWHISPER}, //
-{"Air battle",-209.5, 2211.91, 199.97,3,false,true,TYPE_SKULLS_PLATO}, //
-{"The rise of deadly",-549.131, 2211.29, 539.291,4,false,true,TYPE_FLIGHT_WAR}, //
-{"Ice Crown Citadel",4198.42, 2769.22, 351.065,5,false,false,TYPE_SAURFANG}, //
-{"Sanctuary blood",4490.205566, 2769.275635, 403.983765,6,false,false,TYPE_BLOOD_COUNCIL}, //
-{"Lair of the Queen of Ice",4356.236816, 2402.573242, 220.462540,7,false,false,TYPE_VALITHRIA}, //
+{"Hammer light",-17.1928f, 2211.44f, 30.1158f,0.0f,true,true,TYPE_TELEPORT}, //
+{"Spire",-503.62f, 2211.47f, 62.8235f,1.0f,false,true,TYPE_MARROWGAR},  //
+{"Cephalic shaft",-615.145f, 2211.47f, 199.972f,2.0f,false,true,TYPE_DEATHWHISPER}, //
+{"Air battle",-209.5f, 2211.91f, 199.97f,3.0f,false,true,TYPE_SKULLS_PLATO}, //
+{"The rise of deadly",-549.131f, 2211.29f, 539.291f,4.0f,false,true,TYPE_FLIGHT_WAR}, //
+{"Ice Crown Citadel",4198.42f, 2769.22f, 351.065f,5.0f,false,false,TYPE_SAURFANG}, //
+{"Sanctuary blood",4490.205566f, 2769.275635f, 403.983765f,6.0f,false,false,TYPE_BLOOD_COUNCIL}, //
+{"Lair of the Queen of Ice",4356.236816f, 2402.573242f, 220.462540f,7.0f,false,false,TYPE_VALITHRIA}, //
 };
 
 

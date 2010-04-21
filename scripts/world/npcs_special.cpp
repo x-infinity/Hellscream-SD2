@@ -43,6 +43,7 @@ npc_rogue_trainer        80%    Scripted trainers, so they are able to offer ite
 npc_sayge               100%    Darkmoon event fortune teller, buff player based on answers given
 npc_tabard_vendor        50%    allow recovering quest related tabards, achievement related ones need core support
 npc_locksmith            75%    list of keys needs to be confirmed
+npc_valkyr_battle_maiden 85%    support for aura 51915
 EndContentData */
 
 /*########
@@ -1012,6 +1013,50 @@ CreatureAI* GetAI_npc_guardian(Creature* pCreature)
     return new npc_guardianAI(pCreature);
 }
 
+/*######
+## npc_mirror_image
+######*/
+
+enum
+{
+   SPELL_FROSTBOLT         = 59638,
+   SPELL_FIREBALL          = 59637
+};
+
+struct MANGOS_DLL_DECL npc_mirror_imageAI : public ScriptedAI
+{
+    npc_mirror_imageAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+
+	uint32 m_uiFrostBoltTimer;
+
+    void Reset()
+    {
+    //m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+    m_uiFrostBoltTimer = 1000;
+    }
+
+    void UpdateAI(const uint32 uiDiff)
+    {
+        if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
+            return;
+
+        if (m_uiFrostBoltTimer < uiDiff)
+        {
+//            m_creature->CastSpell(m_creature->getVictim(),SPELL_FROSTBOLT, true);
+//            m_creature->resetAttackTimer();
+      if (DoCastSpellIfCan(m_creature->getVictim(), SPELL_FROSTBOLT) == CAST_OK)
+                m_uiFrostBoltTimer = urand(3600, 4000);
+        }
+    else
+            m_uiFrostBoltTimer -= uiDiff;
+    }
+};
+
+CreatureAI* GetAI_npc_mirror_image(Creature* pCreature)
+{
+    return new npc_mirror_imageAI(pCreature);
+}
+
 /*########
 # npc_innkeeper
 #########*/
@@ -1716,6 +1761,82 @@ bool GossipSelect_npc_locksmith(Player* pPlayer, Creature* pCreature, uint32 uiS
     return true;
 }
 
+/*####
+## npc_valkyr_battle_maiden
+####*/
+
+#define SPELL_REVIVE 51918
+#define VALK_WHISPER "It is not yet your time, champion. Rise! Rise and fight once more!"
+
+struct MANGOS_DLL_DECL npc_valkyr_battle_maidenAI : public ScriptedAI
+{
+    npc_valkyr_battle_maidenAI(Creature *c) : ScriptedAI(c) {Reset();}
+
+    uint32 FlyBackTimer;
+    float x, y, z;
+    uint32 phase;
+
+    void Reset()
+    {
+        //m_creature->SetVisibility(VISIBILITY_OFF);
+        m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+        FlyBackTimer = 1000;
+        phase = 0;
+
+        m_creature->GetPosition(x, y, z);
+        z += 4; x -= 3.5; y -= 5;
+        m_creature->GetMotionMaster()->Clear(false);
+        m_creature->GetMap()->CreatureRelocation(m_creature, x, y, z, 0.0f);
+    }
+
+    void UpdateAI(const uint32 diff)
+    {
+
+        Unit *plr = m_creature->GetOwner();
+
+        if (FlyBackTimer <= diff)
+        {
+            if(!plr)
+                phase = 3;
+
+            switch(phase)
+            {
+                case 0:
+                    m_creature->RemoveSplineFlag(SPLINEFLAG_WALKMODE);
+                    m_creature->HandleEmoteCommand(EMOTE_STATE_FLYGRABCLOSED);
+                    FlyBackTimer = 500;
+                    break;
+                case 1:
+                    plr->GetClosePoint(x,y,z, m_creature->GetObjectSize());
+                    z += 2.5; x -= 2; y -= 1.5;
+                    m_creature->GetMotionMaster()->MovePoint(0, x, y, z);
+                    m_creature->SetUInt64Value(UNIT_FIELD_TARGET, plr->GetGUID());
+                    m_creature->SetVisibility(VISIBILITY_ON);
+                    FlyBackTimer = 4500;
+                    break;
+                case 2:
+                    m_creature->HandleEmoteCommand(EMOTE_ONESHOT_CUSTOMSPELL01);
+                    DoCast(plr, SPELL_REVIVE, true);
+                    m_creature->MonsterWhisper(VALK_WHISPER, plr->GetGUID());
+                    FlyBackTimer = 5000;
+                    break;
+                case 3:
+                    m_creature->ForcedDespawn();
+                    break;
+                default:
+                    //Nothing To DO
+                    break;
+            }
+            ++phase;
+        } else FlyBackTimer-=diff;
+    }
+};
+
+CreatureAI* GetAI_npc_valkyr_battle_maiden(Creature* pCreature)
+{
+    return new npc_valkyr_battle_maidenAI(pCreature);
+}
+
 void AddSC_npcs_special()
 {
     Script* newscript;
@@ -1756,6 +1877,11 @@ void AddSC_npcs_special()
     newscript = new Script;
     newscript->Name = "npc_guardian";
     newscript->GetAI = &GetAI_npc_guardian;
+    newscript->RegisterSelf();
+	
+	newscript = new Script;
+    newscript->Name = "npc_mirror_image";
+    newscript->GetAI = &GetAI_npc_mirror_image;
     newscript->RegisterSelf();
 
     newscript = new Script;
@@ -1804,5 +1930,10 @@ void AddSC_npcs_special()
     newscript->Name = "npc_locksmith";
     newscript->pGossipHello =  &GossipHello_npc_locksmith;
     newscript->pGossipSelect = &GossipSelect_npc_locksmith;
+    newscript->RegisterSelf();
+	
+	newscript = new Script;
+    newscript->Name = "npc_valkyr_battle_maiden";
+    newscript->GetAI = &GetAI_npc_valkyr_battle_maiden;
     newscript->RegisterSelf();
 }

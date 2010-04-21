@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="ScriptDev2"
 	ProjectGUID="{4295C8A9-79B7-4354-8064-F05FB9CA0C96}"
 	RootNamespace="ScriptDev2"
@@ -74,88 +74,7 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/MaNGOSScript.pdb"
 				SubSystem="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/MaNGOSScript.lib"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="..\..\..\..\bin\win32_release"
-			IntermediateDirectory=".\ScriptDev2__$(PlatformName)_$(ConfigurationName)"
-			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			CharacterSet="2"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
-				AdditionalIncludeDirectories="..\..\..\..\dep\include\;..\..\..\shared\;..\..\..\framework\;..\..\..\game\;..\include\;..\base\;..\..\..\..\dep\ACE_wrappers\"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SCRIPT;_SECURE_SCL=0"
-				MinimalRebuild="false"
-				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="mangosd.lib ACE.lib"
-				OutputFile="$(OutDir)/MaNGOSScript.dll"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\..\..\win\VC90\mangosd__Win32_Release;..\..\..\..\dep\lib\win32_release\"
-				GenerateDebugInformation="false"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
+				StackReserveSize="8388608"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				ImportLibrary="$(OutDir)/MaNGOSScript.lib"
@@ -243,6 +162,89 @@
 				DataExecutionPrevention="0"
 				ImportLibrary="$(OutDir)/MaNGOSScript.lib"
 				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="..\..\..\..\bin\win32_release"
+			IntermediateDirectory=".\ScriptDev2__$(PlatformName)_$(ConfigurationName)"
+			ConfigurationType="2"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/MP"
+				AdditionalIncludeDirectories="..\..\..\..\dep\include\;..\..\..\shared\;..\..\..\framework\;..\..\..\game\;..\include\;..\base\;..\..\..\..\dep\ACE_wrappers\"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SCRIPT;_SECURE_SCL=0"
+				MinimalRebuild="false"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="mangosd.lib ACE.lib"
+				OutputFile="$(OutDir)/MaNGOSScript.dll"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\..\..\win\VC90\mangosd__Win32_Release;..\..\..\..\dep\lib\win32_release\"
+				GenerateDebugInformation="false"
+				SubSystem="2"
+				StackReserveSize="8388608"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				ImportLibrary="$(OutDir)/MaNGOSScript.lib"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -404,11 +406,47 @@
 				Name="custom"
 				>
 				<File
-					RelativePath="..\scripts\custom\npc_arena_honor.cpp"
+					RelativePath="..\scripts\custom\custom_gameobjects.cpp"
 					>
 				</File>
- 				<File
-					RelativePath="..\scripts\custom\teleguy.cpp"
+				<File
+					RelativePath="..\scripts\custom\custom_items.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\custom\custom_npc_buffmaster.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\custom\custom_npc_guildmaster.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\custom\custom_npc_professionmaster.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\custom\custom_npc_renamecharacter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\custom\custom_npc_resetlevel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\custom\custom_npc_spellmaster.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\custom\custom_npc_teleportmaster.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\custom\custom_npc_titlemaster.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\custom\custom_npc_tokenvendor.cpp"
 					>
 				</File>
 			</Filter>
@@ -1051,7 +1089,19 @@
 						>
 					</File>
 					<File
+						RelativePath="..\scripts\eastern_kingdoms\sunwell_plateau\boss_eredar_twins.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\scripts\eastern_kingdoms\sunwell_plateau\boss_felmyst.cpp"
+						>
+					</File>
+					<File
 						RelativePath="..\scripts\eastern_kingdoms\sunwell_plateau\boss_kalecgos.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\scripts\eastern_kingdoms\sunwell_plateau\boss_muru_entropius.cpp"
 						>
 					</File>
 					<File
@@ -1317,34 +1367,6 @@
 					<Filter
 						Name="culling_of_stratholme"
 						>
-						<File
-							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\boss_lord_epoch.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\boss_malganis.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\boss_meathook.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\boss_salramm.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\culling_of_stratholme.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\def_culling_of_stratholme.h"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\kalimdor\caverns_of_time\culling_of_stratholme\instance_culling_of_stratholme.cpp"
-							>
-						</File>
 					</Filter>
 					<Filter
 						Name="dark_portal"
@@ -1688,36 +1710,8 @@
 					</Filter>
 				</Filter>
 				<Filter
-					Name="crusaders_coliseum"
+					Name="crusader_coliseum"
 					>
-					<Filter
-						Name="trial_of_the_champion"
-						>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\boss_argent_challenge.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\boss_black_knight.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\boss_grand_champions.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\instance_trial_of_the_champion.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\trial_of_the_champion.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\trial_of_the_champion.h"
-							>
-						</File>
-					</Filter>
 					<Filter
 						Name="trial_of_the_crusader"
 						>
@@ -1726,27 +1720,23 @@
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\boss_argent_challenge.cpp"
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\boss_faction_champions.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\boss_black_knight.cpp"
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\boss_jaraxxus.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\boss_grand_champions.cpp"
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\boss_northrend_beasts.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\instance_trial_of_the_champion.cpp"
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\boss_twin_valkyr.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\trial_of_the_champion.h"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\trial_of_the_champion.cpp"
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_crusader\instance_trial_of_the_crusader.cpp"
 							>
 						</File>
 						<File
@@ -1759,8 +1749,32 @@
 						</File>
 					</Filter>
 					<Filter
-						Name="trial_of_the_crusader"
+						Name="trial_of_the_champion"
 						>
+						<File
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\boss_argent_challenge.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\boss_black_knight.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\boss_grand_champion.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\instance_trial_of_the_champion.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\trial_of_the_champion.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\crusaders_coliseum\trial_of_the_champion\trial_of_the_champion.h"
+							>
+						</File>
 					</Filter>
 				</Filter>
 				<Filter
@@ -1978,10 +1992,6 @@
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\ulduar\halls_of_stone\boss_krystallus.cpp"
-							>
-						</File>
-						<File
 							RelativePath="..\scripts\northrend\ulduar\halls_of_stone\boss_sjonnir.cpp"
 							>
 						</File>
@@ -2010,11 +2020,23 @@
 							>
 						</File>
 						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_assemblyofiron.cpp"
+							>
+						</File>
+						<File
 							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_auriaya.cpp"
 							>
 						</File>
 						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_flameleviathan.cpp"
+							>
+						</File>
+						<File
 							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_freya.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_generalvezax.cpp"
 							>
 						</File>
 						<File
@@ -2034,10 +2056,6 @@
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_leviathan.cpp"
-							>
-						</File>
-						<File
 							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_mimiron.cpp"
 							>
 						</File>
@@ -2050,15 +2068,11 @@
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_vezax.cpp"
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_xt002.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_xt_002.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_yogg_saron.cpp"
+							RelativePath="..\scripts\northrend\ulduar\ulduar\boss_yoggsaron.cpp"
 							>
 						</File>
 						<File
@@ -2066,19 +2080,15 @@
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\ulduar_teleport.cpp"
-							>
-						</File>
-						<File
 							RelativePath="..\scripts\northrend\ulduar\ulduar\instance_ulduar.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\ulduar.h"
+							RelativePath="..\scripts\northrend\ulduar\ulduar\ulduar.cpp"
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\ulduar\ulduar\ulduar_teleport.cpp"
+							RelativePath="..\scripts\northrend\ulduar\ulduar\ulduar.h"
 							>
 						</File>
 					</Filter>
@@ -2234,23 +2244,7 @@
 							>
 						</File>
 						<File
-							RelativePath="..\scripts\northrend\icecrown_citadel\icecrown_citadel\def_spire.h"
-							>
-						</File>
-						<File
 							RelativePath="..\scripts\northrend\icecrown_citadel\icecrown_citadel\gunship_battle.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\icecrown_citadel\icecrown_citadel\icecrown_spire.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\icecrown_citadel\icecrown_citadel\icecrown_teleport.cpp"
-							>
-						</File>
-						<File
-							RelativePath="..\scripts\northrend\icecrown_citadel\icecrown_citadel\instance_icecrown_spire.cpp"
 							>
 						</File>
 					</Filter>
@@ -2269,19 +2263,7 @@
 								>
 							</File>
 							<File
-								RelativePath="..\scripts\northrend\icecrown_citadel\frozen_halls\pit_of_saron\boss_scourgelord_tirannus.cpp"
-								>
-							</File>
-							<File
 								RelativePath="..\scripts\northrend\icecrown_citadel\frozen_halls\pit_of_saron\boss_scourgelord_tyrannus.cpp"
-								>
-							</File>
-							<File
-								RelativePath="..\scripts\northrend\icecrown_citadel\frozen_halls\pit_of_saron\def_pit.h"
-								>
-							</File>
-							<File
-								RelativePath="..\scripts\northrend\icecrown_citadel\frozen_halls\pit_of_saron\instance_pit_of_saron.cpp"
 								>
 							</File>
 						</Filter>
@@ -2300,14 +2282,6 @@
 								RelativePath="..\scripts\northrend\icecrown_citadel\frozen_halls\halls_of_reflection\boss_marwyn.cpp"
 								>
 							</File>
-							<File
-								RelativePath="..\scripts\northrend\icecrown_citadel\frozen_halls\halls_of_reflection\def_halls.h"
-								>
-							</File>
-							<File
-								RelativePath="..\scripts\northrend\icecrown_citadel\frozen_halls\halls_of_reflection\instance_halls_of_reflection.cpp"
-								>
-							</File>
 						</Filter>
 						<Filter
 							Name="forge_of_souls"
@@ -2321,7 +2295,7 @@
 								>
 							</File>
 							<File
-								RelativePath="..\scripts\northrend\icecrown_citadel\frozen_halls\forge_of_souls\def_forge.h"
+								RelativePath="..\scripts\northrend\icecrown_citadel\frozen_halls\forge_of_souls\forge_of_souls.h"
 								>
 							</File>
 							<File
@@ -2852,7 +2826,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32"
+					Name="Debug|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2860,7 +2834,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug|x64"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2883,14 +2857,6 @@
 			<File
 				RelativePath="..\include\sc_boss_spell_worker.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\include\sc_boss_spell_worker.h"
@@ -2950,6 +2916,10 @@
 			>
 		</File>
 		<File
+			RelativePath="..\hn_config.h"
+			>
+		</File>
+		<File
 			RelativePath="..\revision.h"
 			>
 			<FileConfiguration
@@ -2964,7 +2934,7 @@
 				/>
 			</FileConfiguration>
 			<FileConfiguration
-				Name="Release|Win32"
+				Name="Debug|x64"
 				>
 				<Tool
 					Name="VCCustomBuildTool"
@@ -2975,7 +2945,7 @@
 				/>
 			</FileConfiguration>
 			<FileConfiguration
-				Name="Debug|x64"
+				Name="Release|Win32"
 				>
 				<Tool
 					Name="VCCustomBuildTool"

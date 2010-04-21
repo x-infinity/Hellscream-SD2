@@ -21,6 +21,8 @@ EndScriptData */
 5 - Kil'Jaeden
 */
 
+#define DRAGON_REALM_Z		(float)53.079
+
 struct MANGOS_DLL_DECL instance_sunwell_plateau : public ScriptedInstance
 {
     instance_sunwell_plateau(Map* pMap) : ScriptedInstance(pMap) {Initialize();};
@@ -208,7 +210,7 @@ struct MANGOS_DLL_DECL instance_sunwell_plateau : public ScriptedInstance
         switch(uiType)
         {
             case TYPE_KALECGOS:
-                if (uiData == IN_PROGRESS)
+				if (uiData == IN_PROGRESS)		
                     SpectralRealmList.clear();
 
                 DoUseDoorOrButton(m_uiForceFieldGUID);
@@ -276,7 +278,7 @@ struct MANGOS_DLL_DECL instance_sunwell_plateau : public ScriptedInstance
         debug_log("SD2: Ejecting Player %s from Spectral Realm", pPlayer->GetName());
 
         // Put player back in Kalecgos(Dragon)'s threat list
-        /*if (Creature* pKalecgos = instance->GetCreature(m_uiKalecgos_DragonGUID))
+        if (Creature* pKalecgos = instance->GetCreature(m_uiKalecgos_DragonGUID))
         {
             if (pKalecgos->isAlive())
             {
@@ -285,20 +287,24 @@ struct MANGOS_DLL_DECL instance_sunwell_plateau : public ScriptedInstance
             }
         }
 
-        // Remove player from Sathrovarr's threat list
+				        // Remove player from Sathrovarr's threat list
         if (Creature* pSath = instance->GetCreature(m_uiSathrovarrGUID))
         {
-            if (pSath->isAlive())
+			if (pSath->isAlive()&&pSath->getVictim()==pPlayer)
             {
-                if (HostileReference* pRef = pSath->getThreatManager().getOnlineContainer().getReferenceByTarget(pPlayer))
+				pSath->SendThreatRemove(pSath->getHostileRefManager().getFirst());
+				//pSath->getThreatManager().clearReferences();   
+                /*if (HostileReference* pRef = pSath->getThreatManager().getOnlineContainer().getReferenceByTarget(pPlayer))
                 {
                     pRef->removeReference();
                     debug_log("SD2: Deleting %s from Sathrovarr's threatlist", pPlayer->GetName());
-                }
+                }*/
             }
-        }*/
+        }
 
-        pPlayer->CastSpell(pPlayer, SPELL_TELEPORT_NORMAL_REALM, true);
+
+        pPlayer->CastSpell(pPlayer, SPELL_TELEPORT_NORMAL_REALM, true); // useless(?)
+		pPlayer->TeleportTo(pPlayer->GetMapId(), pPlayer->GetPositionX(), pPlayer->GetPositionY(), DRAGON_REALM_Z, pPlayer->GetOrientation()); //teleport back to normal realm
         pPlayer->CastSpell(pPlayer, SPELL_SPECTRAL_EXHAUSTION, true);
     }
 
@@ -312,8 +318,8 @@ struct MANGOS_DLL_DECL instance_sunwell_plateau : public ScriptedInstance
         for(Map::PlayerList::const_iterator itr = players.begin(); itr != players.end(); ++itr)
         {
             Player* plr = itr->getSource();
-
-            if (plr && !plr->HasAura(SPELL_SPECTRAL_REALM))
+			// only choose players without spectral exhaustion debuff that are in demon realm
+			if (plr && !plr->HasAura(SPELL_SPECTRAL_EXHAUSTION) && plr->GetPositionZ() < DEMON_REALM_Z+3)
             {
                 SpectralRealmList.remove(plr->GetGUID());
                 EjectPlayer(plr);
@@ -326,11 +332,11 @@ struct MANGOS_DLL_DECL instance_sunwell_plateau : public ScriptedInstance
     void Update(uint32 uiDiff)
     {
         // Only check for Spectral Realm if Kalecgos Encounter is running
-        if (m_auiEncounter[0] == IN_PROGRESS)
+		if (m_auiEncounter[0] == IN_PROGRESS)
         {
             if (m_uiSpectralRealmTimer <= uiDiff)
             {
-                EjectPlayers();
+                EjectPlayers();							
                 m_uiSpectralRealmTimer = 1000;
             }
             else
@@ -354,7 +360,7 @@ struct MANGOS_DLL_DECL instance_sunwell_plateau : public ScriptedInstance
 
         for(uint8 i = 0; i < MAX_ENCOUNTER; ++i)
         {
-            if (m_auiEncounter[i] == IN_PROGRESS)
+            if (m_auiEncounter[i] == IN_PROGRESS||SPECIAL)
                 m_auiEncounter[i] = NOT_STARTED;
         }
 

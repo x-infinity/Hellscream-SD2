@@ -1,44 +1,32 @@
+/* Copyright (C) 2006 - 2010 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
+ * This program is free software licensed under GPL version 2
+ * Please see the included DOCS/LICENSE.TXT for more information */
 
 #ifndef DEF_ULDUAR_H
 #define DEF_ULDUAR_H
 
 enum
 {
-    TYPE_FLAME_LEVIATHAN = 1,
-    TYPE_IGNIS = 2,
-    TYPE_RAZORSCALE = 3,
-    TYPE_XT002 = 4,
-    TYPE_IRON_COUNCIL = 5,
-    TYPE_KOLOGARN = 6,
-    TYPE_AURIAYA = 7,
-    TYPE_HODIR = 8,
-    TYPE_FREYA = 9,
-    TYPE_THORIM = 10,
-    TYPE_MIMIRON = 11,
-    TYPE_VEZAX = 12,
-    TYPE_YOGG_SARON = 13,
-    TYPE_ALGALON = 14,
+    MAX_ENCOUNTER               = 14,
 
-    //Hardmodes etc.
-    TYPE_HODIR_HARD = 15,
-    TYPE_MIMIRON_HARD = 16,
-    TYPE_THORIM_HARD = 17,
+    TYPE_LEVIATHAN              = 0,
+    TYPE_IGNIS                  = 1,
+    TYPE_RAZORSCALE             = 2,
+    TYPE_XT002                  = 3,
+    TYPE_ASSEMBLY               = 4,
+    TYPE_KOLOGARN               = 5,
+    TYPE_AURIAYA                = 6,
+    TYPE_MIMIRON                = 7,
+    TYPE_HODIR                  = 8,
+    TYPE_THORIM                 = 9,
+    TYPE_FREYA                  = 10,
+    TYPE_VEZAX                  = 11,
+    TYPE_YOGGSARON              = 12,
+    TYPE_ALGALON                = 13,
 
-    TYPE_LEVIATHAN_TP = 18,
-    TYPE_XT002_TP = 19,
-    TYPE_MIMIRON_TP = 20,
-
-
-
-//    NPC_STEELBREAKER = 21,
-//    NPC_MOLGEIM = 22,
-//    NPC_BRUNDIR = 23,
-
-    TYPE_KEEPERS = 24,
-
-//    NPC_KOLOGARN = 25,
-    NPC_KOLOGARN_RIGHT_ARM = 26,
-    NPC_KOLOGARN_LEFT_ARM = 27,
+    DATA_STEELBREAKER           = 20,
+    DATA_MOLGEIM                = 21,
+    DATA_BRUNDIR                = 22,
 
     NPC_LEVIATHAN               = 33113,
     NPC_IGNIS                   = 33118,
@@ -56,14 +44,6 @@ enum
     NPC_VEZAX                   = 33271,
     NPC_YOGGSARON               = 33288,
     NPC_ALGALON                 = 32871,
-    
-    GO_KOLOGARN_BRIDGE          = 194232,
-    GO_KOLOGARN_LOOT            = 195046,
-    GO_KOLOGARN_LOOT_H          = 195047,
-    GO_LEVIATHAN_GATE           = 194630
-
-
 };
-
 
 #endif

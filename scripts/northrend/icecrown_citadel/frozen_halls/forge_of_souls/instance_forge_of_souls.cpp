@@ -68,13 +68,14 @@ struct MANGOS_DLL_DECL instance_forge_of_souls : public ScriptedInstance
                           break;
         }
     }
-
-    void OnObjectCreate(GameObject* pGo)
+	
+	void OnObjectCreate(GameObject* pGo)
     {
         switch(pGo->GetEntry())
         {
         }
     }
+
     void SetData(uint32 uiType, uint32 uiData)
     {
         switch(uiType)

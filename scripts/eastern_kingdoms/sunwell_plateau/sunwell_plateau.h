@@ -5,6 +5,8 @@
 #ifndef DEF_SUNWELLPLATEAU_H
 #define DEF_SUNWELLPLATEAU_H
 
+#define  DEMON_REALM_Z				(float)-74.558
+
 enum InstanceSWP
 {
     MAX_ENCOUNTER               = 6,

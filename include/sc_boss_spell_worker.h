@@ -41,7 +41,6 @@ enum BossSpellTableParameters
   SUMMON_NORMAL             =  9,
   SUMMON_INSTANT            = 10,
   SUMMON_TEMP               = 11,
-  CAST_ON_ALLPLAYERS        = 12,
   SPELLTABLEPARM_NUMBER
 };
 
@@ -132,12 +131,6 @@ class MANGOS_DLL_DECL BossSpellWorker
              return _doRemove(FindSpellIDX(SpellID),pTarget);
              };
 
-        bool hasAura(uint32 SpellID, Unit* pTarget = NULL)
-             {
-             if (!pTarget) pTarget = boss;
-             return _hasAura(FindSpellIDX(SpellID),pTarget);
-             };
-
         Unit* doSummon(uint32 SpellID, TempSummonType type = TEMPSUMMON_CORPSE_TIMED_DESPAWN, uint32 delay = 60000)
              {
              return _doSummon(FindSpellIDX(SpellID), type, delay);
@@ -188,8 +181,6 @@ class MANGOS_DLL_DECL BossSpellWorker
 
         bool          _doRemove(uint8 m_uiSpellIdx, Unit* pTarget = NULL);
 
-        bool          _hasAura(uint8 m_uiSpellIdx, Unit* pTarget);
-
         void          _fillEmptyDataField();
 
 // Constants from CreatureAI()
@@ -200,7 +191,6 @@ class MANGOS_DLL_DECL BossSpellWorker
            Difficulty currentDifficulty;
            uint32 m_uiSpell_Timer[MAX_BOSS_SPELLS];
            SpellTable m_BossSpell[MAX_BOSS_SPELLS];
-           Map* pMap;
 };
 
 #endif
