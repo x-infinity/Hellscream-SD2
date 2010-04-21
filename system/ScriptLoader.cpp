@@ -266,6 +266,12 @@ extern void AddSC_ungoro_crater();
 extern void AddSC_winterspring();
 
 //northrend
+extern void AddSC_trial_of_the_champion();                  //Crusaders' Coliseum, trial_of_the_champion
+extern void AddSC_boss_argent_challenge(); 
+extern void AddSC_boss_black_knight();
+extern void AddSC_boss_grand_champions();
+extern void AddSC_instance_trial_of_the_champion();
+
 extern void AddSC_boss_jedoga();                            //ahnkahet
 extern void AddSC_boss_nadox();
 extern void AddSC_boss_taldaram();
@@ -275,17 +281,17 @@ extern void AddSC_boss_anubarak();                          //azjol-nerub
 extern void AddSC_boss_hadronox();
 extern void AddSC_boss_krikthir();
 extern void AddSC_instance_azjol_nerub();
-extern void AddSC_northrend_beasts(); 						//Crusaders' Coliseum, trial_of_the_crusader
+
+extern void AddSC_instance_trial_of_the_crusader();         //Crusaders' Coliseum, trial_of_the_crusader
+extern void AddSC_northrend_beasts();
 extern void AddSC_boss_jaraxxus();
 extern void AddSC_boss_anubarak_trial();
+extern void AddSC_boss_faction_champions();
 extern void AddSC_twin_valkyr();
-extern void AddSC_instance_trial_of_the_crusader();
-extern void AddSC_boss_argent_challenge();					//Crusaders' Coliseum, trial_of_the_champion
-extern void AddSC_boss_black_knight();
-extern void AddSC_boss_grand_champions();
-extern void AddSC_trial_of_the_champion();
-extern void AddSC_instance_trial_of_the_champion();
+extern void AddSC_trial_of_the_crusader();
+
 extern void AddSC_boss_novos();                             //draktharon_keep
+extern void AddSC_boss_dred();
 extern void AddSC_boss_tharonja();
 extern void AddSC_boss_trollgore();
 extern void AddSC_boss_colossus();                          //gundrak
@@ -716,6 +722,12 @@ void AddScripts()
     AddSC_winterspring();
 
     //northrend
+    AddSC_trial_of_the_champion();                          //Crusaders' Coliseum, trial_of_the_champion
+    AddSC_boss_argent_challenge();
+    AddSC_boss_black_knight();
+    AddSC_boss_grand_champions();
+    AddSC_instance_trial_of_the_champion();
+
     AddSC_boss_jedoga();                                    //ahnkahet
     AddSC_boss_nadox();
     AddSC_boss_taldaram();
@@ -725,17 +737,17 @@ void AddScripts()
     AddSC_boss_hadronox();
     AddSC_boss_krikthir();
     AddSC_instance_azjol_nerub();
-	AddSC_northrend_beasts(); 								//Crusaders' Coliseum, trial_of_the_crusader
+
+    AddSC_instance_trial_of_the_crusader();                 //Crusaders' Coliseum, trial_of_the_crusader
+    AddSC_northrend_beasts();
     AddSC_boss_jaraxxus();
     AddSC_boss_anubarak_trial();
+    AddSC_boss_faction_champions();
     AddSC_twin_valkyr();
-    AddSC_instance_trial_of_the_crusader();
-	AddSC_boss_argent_challenge();							//Crusaders' Coliseum, trial_of_the_champion
-	AddSC_boss_black_knight();
-	AddSC_boss_grand_champions();
-	AddSC_trial_of_the_champion();
-	AddSC_instance_trial_of_the_champion();
-    AddSC_boss_novos();										//draktharon_keep
+    AddSC_trial_of_the_crusader();
+
+    AddSC_boss_novos();                                     //draktharon_keep
+    AddSC_boss_dred();
     AddSC_boss_tharonja();
     AddSC_boss_trollgore();
     AddSC_boss_colossus();                                  //gundrak

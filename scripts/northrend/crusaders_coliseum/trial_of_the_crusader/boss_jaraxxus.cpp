@@ -70,6 +70,7 @@ struct MANGOS_DLL_DECL boss_jaraxxusAI : public ScriptedAI
     boss_jaraxxusAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        bsw = new BossSpellWorker(this);
         Reset();
     }
 
@@ -95,7 +96,6 @@ struct MANGOS_DLL_DECL boss_jaraxxusAI : public ScriptedAI
             m_portalsCount = 1;
             m_volcanoCount = 4;
         }
-        bsw = new BossSpellWorker(this);
         DoScriptText(-1713517,m_creature);
         m_creature->SetRespawnDelay(DAY);
     }
@@ -135,8 +135,11 @@ struct MANGOS_DLL_DECL boss_jaraxxusAI : public ScriptedAI
         bsw->timedCast(SPELL_FEL_LIGHTING, uiDiff);
 
         if (bsw->timedQuery(SPELL_INCINERATE_FLESH, uiDiff)) {
-                    DoScriptText(-1713522,m_creature);
-                    bsw->doCast(SPELL_INCINERATE_FLESH);
+                    if (Unit* pTarget = SelectUnit(SELECT_TARGET_RANDOM,1))
+                           {
+                           DoScriptText(-1713522,m_creature,pTarget);
+                           bsw->doCast(SPELL_INCINERATE_FLESH,pTarget);
+                           }
                     }
 
         if (bsw->timedQuery(SPELL_LEGION_FLAME_1, uiDiff)) {
@@ -176,13 +179,10 @@ struct MANGOS_DLL_DECL mob_legion_flameAI : public ScriptedAI
     }
 
     ScriptedInstance* m_pInstance;
-    uint8 Difficulty;
     uint32 m_uiRangeCheck_Timer;
 
     void Reset()
     {
-        Difficulty = m_pInstance->GetData(TYPE_DIFFICULTY);
-
         m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
         m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
         m_creature->SetInCombatWithZone();
@@ -192,7 +192,6 @@ struct MANGOS_DLL_DECL mob_legion_flameAI : public ScriptedAI
                 m_creature->GetMotionMaster()->MoveChase(pTarget);
                 m_creature->SetSpeedRate(MOVE_RUN, 0.5);
                 }
-
     }
 
     void KilledUnit(Unit* pVictim)
@@ -247,6 +246,7 @@ struct MANGOS_DLL_DECL mob_infernal_volcanoAI : public ScriptedAI
     mob_infernal_volcanoAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        bsw = new BossSpellWorker(this);
         Reset();
     }
 
@@ -271,7 +271,6 @@ struct MANGOS_DLL_DECL mob_infernal_volcanoAI : public ScriptedAI
             m_creature->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
             m_Count = 6;
         }
-        bsw = new BossSpellWorker(this);
     }
 
     void AttackStart(Unit *who)
@@ -320,6 +319,7 @@ struct MANGOS_DLL_DECL mob_fel_infernalAI : public ScriptedAI
     mob_fel_infernalAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        bsw = new BossSpellWorker(this);
         Reset();
     }
 
@@ -330,7 +330,6 @@ struct MANGOS_DLL_DECL mob_fel_infernalAI : public ScriptedAI
     {
         m_creature->SetInCombatWithZone();
         m_creature->SetRespawnDelay(DAY);
-        bsw = new BossSpellWorker(this);
     }
 
     void KilledUnit(Unit* pVictim)
@@ -445,6 +444,7 @@ struct MANGOS_DLL_DECL mob_mistress_of_painAI : public ScriptedAI
     mob_mistress_of_painAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        bsw = new BossSpellWorker(this);
         Reset();
     }
 
@@ -455,7 +455,6 @@ struct MANGOS_DLL_DECL mob_mistress_of_painAI : public ScriptedAI
     {
         m_creature->SetInCombatWithZone();
         m_creature->SetRespawnDelay(DAY);
-        bsw = new BossSpellWorker(this);
     }
 
     void KilledUnit(Unit* pVictim)
@@ -475,6 +474,7 @@ struct MANGOS_DLL_DECL mob_mistress_of_painAI : public ScriptedAI
 
     void UpdateAI(const uint32 uiDiff)
     {
+        if (!m_pInstance) return;
         if (m_pInstance->GetData(TYPE_JARAXXUS) != IN_PROGRESS) 
             m_creature->ForcedDespawn();
 

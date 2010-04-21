@@ -22,9 +22,9 @@ SDCategory:
 EndScriptData */
 
 // Anubarak - underground phase partially not worked, timers need correct
-// Burrower - underground phase not implemented
+// Burrower - underground phase not implemented, buff not worked.
 // Leecheng Swarm spell not worked - awaiting core support
-// Frost Sphere - realised by EventAI
+// Anubarak spike aura worked only after 9750
 
 #include "precompiled.h"
 #include "trial_of_the_crusader.h"
@@ -67,12 +67,12 @@ struct MANGOS_DLL_DECL boss_anubarak_trialAI : public ScriptedAI
     boss_anubarak_trialAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        bsw = new BossSpellWorker(this);
         Reset();
     }
 
     ScriptedInstance* m_pInstance;
     uint8 stage;
-    uint32 SubmergeTimer;
     bool intro;
     BossSpellWorker* bsw;
     Unit* pTarget;
@@ -81,8 +81,8 @@ struct MANGOS_DLL_DECL boss_anubarak_trialAI : public ScriptedAI
         if(!m_pInstance) return;
         stage = 0;
         intro = true;
-        bsw = new BossSpellWorker(this);
         m_creature->SetRespawnDelay(DAY);
+        pTarget = NULL;
     }
 
 
@@ -105,6 +105,7 @@ struct MANGOS_DLL_DECL boss_anubarak_trialAI : public ScriptedAI
     {
         if (m_pInstance)
             m_pInstance->SetData(TYPE_ANUBARAK, FAIL);
+//            m_creature->ForcedDespawn();
     }
 
     void JustDied(Unit* pKiller)
@@ -150,8 +151,8 @@ struct MANGOS_DLL_DECL boss_anubarak_trialAI : public ScriptedAI
                     if (bsw->timedQuery(SPELL_SPIKE_CALL, uiDiff)) {
                          pTarget = bsw->SelectUnit();
 //                         bsw->doCast(SPELL_SPIKE_CALL);
+//                         This summon not supported in database. Temporary override.
                          Unit* spike = bsw->doSummon(NPC_SPIKE,TEMPSUMMON_TIMED_DESPAWN,60000);
-//                         Creature* spike = GetClosestCreatureWithEntry(m_creature, NPC_SPIKE, 50.0f);
                          if (spike) { spike->AddThreat(pTarget, 1000.0f);
                                       DoScriptText(-1713558,m_creature,pTarget);
                                       bsw->doCast(SPELL_MARK,pTarget);
@@ -202,6 +203,7 @@ struct MANGOS_DLL_DECL mob_swarm_scarabAI : public ScriptedAI
     mob_swarm_scarabAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        bsw = new BossSpellWorker(this);
         Reset();
     }
 
@@ -212,7 +214,6 @@ struct MANGOS_DLL_DECL mob_swarm_scarabAI : public ScriptedAI
     {
         m_creature->SetInCombatWithZone();
         m_creature->SetRespawnDelay(DAY);
-        bsw = new BossSpellWorker(this);
     }
 
     void KilledUnit(Unit* pVictim)
@@ -255,6 +256,7 @@ struct MANGOS_DLL_DECL mob_nerubian_borrowerAI : public ScriptedAI
     mob_nerubian_borrowerAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        bsw = new BossSpellWorker(this);
         Reset();
     }
 
@@ -268,7 +270,7 @@ struct MANGOS_DLL_DECL mob_nerubian_borrowerAI : public ScriptedAI
         m_creature->SetInCombatWithZone();
         m_creature->SetRespawnDelay(DAY);
         submerged = false;
-        bsw = new BossSpellWorker(this);
+        currentTarget = NULL;
     }
 
     void KilledUnit(Unit* pVictim)
@@ -296,7 +298,7 @@ struct MANGOS_DLL_DECL mob_nerubian_borrowerAI : public ScriptedAI
         bsw->timedCast(SPELL_EXPOSE_WEAKNESS, uiDiff);
 
         if (bsw->timedQuery(SPELL_SPIDER_FRENZY, uiDiff))
-            if(Creature *pTemp = GetClosestCreatureWithEntry(m_creature, NPC_BURROWER, 50.0f))
+            if(Creature* pTemp = GetClosestCreatureWithEntry(m_creature, NPC_BURROWER, 50.0f))
             {
             currentTarget = pTemp;
             bsw->doCast(SPELL_SPIDER_FRENZY);
@@ -330,6 +332,7 @@ struct MANGOS_DLL_DECL mob_frost_sphereAI : public ScriptedAI
     mob_frost_sphereAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        bsw = new BossSpellWorker(this);
         Reset();
     }
 
@@ -339,7 +342,6 @@ struct MANGOS_DLL_DECL mob_frost_sphereAI : public ScriptedAI
     void Reset()
     {
         m_creature->SetRespawnDelay(DAY);
-        bsw = new BossSpellWorker(this);
         m_creature->SetSpeedRate(MOVE_RUN, 0.1f);
         m_creature->AddSplineFlag(SPLINEFLAG_WALKMODE);
         m_creature->GetMotionMaster()->MoveRandom();
@@ -367,31 +369,37 @@ struct MANGOS_DLL_DECL mob_anubarak_spikeAI : public ScriptedAI
     mob_anubarak_spikeAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
         m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+        bsw = new BossSpellWorker(this);
         Reset();
     }
 
     ScriptedInstance* m_pInstance;
     BossSpellWorker* bsw;
+    Unit* defaultTarget;
 
     void Reset()
     {
         m_creature->SetRespawnDelay(DAY);
-        bsw = new BossSpellWorker(this);
         m_creature->SetSpeedRate(MOVE_RUN, 0.5f);
         m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-//        m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+        m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+        defaultTarget = NULL;
     }
 
     void Aggro(Unit *who)
     {
         if (!m_pInstance) return;
         bsw->doCast(SPELL_IMPALE);
+        defaultTarget = who;
     }
 
     void UpdateAI(const uint32 uiDiff)
     {
         if (m_pInstance && m_pInstance->GetData(TYPE_ANUBARAK) != IN_PROGRESS) 
             m_creature->ForcedDespawn();
+        if (defaultTarget)
+            if (!defaultTarget->isAlive() || !bsw->hasAura(SPELL_MARK,defaultTarget))
+                 m_creature->ForcedDespawn();
 
 /*        if (bsw->timedQuery(SPELL_IMPALE,uiDiff)) {
         if (m_creature->IsWithinDist(m_creature->getVictim(), 4.0f)

@@ -5,17 +5,15 @@
 #include "sc_boss_spell_worker.h"
 #ifdef DEF_BOSS_SPELL_WORKER_H
 
-//extern DatabaseType SD2Database;
-
 BossSpellWorker::BossSpellWorker(ScriptedAI* bossAI)
 {
      boss = bossAI->m_creature;
      bossID = boss->GetEntry();
-     bossSpellCount = 0;
+     _bossSpellCount = 0;
      currentTarget = NULL;
      memset(&m_uiSpell_Timer, 0, sizeof(m_uiSpell_Timer));
      memset(&m_BossSpell,0,sizeof(m_BossSpell));
-     if (Map* pMap = boss->GetMap())
+     if (pMap = boss->GetMap())
               currentDifficulty = pMap->GetDifficulty();
         else currentDifficulty = RAID_DIFFICULTY_10MAN_NORMAL;
      debug_log("BSW: Initializing BossSpellWorker object for boss %u difficulty %u",bossID,currentDifficulty);
@@ -36,10 +34,13 @@ void BossSpellWorker::Reset(uint8 _Difficulty)
 
 void BossSpellWorker::_resetTimer(uint8 m_uiSpellIdx)
 {
-    if (m_uiSpellIdx > bossSpellCount) return;
+    if (m_uiSpellIdx > _bossSpellCount) return;
     if (m_BossSpell[m_uiSpellIdx].m_uiSpellTimerMin[currentDifficulty] != m_BossSpell[m_uiSpellIdx].m_uiSpellTimerMax[currentDifficulty])
             m_uiSpell_Timer[m_uiSpellIdx] = urand(0,m_BossSpell[m_uiSpellIdx].m_uiSpellTimerMax[currentDifficulty]);
                 else m_uiSpell_Timer[m_uiSpellIdx] = m_BossSpell[m_uiSpellIdx].m_uiSpellTimerMin[currentDifficulty];
+    if (m_BossSpell[m_uiSpellIdx].m_uiSpellTimerMin[currentDifficulty] == 0 
+        && m_BossSpell[m_uiSpellIdx].m_uiSpellTimerMax[currentDifficulty] >= HOUR*IN_MILLISECONDS)
+            m_uiSpell_Timer[m_uiSpellIdx] = 0;
 };
 
 void BossSpellWorker::LoadSpellTable()
@@ -98,7 +99,7 @@ void BossSpellWorker::LoadSpellTable()
 
         } while (Result->NextRow());
 
-        bossSpellCount = uiCount;
+        _bossSpellCount = uiCount;
 
         delete Result;
 
@@ -109,17 +110,18 @@ void BossSpellWorker::LoadSpellTable()
     else
     {
         error_db_log("BSW: Boss spell table for boss %u is empty.", bossID);
-        bossSpellCount = 0;
+        _bossSpellCount = 0;
     };
 }
 
 bool BossSpellWorker::_QuerySpellPeriod(uint8 m_uiSpellIdx, uint32 diff)
     {
-    if (bossSpellCount == 0) return false;
+    if (_bossSpellCount == 0) return false;
     SpellTable* pSpell = &m_BossSpell[m_uiSpellIdx];
 
     if (m_uiSpell_Timer[m_uiSpellIdx] < diff) {
-            m_uiSpell_Timer[m_uiSpellIdx]=urand(pSpell->m_uiSpellTimerMin[currentDifficulty],pSpell->m_uiSpellTimerMax[currentDifficulty]);
+            if (pSpell->m_uiSpellTimerMax[currentDifficulty] >= HOUR*IN_MILLISECONDS) m_uiSpell_Timer[m_uiSpellIdx]=HOUR*IN_MILLISECONDS;
+            else m_uiSpell_Timer[m_uiSpellIdx]=urand(pSpell->m_uiSpellTimerMin[currentDifficulty],pSpell->m_uiSpellTimerMax[currentDifficulty]);
             return true;
             } else {
             m_uiSpell_Timer[m_uiSpellIdx] -= diff;
@@ -128,8 +130,8 @@ bool BossSpellWorker::_QuerySpellPeriod(uint8 m_uiSpellIdx, uint32 diff)
     };
 
 CanCastResult BossSpellWorker::_BSWSpellSelector(uint8 m_uiSpellIdx, Unit* pTarget)
-    {
-    if (bossSpellCount == 0) return CAST_FAIL_OTHER;
+{
+    if (_bossSpellCount == 0) return CAST_FAIL_OTHER;
     SpellEntry const *spell;
     SpellTable* pSpell = &m_BossSpell[m_uiSpellIdx];
     Unit* pSummon = NULL;
@@ -153,29 +155,21 @@ CanCastResult BossSpellWorker::_BSWSpellSelector(uint8 m_uiSpellIdx, Unit* pTarg
 
             case CAST_ON_VICTIM:
                    pTarget = boss->getVictim();
-                   if (!pTarget) return CAST_FAIL_OTHER;
-                   if (pTarget && !pSpell->m_IsBugged) return _DoCastSpellIfCan(boss->getVictim(), pSpell->m_uiSpellEntry[currentDifficulty]);
-                   if (pTarget && pSpell->m_IsBugged) return _BSWDoCast(m_uiSpellIdx, boss->getVictim());
+                   return _BSWCastOnTarget(pTarget, m_uiSpellIdx);
                    break;
 
             case CAST_ON_RANDOM:
                    pTarget = SelectUnit(SELECT_TARGET_RANDOM);
-                   if (!pTarget) return CAST_FAIL_OTHER;
-                   if (pTarget && !pSpell->m_IsBugged) return _DoCastSpellIfCan(pTarget, pSpell->m_uiSpellEntry[currentDifficulty]);
-                   if (pTarget && pSpell->m_IsBugged) return _BSWDoCast(m_uiSpellIdx, pTarget);
+                   return _BSWCastOnTarget(pTarget, m_uiSpellIdx);
                    break;
 
             case CAST_ON_BOTTOMAGGRO:
                    pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
-                   if (!pTarget) return CAST_FAIL_OTHER;
-                   if (pTarget && !pSpell->m_IsBugged) return _DoCastSpellIfCan(pTarget, pSpell->m_uiSpellEntry[currentDifficulty]);
-                   if (pTarget && pSpell->m_IsBugged) return _BSWDoCast(m_uiSpellIdx, pTarget);
+                   return _BSWCastOnTarget(pTarget, m_uiSpellIdx);
                    break;
 
             case CAST_ON_TARGET:
-                   if (!pTarget) return CAST_FAIL_OTHER;
-                   if (pTarget && !pSpell->m_IsBugged) return _DoCastSpellIfCan(pTarget, pSpell->m_uiSpellEntry[currentDifficulty]);
-                   if (pTarget && pSpell->m_IsBugged) return _BSWDoCast(m_uiSpellIdx, pTarget);
+                   return _BSWCastOnTarget(pTarget, m_uiSpellIdx);
                    break;
 
             case APPLY_AURA_SELF:
@@ -212,15 +206,62 @@ CanCastResult BossSpellWorker::_BSWSpellSelector(uint8 m_uiSpellIdx, Unit* pTarg
                           else return CAST_FAIL_OTHER;
                    break;
 
+            case CAST_ON_ALLPLAYERS:
+            {
+                    CanCastResult res1 = CAST_FAIL_OTHER;
+                    Map::PlayerList const& pPlayers = pMap->GetPlayers();
+                    for (Map::PlayerList::const_iterator itr = pPlayers.begin(); itr != pPlayers.end(); ++itr)
+                    {
+                        pTarget = itr->getSource();
+                        if (pTarget && pTarget->isAlive() && pTarget->IsWithinDistInMap(boss, pSpell->LocData.x))
+                                    if (!pSpell->m_IsBugged) {
+                                         res1 = _DoCastSpellIfCan(pTarget, pSpell->m_uiSpellEntry[currentDifficulty]);
+                                         }
+                                         else {
+                                          _BSWDoCast(m_uiSpellIdx, pTarget);
+                                          res1 = CAST_OK;
+                                          };
+                            return res1;
+                     }
+                   break;
+            }
+
+            case CAST_ON_FRENDLY:
+                   pTarget = SelectLowHPFriendly();
+                   return _BSWCastOnTarget(pTarget, m_uiSpellIdx);
+                   break;
+
+            case CAST_ON_FRENDLY_LOWHP:
+                   pTarget = SelectLowHPFriendly();
+                   return _BSWCastOnTarget(pTarget, m_uiSpellIdx);
+                   break;
+
             default:
                    return CAST_FAIL_OTHER;
+                   break;
             };
     return CAST_FAIL_OTHER;
-    };
+};
+
+CanCastResult BossSpellWorker::_BSWCastOnTarget(Unit* pTarget, uint8 m_uiSpellIdx)
+{
+    if (_bossSpellCount == 0) return CAST_FAIL_OTHER;
+    if (!pTarget)            return CAST_FAIL_OTHER;
+    SpellTable* pSpell = &m_BossSpell[m_uiSpellIdx];
+
+    debug_log("BSW: Casting (on target) spell number %u type %u",pSpell->m_uiSpellEntry[currentDifficulty], pSpell->m_CastTarget);
+
+       if (pTarget && !pSpell->m_IsBugged) return _DoCastSpellIfCan(pTarget, pSpell->m_uiSpellEntry[currentDifficulty]);
+       if (pTarget && pSpell->m_IsBugged) return _BSWDoCast(m_uiSpellIdx, pTarget);
+
+    return CAST_FAIL_OTHER;
+};
+
+
 
 bool BossSpellWorker::isSummon(uint8 m_uiSpellIdx)
 {
-    if (bossSpellCount == 0) return false;
+    if (_bossSpellCount == 0) return false;
 
     SpellTable* pSpell = &m_BossSpell[m_uiSpellIdx];
     switch (pSpell->m_CastTarget) {
@@ -232,10 +273,20 @@ bool BossSpellWorker::isSummon(uint8 m_uiSpellIdx)
         };
 };
 
+bool BossSpellWorker::_hasAura(uint8 m_uiSpellIdx, Unit* pTarget)
+{
+    if (!pTarget) return false;
+
+    SpellTable* pSpell = &m_BossSpell[m_uiSpellIdx];
+
+    return (pTarget->HasAura(pSpell->m_uiSpellEntry[currentDifficulty]));
+
+};
+
 uint8 BossSpellWorker::FindSpellIDX(uint32 SpellID)
 {
-    if (bossSpellCount != 0)
-      for(uint8 i = 0; i < bossSpellCount; ++i)
+    if (_bossSpellCount != 0)
+      for(uint8 i = 0; i < _bossSpellCount; ++i)
         if (m_BossSpell[i].m_uiSpellEntry[RAID_DIFFICULTY_10MAN_NORMAL] == SpellID) return i;
 
     error_log("BSW: spell %u not found  in boss %u spelltable. Memory or database error?", SpellID, bossID);
@@ -273,7 +324,10 @@ BossSpellTableParameters BossSpellWorker::getBSWCastType(uint32 pTemp)
                 case 9:  return SUMMON_NORMAL;
                 case 10: return SUMMON_INSTANT;
                 case 11: return SUMMON_TEMP;
-                case 12: return SPELLTABLEPARM_NUMBER;
+                case 12: return CAST_ON_ALLPLAYERS;
+                case 13: return CAST_ON_FRENDLY;
+                case 14: return CAST_ON_FRENDLY_LOWHP;
+                case 15: return SPELLTABLEPARM_NUMBER;
      default: return DO_NOTHING;
      };
 };
@@ -290,7 +344,7 @@ CanCastResult BossSpellWorker::_BSWDoCast(uint8 m_uiSpellIdx, Unit* pTarget)
 
 void BossSpellWorker::_fillEmptyDataField()
 {
-    for (uint8 i = 0; i < bossSpellCount; ++i)
+    for (uint8 i = 0; i < _bossSpellCount; ++i)
         for (uint8 j = 1; j < DIFFICULTY_LEVELS; ++j)
         {
             if (m_BossSpell[i].m_uiSpellEntry[j] == 0)
@@ -348,6 +402,19 @@ bool BossSpellWorker::_doRemove(uint8 m_uiSpellIdx, Unit* pTarget)
                 case APPLY_AURA_TARGET:
                      if (!pTarget) return false;
                      break;
+
+                case CAST_ON_ALLPLAYERS:
+                  {
+                    Map::PlayerList const& pPlayers = pMap->GetPlayers();
+                    for(Map::PlayerList::const_iterator itr = pPlayers.begin(); itr != pPlayers.end(); ++itr)
+                      {
+                        pTarget = itr->getSource();
+                        if (pTarget && pTarget->isAlive() && pTarget->IsWithinDistInMap(boss, pSpell->LocData.x))
+                            pTarget->RemoveAurasDueToSpell(pSpell->m_uiSpellEntry[currentDifficulty]);
+                       }
+                        return true;
+                   break;
+                   }
 
                   default: return false;
           }
@@ -490,5 +557,25 @@ Unit*  BossSpellWorker::_SelectUnit(SelectAggroTarget target, uint32 uiPosition)
     error_log("BSW: Cannot find target for spell :(");
     return NULL;
 }
+
+Unit* BossSpellWorker::SelectLowHPFriendly(float fRange, uint32 uiMinHPDiff)
+{
+    CellPair p(MaNGOS::ComputeCellPair(boss->GetPositionX(), boss->GetPositionY()));
+    Cell cell(p);
+    cell.data.Part.reserved = ALL_DISTRICT;
+    cell.SetNoCreate();
+
+    Unit* pUnit = NULL;
+
+    MaNGOS::MostHPMissingInRange u_check(boss, fRange, uiMinHPDiff);
+    MaNGOS::UnitLastSearcher<MaNGOS::MostHPMissingInRange> searcher(boss, pUnit, u_check);
+
+    TypeContainerVisitor<MaNGOS::UnitLastSearcher<MaNGOS::MostHPMissingInRange>, GridTypeMapContainer >  grid_unit_searcher(searcher);
+
+    cell.Visit(p, grid_unit_searcher, *(pMap), *boss, fRange);
+
+    return pUnit;
+}
+
 
 #endif

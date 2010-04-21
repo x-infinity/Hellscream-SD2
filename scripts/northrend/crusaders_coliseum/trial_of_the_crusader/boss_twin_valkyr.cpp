@@ -74,6 +74,7 @@ struct MANGOS_DLL_DECL boss_fjolaAI : public ScriptedAI
     boss_fjolaAI(Creature* pCreature) : ScriptedAI(pCreature)
     {
     m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+    bsw = new BossSpellWorker(this);
     Reset();
     }
 
@@ -85,7 +86,6 @@ struct MANGOS_DLL_DECL boss_fjolaAI : public ScriptedAI
     void Reset() {
         if(!m_pInstance) return;
         SetEquipmentSlots(false, EQUIP_MAIN_1, EQUIP_OFFHAND_1, EQUIP_RANGED_1);
-        bsw = new BossSpellWorker(this);
         m_creature->SetRespawnDelay(DAY);
         stage = 1;
         TwinPactCasted = false;
@@ -111,6 +111,7 @@ struct MANGOS_DLL_DECL boss_fjolaAI : public ScriptedAI
 
     void KilledUnit(Unit* pVictim)
     {
+        if (!m_pInstance) return;
         DoScriptText(-1713544,pVictim);
     }
 
@@ -122,11 +123,12 @@ struct MANGOS_DLL_DECL boss_fjolaAI : public ScriptedAI
         if (m_creature->isAlive()) m_creature->SummonCreature(NPC_LIGHT_ESSENCE, SpawnLoc[24].x, SpawnLoc[24].y, SpawnLoc[24].z, 0, TEMPSUMMON_MANUAL_DESPAWN, 5000);
         if (m_creature->isAlive()) m_creature->SummonCreature(NPC_LIGHT_ESSENCE, SpawnLoc[25].x, SpawnLoc[25].y, SpawnLoc[25].z, 0, TEMPSUMMON_MANUAL_DESPAWN, 5000);
         DoScriptText(-1713541,m_creature);
-        m_pInstance->SetData(DATA_HEALTH_FJOLA, m_creature->GetHealth());
+        m_pInstance->SetData(DATA_HEALTH_FJOLA, m_creature->GetMaxHealth());
     }
 
     void DamageTaken(Unit* pDoneBy, uint32 &uiDamage)
     {
+        if (!m_pInstance) return;
         if (!m_creature || !m_creature->isAlive())
             return;
 
@@ -140,14 +142,12 @@ struct MANGOS_DLL_DECL boss_fjolaAI : public ScriptedAI
                 uiDamage += uiDamage/2;
         }
 
-        uiDamage /= 2;
-
         m_pInstance->SetData(DATA_HEALTH_FJOLA, m_creature->GetHealth() >= uiDamage ? m_creature->GetHealth() - uiDamage : 0);
     }
 
     void UpdateAI(const uint32 uiDiff)
     {
-
+        if (!m_pInstance) return;
         if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
             return;
 
@@ -225,6 +225,7 @@ struct MANGOS_DLL_DECL boss_eydisAI : public ScriptedAI
     boss_eydisAI(Creature* pCreature) : ScriptedAI(pCreature) 
     {
     m_pInstance = (ScriptedInstance*)pCreature->GetInstanceData();
+    bsw = new BossSpellWorker(this);
     Reset();
     }
 
@@ -237,7 +238,6 @@ struct MANGOS_DLL_DECL boss_eydisAI : public ScriptedAI
     {
         if(!m_pInstance) return;
         SetEquipmentSlots(false, EQUIP_MAIN_2, EQUIP_OFFHAND_2, EQUIP_RANGED_2);
-        bsw = new BossSpellWorker(this);
         m_creature->SetRespawnDelay(DAY);
         stage = 0;
         TwinPactCasted = false;
@@ -274,11 +274,12 @@ struct MANGOS_DLL_DECL boss_eydisAI : public ScriptedAI
         DoScriptText(-1713741,m_creature);
         if (m_creature->isAlive()) m_creature->SummonCreature(NPC_DARK_ESSENCE, SpawnLoc[22].x, SpawnLoc[22].y, SpawnLoc[22].z, 0, TEMPSUMMON_MANUAL_DESPAWN, 5000);
         if (m_creature->isAlive()) m_creature->SummonCreature(NPC_DARK_ESSENCE, SpawnLoc[23].x, SpawnLoc[23].y, SpawnLoc[23].z, 0, TEMPSUMMON_MANUAL_DESPAWN, 5000);
-        m_pInstance->SetData(DATA_HEALTH_EYDIS, m_creature->GetHealth());
+        m_pInstance->SetData(DATA_HEALTH_EYDIS, m_creature->GetMaxHealth());
     }
 
     void DamageTaken(Unit* pDoneBy, uint32 &uiDamage)
     {
+        if (!m_pInstance) return;
         if (!m_creature || !m_creature->isAlive())
             return;
 
@@ -291,8 +292,6 @@ struct MANGOS_DLL_DECL boss_eydisAI : public ScriptedAI
             else if(pDoneBy->HasAura(SPELL_LIGHT_ESSENCE))
                 uiDamage += uiDamage/2;
         }
-
-        uiDamage /= 2;
 
         m_pInstance->SetData(DATA_HEALTH_EYDIS, m_creature->GetHealth() >= uiDamage ? m_creature->GetHealth() - uiDamage : 0);
     }

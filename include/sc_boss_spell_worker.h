@@ -41,6 +41,9 @@ enum BossSpellTableParameters
   SUMMON_NORMAL             =  9,
   SUMMON_INSTANT            = 10,
   SUMMON_TEMP               = 11,
+  CAST_ON_ALLPLAYERS        = 12,
+  CAST_ON_FRENDLY           = 13,
+  CAST_ON_FRENDLY_LOWHP     = 14,
   SPELLTABLEPARM_NUMBER
 };
 
@@ -104,7 +107,7 @@ class MANGOS_DLL_DECL BossSpellWorker
 
         void resetTimers()
              {
-             for (uint8 i = 0; i < bossSpellCount; ++i)
+             for (uint8 i = 0; i < _bossSpellCount; ++i)
                   _resetTimer(i);
              };
 
@@ -121,14 +124,29 @@ class MANGOS_DLL_DECL BossSpellWorker
              };
 
         CanCastResult doCast(uint32 SpellID, Unit* pTarget = NULL)
-             {    uint8 m_uiSpellIdx = FindSpellIDX(SpellID);
+             {
+                  uint8 m_uiSpellIdx = FindSpellIDX(SpellID);
                   if ( m_uiSpellIdx != SPELL_INDEX_ERROR) return _BSWSpellSelector(m_uiSpellIdx, pTarget);
+                  else return CAST_FAIL_OTHER;
+             };
+
+        CanCastResult doCast(Unit* pTarget, uint32 SpellID)
+             {
+                  if (!pTarget) return CAST_FAIL_OTHER;
+                  uint8 m_uiSpellIdx = FindSpellIDX(SpellID);
+                  if ( m_uiSpellIdx != SPELL_INDEX_ERROR) return _BSWCastOnTarget(pTarget, m_uiSpellIdx);
                   else return CAST_FAIL_OTHER;
              };
 
         bool doRemove(uint32 SpellID, Unit* pTarget = NULL)
              {
              return _doRemove(FindSpellIDX(SpellID),pTarget);
+             };
+
+        bool hasAura(uint32 SpellID, Unit* pTarget = NULL)
+             {
+             if (!pTarget) pTarget = boss;
+             return _hasAura(FindSpellIDX(SpellID),pTarget);
              };
 
         Unit* doSummon(uint32 SpellID, TempSummonType type = TEMPSUMMON_CORPSE_TIMED_DESPAWN, uint32 delay = 60000)
@@ -151,6 +169,13 @@ class MANGOS_DLL_DECL BossSpellWorker
              return  _SelectUnit(target, uiPosition);
              };
 
+        Unit* SelectLowHPFriendly(float fRange = 40.0f, uint32 uiMinHPDiff = 0);
+
+        uint8 bossSpellCount()
+             {
+             return _bossSpellCount;
+             };
+
     private:
 
         BossSpellTableParameters getBSWCastType(uint32 pTemp);
@@ -169,6 +194,8 @@ class MANGOS_DLL_DECL BossSpellWorker
 
         CanCastResult _BSWSpellSelector(uint8 m_uiSpellIdx, Unit* pTarget = NULL);
 
+        CanCastResult _BSWCastOnTarget(Unit* pTarget, uint8 m_uiSpellIdx);
+
         Difficulty    setDifficulty(uint8 _Difficulty = 0);
 
         bool          _QuerySpellPeriod(uint8 m_uiSpellIdx, uint32 diff);
@@ -181,16 +208,19 @@ class MANGOS_DLL_DECL BossSpellWorker
 
         bool          _doRemove(uint8 m_uiSpellIdx, Unit* pTarget = NULL);
 
+        bool          _hasAura(uint8 m_uiSpellIdx, Unit* pTarget);
+
         void          _fillEmptyDataField();
 
 // Constants from CreatureAI()
            ScriptedAI* bossAI;
            Creature* boss;
            uint32 bossID;
-           uint8 bossSpellCount;
+           uint8 _bossSpellCount;
            Difficulty currentDifficulty;
            uint32 m_uiSpell_Timer[MAX_BOSS_SPELLS];
            SpellTable m_BossSpell[MAX_BOSS_SPELLS];
+           Map* pMap;
 };
 
 #endif

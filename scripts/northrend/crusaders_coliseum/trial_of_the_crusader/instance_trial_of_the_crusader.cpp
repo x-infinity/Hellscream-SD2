@@ -44,6 +44,8 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
     uint32 m_uiFjolaCasting;
     uint32 m_uiEydisCasting;
 
+    uint32 m_auiCrusadersCount;
+
     uint64 m_uiBarrentGUID;
     uint64 m_uiTirionGUID;
     uint64 m_uiFizzlebangGUID;
@@ -106,6 +108,7 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
 
     uint64 m_uiMainGateDoorGUID;
 
+
     void Initialize()
     {
     for (uint8 i = 0; i < MAX_ENCOUNTERS; ++i)
@@ -127,6 +130,8 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
     m_auiNorthrendBeasts = NOT_STARTED;
 
     m_auiEventTimer = 1000;
+
+    m_auiCrusadersCount = 6;
 
     needsave = false;
     }
@@ -249,14 +254,18 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
         case TYPE_STAGE:     m_auiEncounter[0] = uiData; break;
         case TYPE_BEASTS:    m_auiEncounter[1] = uiData; break;
         case TYPE_JARAXXUS:  m_auiEncounter[2] = uiData; break;
-        case TYPE_CRUSADERS: m_auiEncounter[3] = uiData;
-                            if (uiData == DONE) {
-                             if (GameObject* pChest = instance->GetGameObject(m_uiCrusadersCacheGUID))
-                             if (pChest && !pChest->isSpawned()) {
-                                      pChest->SetRespawnTime(7*DAY);
-                              };
-                            };
-         break;
+        case TYPE_CRUSADERS: if (uiData == FAIL && (m_auiEncounter[3] == FAIL || m_auiEncounter[3] == NOT_STARTED))
+                             m_auiEncounter[3] = NOT_STARTED;
+                             else  m_auiEncounter[3] = uiData;
+                             if (uiData == DONE) {
+                                   if (GameObject* pChest = instance->GetGameObject(m_uiCrusadersCacheGUID))
+                                       if (pChest && !pChest->isSpawned())
+                                             pChest->SetRespawnTime(7*DAY);
+                                   };
+                             break;
+        case TYPE_CRUSADERS_COUNT:  if (uiData == 0) --m_auiCrusadersCount;
+                                         else m_auiCrusadersCount = uiData;
+                                    break;
         case TYPE_VALKIRIES: if (m_auiEncounter[4] == SPECIAL && uiData == SPECIAL) uiData = DONE;
                              m_auiEncounter[4] = uiData; break;
         case TYPE_LICH_KING: m_auiEncounter[5] = uiData; break;
@@ -399,14 +408,17 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
             case TYPE_DIFFICULTY:   return Difficulty;
             case TYPE_NORTHREND_BEASTS:    return m_auiNorthrendBeasts;
             case TYPE_EVENT_TIMER:  return m_auiEventTimer;
+            case TYPE_CRUSADERS_COUNT:  return m_auiCrusadersCount;
             case TYPE_EVENT_NPC: switch (m_auiEncounter[8]) 
                                  {
                                  case 110:
                                  case 140:
                                  case 150:
                                  case 200:
+                                 case 205:
                                  case 210:
                                  case 300:
+                                 case 305:
                                  case 310:
                                  case 400:
                                  case 1010:
@@ -487,7 +499,6 @@ struct MANGOS_DLL_DECL instance_trial_of_the_crusader : public ScriptedInstance
         case DATA_CASTING_FJOLA: return m_uiFjolaCasting;
         case DATA_CASTING_EYDIS: return m_uiEydisCasting;
         }
-
         return 0;
     }
 
