@@ -1781,6 +1781,10 @@
 					Name="draktharon_keep"
 					>
 					<File
+						RelativePath="..\scripts\northrend\draktharon_keep\boss_dred.cpp"
+						>
+					</File>
+					<File
 						RelativePath="..\scripts\northrend\draktharon_keep\boss_novos.cpp"
 						>
 					</File>
@@ -2859,6 +2863,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\sc_boss_spell_worker.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\sc_boss_spell_worker.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\sc_boss_spell_worker.h"
 				>
 			</File>
@@ -2888,14 +2900,6 @@
 			</File>
 			<File
 				RelativePath="..\include\sc_instance.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\sc_boss_spell_worker.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\include\sc_boss_spell_worker.h"
 				>
 			</File>
 		</Filter>

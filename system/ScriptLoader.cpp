@@ -365,11 +365,14 @@ extern void AddSC_boss_ymiron();
 extern void AddSC_instance_pinnacle();
 
 extern void AddSC_instance_violet_hold();                   //violet_hold
+extern void AddSC_boss_cyanigosa();
+extern void AddSC_boss_moragg();
+extern void AddSC_boss_erekem();
+extern void AddSC_boss_xevozz();
+extern void AddSC_boss_ichoron();
+extern void AddSC_boss_zuramat();
+extern void AddSC_boss_lavanthor();
 extern void AddSC_violet_hold();
-
-extern void AddSC_instance_forge_of_souls();                //forge_of_souls
-extern void AddSC_boss_bronjahm();
-extern void AddSC_boss_devourer_of_souls();
 
 extern void AddSC_borean_tundra();
 extern void AddSC_dalaran();
@@ -379,6 +382,31 @@ extern void AddSC_icecrown();
 extern void AddSC_sholazar_basin();
 extern void AddSC_storm_peaks();
 extern void AddSC_zuldrak();
+
+//IceCrown Citadel
+extern void AddSC_instance_icecrown_spire();                // Spire
+extern void AddSC_icecrown_spire();
+extern void AddSC_icecrown_teleporter();
+extern void AddSC_boss_lord_marrowgar();
+extern void AddSC_boss_lady_deathwhisper();
+extern void AddSC_boss_deathbringer_saurfang();
+extern void AddSC_boss_rotface();
+extern void AddSC_boss_festergut();
+extern void AddSC_boss_proffesor_putricide();
+
+extern void AddSC_instance_forge_of_souls();                // Forge_of_souls
+extern void AddSC_boss_bronjahm();
+extern void AddSC_boss_devourer_of_souls();
+
+extern void AddSC_instance_pit_of_saron();                  // Pit_of_saron
+extern void AddSC_boss_forgemaster_gafrost();
+extern void AddSC_boss_krick();
+extern void AddSC_boss_scourgelord_tirannus();
+
+extern void AddSC_instance_halls_of_reflection();           // Halls_of_reflection
+extern void AddSC_boss_falryn();
+extern void AddSC_boss_marwyn();
+//extern void AddSC_boss_lich_king_fh();
 
 //outland
 extern void AddSC_boss_exarch_maladaar();                   //auchindoun, auchenai_crypts
@@ -826,12 +854,15 @@ void AddScripts()
     AddSC_instance_pinnacle();
 
     AddSC_instance_violet_hold();                           //violet_hold
+    AddSC_boss_cyanigosa();
+    AddSC_boss_moragg();
+    AddSC_boss_erekem();
+    AddSC_boss_xevozz();
+    AddSC_boss_ichoron();
+    AddSC_boss_zuramat();
+    AddSC_boss_lavanthor();
     AddSC_violet_hold();
-
-	AddSC_instance_forge_of_souls();                        //forge_of_souls
-    AddSC_boss_bronjahm();
-	AddSC_boss_devourer_of_souls();
-
+	
     AddSC_borean_tundra();
     AddSC_dalaran();
     AddSC_dragonblight();
@@ -840,6 +871,31 @@ void AddScripts()
     AddSC_sholazar_basin();
     AddSC_storm_peaks();
     AddSC_zuldrak();
+
+	// IceCrown Citadel
+    AddSC_instance_icecrown_spire();                        // Spire
+    AddSC_icecrown_spire();
+    AddSC_icecrown_teleporter();
+    AddSC_boss_lord_marrowgar();
+    AddSC_boss_lady_deathwhisper();
+    AddSC_boss_deathbringer_saurfang();
+    AddSC_boss_rotface();
+    AddSC_boss_festergut();
+    AddSC_boss_proffesor_putricide();
+
+	AddSC_instance_forge_of_souls();                        // Forge_of_souls
+    AddSC_boss_bronjahm();
+	AddSC_boss_devourer_of_souls();
+
+    AddSC_instance_pit_of_saron();                          // Pit_of_saron
+    AddSC_boss_forgemaster_gafrost();
+    AddSC_boss_krick();
+    AddSC_boss_scourgelord_tirannus();
+
+    AddSC_instance_halls_of_reflection();                   // Halls_of_reflection
+    AddSC_boss_falryn();
+    AddSC_boss_marwyn();
+//    AddSC_boss_lich_king_fh();
 
     //outland
     AddSC_boss_exarch_maladaar();                           //auchindoun, auchenai_crypts

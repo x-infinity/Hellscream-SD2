@@ -32,7 +32,7 @@ struct t_Locations
 {
     char const* name;
     float x, y, z;
-    uint32 id;
+    uint32 spellID;
     bool state;
     bool active;
     uint32 encounter;
@@ -40,52 +40,68 @@ struct t_Locations
 
 static t_Locations PortalLoc[]=
 {
-{"Hammer light",-17.1928f, 2211.44f, 30.1158f,0.0f,true,true,TYPE_TELEPORT}, //
-{"Spire",-503.62f, 2211.47f, 62.8235f,1.0f,false,true,TYPE_MARROWGAR},  //
-{"Cephalic shaft",-615.145f, 2211.47f, 199.972f,2.0f,false,true,TYPE_DEATHWHISPER}, //
-{"Air battle",-209.5f, 2211.91f, 199.97f,3.0f,false,true,TYPE_SKULLS_PLATO}, //
-{"The rise of deadly",-549.131f, 2211.29f, 539.291f,4.0f,false,true,TYPE_FLIGHT_WAR}, //
-{"Ice Crown Citadel",4198.42f, 2769.22f, 351.065f,5.0f,false,false,TYPE_SAURFANG}, //
-{"Sanctuary blood",4490.205566f, 2769.275635f, 403.983765f,6.0f,false,false,TYPE_BLOOD_COUNCIL}, //
-{"Lair of the Queen of Ice",4356.236816f, 2402.573242f, 220.462540f,7.0f,false,false,TYPE_VALITHRIA}, //
+("Hammer of the world", -17.1928f, 2211.44f, 30.1158f,0, true, true, TYPE_TELEPORT), //
+("Chapel Damned", -503.62f, 2211.47f, 62.8235f,70856, false, true, TYPE_MARROWGAR), //
+("Cephalic shaft", -615.145f, 2211.47f, 199.972f,70857, false, true, TYPE_DEATHWHISPER), //
+("The rise of deadly", -549.131f, 2211.29f, 539.29f1,70858, false, true, TYPE_FLIGHT_WAR), //
+("Icecrown Citadel", 4198.42f, 2769.22f, 351.065f,70859, false, true, TYPE_SAURFANG), //
+("Sanctuary of blood", 4490.205566f, 2769.275635f, 403.983765f,0, false, true, TYPE_BLOOD_COUNCIL), //
+("Lair of the Queen of Ice", 4356.580078f, 2565.75f, 220.401993f,70861, false, true, TYPE_VALITHRIA), //
+("Frozen Throne", 529.3f, -2124.7f, 1041.0f, 70860, false, true, TYPE_SINDRAGOSA), //
 };
 
 
-bool GossipSelect_icecrown_teleporter(Player *player, Creature* pCreature, uint32 sender, uint32 action)
+bool GOGossipSelect_go_icecrown_teleporter(Player *player, GameObject* pGo, uint32 sender, uint32 action)
 {
+    int32 damage = 0;
     if(sender != GOSSIP_SENDER_MAIN) return true;
+
     if(!player->getAttackers().empty()) return true;
+
     if(action >= 0 && action <= PORTALS_COUNT)
-        player->TeleportTo(MAP_NUM, PortalLoc[action].x, PortalLoc[action].y, PortalLoc[action].z, 0);
-        player->CLOSE_GOSSIP_MENU();
+    player->TeleportTo(MAP_NUM, PortalLoc[action].x, PortalLoc[action].y, PortalLoc[action].z, 0);
+    if (PortalLoc[action].spellID !=0 ) 
+           if (SpellEntry const* spell = (SpellEntry *)GetSpellStore()->LookupEntry(PortalLoc[action].spellID))
+                  player->AddAura(new BossAura(spell, EFFECT_INDEX_2, &damage,(Unit*)player, (Unit*)player));
+
+    player->CLOSE_GOSSIP_MENU();
     return true;
 }
 
-bool GossipHello_icecrown_teleporter(Player *player, Creature* pCreature)
+bool GOGossipHello_go_icecrown_teleporter(Player *player, GameObject* pGo)
 {
-    ScriptedInstance *pInstance = (ScriptedInstance *) pCreature->GetInstanceData();
+    ScriptedInstance *pInstance = (ScriptedInstance *) pGo->GetInstanceData();
     if(!pInstance) return true;
-    bool m_bIsRegularMode = pCreature->GetMap()->IsRegularDifficulty();
 
     for(uint8 i = 0; i < PORTALS_COUNT; i++) {
     if (PortalLoc[i].active == true && (PortalLoc[i].state == true || pInstance->GetData(TYPE_TELEPORT) >= PortalLoc[i].encounter))
              player->ADD_GOSSIP_ITEM(GOSSIP_ICON_TAXI, PortalLoc[i].name, GOSSIP_SENDER_MAIN, i);
     };
-    player->SEND_GOSSIP_MENU(TELEPORT_GOSSIP_MESSAGE, pCreature->GetGUID());
+    player->SEND_GOSSIP_MENU(TELEPORT_GOSSIP_MESSAGE, pGo->GetGUID());
     return true;
 }
 
-
-bool GOHello_go_icecrown_teleporter(Player *player, GameObject* pGo)
+bool GOGossipHello_go_plague_sigil(Player *player, GameObject* pGo)
 {
-
     ScriptedInstance *pInstance = (ScriptedInstance *) pGo->GetInstanceData();
-    if(!pInstance) return true;
+    if(!pInstance) return false;
 
-    bool m_bIsRegularMode = pGo->GetMap()->IsRegularDifficulty();
+    if (pInstance->GetData(TYPE_FESTERGUT) == DONE)
+           pInstance->SetData(TYPE_FESTERGUT, DONE);
+    if (pInstance->GetData(TYPE_ROTFACE) == DONE)
+           pInstance->SetData(TYPE_ROTFACE, DONE);
 
-    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_TAXI, "No message", GOSSIP_SENDER_MAIN, 0);
-    player->SEND_GOSSIP_MENU(GO_TELEPORT_GOSSIP_MESSAGE, pGo->GetGUID());
+    return true;
+}
+
+bool GOGossipHello_go_bloodwing_sigil(Player *player, GameObject* pGo)
+{
+    ScriptedInstance *pInstance = (ScriptedInstance *) pGo->GetInstanceData();
+    if(!pInstance) return false;
+
+    if (pInstance->GetData(TYPE_PUTRICIDE) == DONE)
+           pInstance->SetData(TYPE_PUTRICIDE, DONE);
+
     return true;
 }
 
@@ -95,13 +111,18 @@ void AddSC_icecrown_teleporter()
     Script *newscript;
 
     newscript = new Script;
-    newscript->Name = "icecrown_teleporter";
-    newscript->pGossipHello = &GossipHello_icecrown_teleporter;
-    newscript->pGossipSelect = &GossipSelect_icecrown_teleporter;
+    newscript->Name = "go_icecrown_teleporter";
+    newscript->pGOGossipHello  = &GOGossipHello_go_icecrown_teleporter;
+    newscript->pGOGossipSelect = &GOGossipSelect_go_icecrown_teleporter;
     newscript->RegisterSelf();
 
     newscript = new Script;
-    newscript->Name = "go_icecrown_teleporter";
-    newscript->pGOHello = &GOHello_go_icecrown_teleporter;
+    newscript->Name = "go_plague_sigil";
+    newscript->pGOGossipHello  = &GOGossipHello_go_plague_sigil;
+    newscript->RegisterSelf();
+
+    newscript = new Script;
+    newscript->Name = "go_bloodwing_sigil";
+    newscript->pGOGossipHello  = &GOGossipHello_go_bloodwing_sigil;
     newscript->RegisterSelf();
 }
