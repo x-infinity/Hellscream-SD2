@@ -24,7 +24,7 @@ SDCategory: Ulduar
 EndScriptData */
  
 #include "precompiled.h"
-#include "ulduar.h"
+#include "def_ulduar.h"
 #include <map> // for timers in black_holeAI
 #include <utility> // for 'make_pair' in black_holeAI
 

@@ -128,7 +128,9 @@ class MANGOS_DLL_DECL instance_naxxramas : public ScriptedInstance
         void SetData(uint32 uiType, uint32 uiData);
         uint32 GetData(uint32 uiType);
         uint64 GetData64(uint32 uiData);
- 
+
+        void SwitchDoor(uint32 uiData, uint64 doorGUID);
+		
         const char* Save() { return strInstData.c_str(); }
         void Load(const char* chrIn);
  

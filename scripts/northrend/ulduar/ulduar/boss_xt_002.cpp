@@ -46,10 +46,10 @@ struct MANGOS_DLL_DECL boss_xt002 : public ScriptedAI
         //PummelerCount = Regular ? 1 : 2;
         ScrapbotCount = Regular ? 4 : 6;
         BoombotCount = Regular ? 2 : 4;
-        AddX[0] = 792.706; AddY[0] = 64.033; AddZ[0] = 413.632;
-        AddX[1] = 879.750; AddY[1] = 64.815; AddZ[1] = 409.804;
-        AddX[2] = 896.488; AddY[2] = -93.018; AddZ[2] = 411.731;
-        AddX[3] = 791.016; AddY[3] = -83.516; AddZ[3] = 409.804;
+        AddX[0] = 792.706f; AddY[0] = 64.033f; AddZ[0] = 413.632f;
+        AddX[1] = 879.750f; AddY[1] = 64.815f; AddZ[1] = 409.804f;
+        AddX[2] = 896.488f; AddY[2] = -93.018f; AddZ[2] = 411.731f;
+        AddX[3] = 791.016f; AddY[3] = -83.516f; AddZ[3] = 409.804f;
         Reset();
     }
 
@@ -62,8 +62,8 @@ struct MANGOS_DLL_DECL boss_xt002 : public ScriptedAI
     uint32 NextWaveTimer;
 
     //uint32 PummelerCount;
-    uint32 ScrapbotCount;
-    uint32 BoombotCount;
+    int32 ScrapbotCount;
+    int32 BoombotCount;
 
     uint32 TantrumTimer;
     uint32 LightTimer;

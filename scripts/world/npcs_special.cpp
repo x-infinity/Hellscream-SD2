@@ -26,6 +26,7 @@ EndScriptData
 #include "escort_ai.h"
 #include "ObjectMgr.h"
 #include "GameEventMgr.h"
+#include "Spell.h"
 
 /* ContentData
 npc_air_force_bots       80%    support for misc (invisible) guard bots in areas where player allowed to fly. Summon guards after a preset time if tagged by spell
@@ -44,6 +45,10 @@ npc_sayge               100%    Darkmoon event fortune teller, buff player based
 npc_tabard_vendor        50%    allow recovering quest related tabards, achievement related ones need core support
 npc_locksmith            75%    list of keys needs to be confirmed
 npc_valkyr_battle_maiden 85%    support for aura 51915
+npc_onyxian_whelpling 	100% 	non-combat pet emote
+npc_wormhole 			100% 	ENG wormhole item 48933
+npc_time_lost_drake_controller controller for NPC 32491 (Time-lost Proto-drake) to make its spawns random.
+mob_mirror_image         60%    AI for mage spell Mirror Image
 EndContentData */
 
 /*########
@@ -1013,50 +1018,6 @@ CreatureAI* GetAI_npc_guardian(Creature* pCreature)
     return new npc_guardianAI(pCreature);
 }
 
-/*######
-## npc_mirror_image
-######*/
-
-enum
-{
-   SPELL_FROSTBOLT         = 59638,
-   SPELL_FIREBALL          = 59637
-};
-
-struct MANGOS_DLL_DECL npc_mirror_imageAI : public ScriptedAI
-{
-    npc_mirror_imageAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
-
-	uint32 m_uiFrostBoltTimer;
-
-    void Reset()
-    {
-    //m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
-    m_uiFrostBoltTimer = 1000;
-    }
-
-    void UpdateAI(const uint32 uiDiff)
-    {
-        if (!m_creature->SelectHostileTarget() || !m_creature->getVictim())
-            return;
-
-        if (m_uiFrostBoltTimer < uiDiff)
-        {
-//            m_creature->CastSpell(m_creature->getVictim(),SPELL_FROSTBOLT, true);
-//            m_creature->resetAttackTimer();
-      if (DoCastSpellIfCan(m_creature->getVictim(), SPELL_FROSTBOLT) == CAST_OK)
-                m_uiFrostBoltTimer = urand(3600, 4000);
-        }
-    else
-            m_uiFrostBoltTimer -= uiDiff;
-    }
-};
-
-CreatureAI* GetAI_npc_mirror_image(Creature* pCreature)
-{
-    return new npc_mirror_imageAI(pCreature);
-}
-
 /*########
 # npc_innkeeper
 #########*/
@@ -1837,6 +1798,442 @@ CreatureAI* GetAI_npc_valkyr_battle_maiden(Creature* pCreature)
     return new npc_valkyr_battle_maidenAI(pCreature);
 }
 
+/*#######################
+# npc_onyxian_whelpling #
+########################*/
+#define SAY_ONYX_WHELP -1366071
+#define SPELL_DEEP_BREATH 69004
+
+struct MANGOS_DLL_DECL npc_onyxian_whelplingAI : public ScriptedAI
+{
+    npc_onyxian_whelplingAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+
+    uint32 m_uiEmoteTimer;
+    Unit *owner;
+
+    void Reset()
+    {
+        owner = m_creature->GetOwner();
+        if(owner)
+            m_creature->GetMotionMaster()->MoveFollow(owner, 1, (M_PI_F/2));
+        m_uiEmoteTimer = 5000;
+    }
+    void AttackStart(Unit *pWho)
+    {
+        return;
+    }
+    void UpdateAI(const uint32 uiDiff)
+    {
+        if (m_uiEmoteTimer < uiDiff)
+        {
+            DoScriptText(SAY_ONYX_WHELP, m_creature);
+            m_creature->CastSpell(m_creature, SPELL_DEEP_BREATH, false);
+            m_uiEmoteTimer = 60000+rand()%300000;
+        }else m_uiEmoteTimer -= uiDiff;
+    }
+};
+
+CreatureAI* GetAI_npc_onyxian_whelpling(Creature* pCreature)
+{
+    return new npc_onyxian_whelplingAI(pCreature);
+}
+
+/*######
+## npc_wormhole
+######*/
+
+#define GOSSIP_ITEM_WORMHOLE1 "Borean Tundra"
+#define GOSSIP_ITEM_WORMHOLE2 "Borean Tundra"
+#define GOSSIP_ITEM_WORMHOLE3 "Howling Fjord"
+#define GOSSIP_ITEM_WORMHOLE4 "Sholazar Basin"
+#define GOSSIP_ITEM_WORMHOLE5 "Icecrown"
+#define GOSSIP_ITEM_WORMHOLE6 "Storm Peaks"
+#define GOSSIP_ITEM_WORMHOLE7 "Underground..."
+
+enum
+{
+    GOSSIP_TEXTID_WORMHOLE1 = 14785,
+    SAY_WORMHOLE_ANOMALY = -1531099,
+    NPC_ANOMALY = 19686,
+};
+struct MANGOS_DLL_DECL npc_wormholeAI : public ScriptedAI
+{
+    npc_wormholeAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+
+    uint32 despawnTimer;
+    void Reset()
+    {
+        despawnTimer = 60000;
+        if(roll_chance_f(1))
+        {
+            DoScriptText(SAY_WORMHOLE_ANOMALY, m_creature);
+            for(int i = 0; i <= 2; i++)
+            {
+                 m_creature->SummonCreature(NPC_ANOMALY, m_creature->GetPositionX()-5+rand()%10, m_creature->GetPositionY()-5+rand()%10, m_creature->GetPositionZ(), 0, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 180000);
+            }
+            despawnTimer = 3000;
+        }
+
+    }
+    void UpdateAI(const uint32 uiDiff)
+    {
+        if (despawnTimer < uiDiff)
+        {
+            m_creature->ForcedDespawn();
+        }else despawnTimer -= uiDiff;
+    }
+};
+
+CreatureAI* GetAI_npc_wormhole(Creature* pCreature)
+{
+    return new npc_wormholeAI(pCreature);
+}
+bool GossipHello_npc_wormhole(Player* pPlayer, Creature* pCreature)
+{
+    
+    if(urand(0,1)) {
+        pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE2, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+2);
+    } else {
+        pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+    }
+    pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE3, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+3);
+    pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE4, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+4);
+    pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE5, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+5);
+    pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE6, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+6);
+    switch(urand(0,50)) {
+        case 15:
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_WORMHOLE7, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+7);
+            break;
+    }
+    
+    
+
+    pPlayer->SEND_GOSSIP_MENU(GOSSIP_TEXTID_WORMHOLE1, pCreature->GetGUID());
+
+    return true;
+}
+
+bool GossipSelect_npc_wormhole(Player* pPlayer, Creature* pCreature, uint32 uiSender, uint32 uiAction)
+{
+    switch(uiAction) {
+        case GOSSIP_ACTION_INFO_DEF+1:
+            // Borean Tundra, 54.15
+            pPlayer->TeleportTo(571,4300.52f,5452.59f,64.3578f,3.84644f);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+2:
+            // Borean Tundra, 51.45
+            pPlayer->TeleportTo(571,3136.24f,5603.01f,52.3244f,1.38835f);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+3:
+            // Howling Fjord, 58,48
+            pPlayer->TeleportTo(571,1151.36f,-4935.54f,299.061f,3.4366f);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+4:
+            // Sholazar Basin, 48,37
+            pPlayer->TeleportTo(571,6192.98f,4801.52f,219.963f,2.21874f);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+5:
+            // Icecrown, 65,31
+            pPlayer->TeleportTo(571,8096.98f,1401.17f,776.921f,2.63893f);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+6:
+            // Storm Peaks, 43,25
+            pPlayer->TeleportTo(571,8975.23f,-1255.25f,1059.01f,5.80022f);
+            break;
+        case GOSSIP_ACTION_INFO_DEF+7:
+            // Bonus location - underground in Dalaran
+            pPlayer->TeleportTo(571,5856.654297f,517.693665f,599.817932f,2.1f);
+            break;
+    }
+
+    return true;
+}
+
+/*################################
+# npc_time_lost_drake_controller #
+#################################*/
+struct Locations
+{
+    float x, y, z, o;
+    uint32 id;
+};
+static Locations SpawnLoc[]=
+{
+    //13 locations in storm peaks
+    {7573.996f, -131.688f, 897.956f, 1.899f},
+    {8122.577f, -732.081f, 1006.656f, 5.600f},
+    {8610.194f, -1041.021f, 550.699f, 3.056f},
+    {8724.768f, -1340.422f, 870.166f, 3.504f},
+    {7336.514f, -1006.855f, 907.828f, 4.47f},
+    {7354.466f, -1656.856f, 1141.252f, 2.795f},
+    {6820.968f, -1804.341f, 942.078f, 1.594f},
+    {6453.129f, -1544.845f, 492.526f, 2.932f},
+    {7066.843f, -1066.930f, 893.788f, 3.054f},
+    {6630.028f, -840.184f, 673.220f, 2.480f},
+    {6903.040f, -417.403f, 996.679f, 0.261f},
+    {6541.038f, -228.798f, 816.373f, 4.045f},
+    {7076.384f, 111.577f, 1022.646f, 0.848f},
+};
+
+#define NPC_TIME_LOST_PROTO_DRAKE 32491
+#define GOSSIP_TELE_TO_DRAKE "Teleport me to drake"
+struct MANGOS_DLL_DECL npc_time_lost_drake_controllerAI : public ScriptedAI
+{
+    npc_time_lost_drake_controllerAI(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+
+    int8 m_uiLastSpawn;
+    Creature *pProtoDrake;
+
+    uint32 m_uiCheckTimer;
+    uint32 m_uiRelocationTimer;
+    void Reset()
+    {
+        m_uiLastSpawn = -1;
+
+        m_uiCheckTimer = 5000;
+        m_uiRelocationTimer = 60000;
+
+        SpawnDrake();
+
+        m_creature->SetVisibility(VISIBILITY_OFF);
+    }
+    void AttackStart(Unit *pWho)
+    {
+        return;
+    }
+    bool IsDrakeAlive()
+    {
+        if(!pProtoDrake)
+            return false;
+
+        if(pProtoDrake->isAlive())
+            return true;
+
+        return false;
+    }
+    bool IsDrakeInCombat()
+    {
+        if(!pProtoDrake)
+            return false;
+
+        if(!pProtoDrake->isAlive())
+            return false;
+
+        if(pProtoDrake->isInCombat())
+            return true;
+        
+        return false;
+    }
+
+    void SpawnDrake(int8 spawnLoc = -1)
+    {
+
+        uint8 tmp = rand()%12;
+        while(tmp == m_uiLastSpawn)
+            tmp = rand()%12;
+
+        if(spawnLoc != -1)
+            tmp = spawnLoc;
+
+        if(Creature *pTemp = m_creature->SummonCreature(NPC_TIME_LOST_PROTO_DRAKE, SpawnLoc[tmp].x, SpawnLoc[tmp].y, SpawnLoc[tmp].z, SpawnLoc[tmp].o, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 50000))
+        {
+            pProtoDrake = pTemp;
+            m_uiLastSpawn = tmp;
+        }
+    }
+    void UpdateAI(const uint32 uiDiff)
+    {
+           if (m_uiRelocationTimer < uiDiff)
+        {
+            if(IsDrakeAlive() && !IsDrakeInCombat())
+            {
+                pProtoDrake->ForcedDespawn();
+                SpawnDrake();
+            }
+            else if(!IsDrakeAlive())
+            {
+                SpawnDrake();
+            }
+            m_uiRelocationTimer = 60000;//3600000;
+        }else m_uiRelocationTimer -= uiDiff;
+    }
+};
+
+CreatureAI* GetAI_npc_time_lost_drake_controller(Creature* pCreature)
+{
+    return new npc_time_lost_drake_controllerAI(pCreature);
+}
+bool GossipHello_npc_time_lost_drake_controller(Player* pPlayer, Creature* pCreature)
+{
+
+    pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_TELE_TO_DRAKE, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF +1);
+
+    pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
+
+    return true;
+}
+
+bool GossipSelect_npc_time_lost_drake_controller(Player* pPlayer, Creature* pCreature, uint32 uiSender, uint32 uiAction)
+{
+    switch(uiAction)
+    {
+        
+        case GOSSIP_ACTION_INFO_DEF+1:
+            pPlayer->CLOSE_GOSSIP_MENU();
+            pPlayer->TeleportTo(571, SpawnLoc[((npc_time_lost_drake_controllerAI*)pCreature->AI())->m_uiLastSpawn].x,
+                SpawnLoc[((npc_time_lost_drake_controllerAI*)pCreature->AI())->m_uiLastSpawn].y,
+                SpawnLoc[((npc_time_lost_drake_controllerAI*)pCreature->AI())->m_uiLastSpawn].z,
+                SpawnLoc[((npc_time_lost_drake_controllerAI*)pCreature->AI())->m_uiLastSpawn].o);
+            break;
+
+    }
+    return true;
+}
+struct MANGOS_DLL_DECL npc_rune_blade : public ScriptedAI
+{
+    npc_rune_blade(Creature* pCreature) : ScriptedAI(pCreature) {Reset();}
+    void Reset()
+    {
+        Unit * owner = m_creature->GetOwner();
+        if (!owner || owner->GetTypeId() != TYPEID_PLAYER)
+            return;
+
+        // Cannot be Selected or Attacked
+        m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+        m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+
+        // Add visible weapon
+        if (Item const * item = ((Player *)owner)->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_MAINHAND))
+            m_creature->SetUInt32Value(UNIT_VIRTUAL_ITEM_SLOT_ID, item->GetProto()->ItemId);
+
+        // Add stats scaling
+        int32 damageDone=owner->CalculateDamage(BASE_ATTACK, true); // might be average damage instead ?
+        int32 meleeSpeed=owner->m_modAttackSpeedPct[BASE_ATTACK];
+        m_creature->CastCustomSpell(m_creature, 51906, &damageDone, &meleeSpeed, NULL, true);
+
+        // Visual Glow
+        m_creature->CastSpell(m_creature, 53160, true);
+
+        // Start Chasing victim
+        if (uint64 guid = ((Player*)owner)->GetSelection())
+            if (Unit *target = m_creature->GetUnit(*owner,guid))
+                if (!target->IsFriendlyTo(owner))
+                    m_creature->Attack(target,true);
+
+    }
+};
+CreatureAI* GetAI_npc_rune_blade(Creature* pCreature)
+{
+    return new npc_rune_blade(pCreature);
+}
+
+/*########
+# mob_mirror_image AI
+#########*/
+
+enum MirrorImage
+{
+    SPELL_FROSTBOLT = 59638,
+    SPELL_FIREBLAST = 59637
+};
+
+struct MANGOS_DLL_DECL mob_mirror_imageAI : public ScriptedAI
+{
+    mob_mirror_imageAI(Creature* pCreature) : ScriptedAI(pCreature)
+    {
+        bLocked = false;
+        Reset();
+    }
+    uint64 m_uiCreatorGUID;
+    uint32 m_uiFrostboltTimer;
+    uint32 m_uiFireBlastTimer;
+    float fDist;
+    float fAngle;
+    bool bLocked;
+
+    void Reset()
+    {
+        m_uiFrostboltTimer = 1000;
+        m_uiFireBlastTimer = urand(4500, 6000);
+    }
+    void AttackStart(Unit *pWho)
+    {
+        if (m_creature->Attack(pWho, true))
+        {
+            m_creature->AddThreat(pWho);
+            m_creature->SetInCombatWith(pWho);
+            pWho->SetInCombatWith(m_creature);
+            m_creature->GetMotionMaster()->MoveChase(pWho, 35.0f);
+        }
+    }
+
+    void UpdateAI(const uint32 uiDiff)
+    {
+        if (!bLocked)
+        {
+            m_uiCreatorGUID = m_creature->GetCreatorGUID();
+            if (Player* pOwner = (Player*)Unit::GetUnit(*m_creature, m_uiCreatorGUID))
+            {
+                fDist = m_creature->GetDistance(pOwner);
+                fAngle = m_creature->GetAngle(pOwner);
+                pOwner->CastSpell(m_creature, 57507, true); // Not right spell, but it has both auras we need
+            }
+            bLocked = true;
+        }
+
+        Player* pOwner = (Player*)Unit::GetUnit(*m_creature, m_uiCreatorGUID);
+        if (!pOwner || !pOwner->IsInWorld())
+        {
+            m_creature->ForcedDespawn();
+            return;
+        }
+        
+        uint64 targetGUID = 0;
+
+        if (Spell* pSpell = pOwner->GetCurrentSpell(CURRENT_GENERIC_SPELL))
+            targetGUID = pSpell->m_targets.getUnitTargetGUID();
+        else if (pOwner->getVictim())
+            targetGUID = pOwner->getVictim()->GetGUID();
+
+        Unit* pTarget = Unit::GetUnit(*m_creature, targetGUID);
+
+        if (!pTarget || !m_creature->CanInitiateAttack() || !pTarget->isTargetableForAttack() ||
+        !m_creature->IsHostileTo(pTarget) || !pTarget->isInAccessablePlaceFor(m_creature))
+        {
+            if (m_creature->GetMotionMaster()->GetCurrentMovementGeneratorType() != FOLLOW_MOTION_TYPE)
+            {
+                m_creature->InterruptNonMeleeSpells(false);
+                m_creature->GetMotionMaster()->Clear();
+                m_creature->GetMotionMaster()->MoveFollow(pOwner, fDist, fAngle);
+            }
+            return;
+        }
+        //It cant cast spell if target is polymorphed or controled
+        if(pTarget->isCharmed() || pTarget->isFeared() || pTarget->IsPolymorphed())
+        {
+            if(m_creature->IsNonMeleeSpellCasted(false))
+                m_creature->InterruptNonMeleeSpells(false);
+            return;
+        }
+        if (m_uiFrostboltTimer <= uiDiff)
+        {
+            m_creature->CastSpell(pTarget, SPELL_FROSTBOLT, false, NULL, NULL, pOwner->GetGUID());
+            m_uiFrostboltTimer = 3500;
+        } else m_uiFrostboltTimer -= uiDiff;
+
+        if (m_uiFireBlastTimer <= uiDiff)
+        {
+            m_creature->CastSpell(pTarget, SPELL_FIREBLAST, false, NULL, NULL, pOwner->GetGUID());
+            m_uiFireBlastTimer = urand(9000, 12000);
+        } else m_uiFireBlastTimer -= uiDiff;
+    }
+};
+
+CreatureAI* GetAI_mob_mirror_image(Creature* pCreature)
+{
+    return new mob_mirror_imageAI(pCreature);
+}
+
 void AddSC_npcs_special()
 {
     Script* newscript;
@@ -1879,11 +2276,6 @@ void AddSC_npcs_special()
     newscript->GetAI = &GetAI_npc_guardian;
     newscript->RegisterSelf();
 	
-	newscript = new Script;
-    newscript->Name = "npc_mirror_image";
-    newscript->GetAI = &GetAI_npc_mirror_image;
-    newscript->RegisterSelf();
-
     newscript = new Script;
     newscript->Name = "npc_innkeeper";
     newscript->pGossipHello = &GossipHello_npc_innkeeper;
@@ -1931,9 +2323,38 @@ void AddSC_npcs_special()
     newscript->pGossipHello =  &GossipHello_npc_locksmith;
     newscript->pGossipSelect = &GossipSelect_npc_locksmith;
     newscript->RegisterSelf();
-	
+
 	newscript = new Script;
     newscript->Name = "npc_valkyr_battle_maiden";
     newscript->GetAI = &GetAI_npc_valkyr_battle_maiden;
+    newscript->RegisterSelf();
+
+	newscript = new Script;
+    newscript->Name = "npc_onyxian_whelpling";
+    newscript->GetAI = &GetAI_npc_onyxian_whelpling;
+    newscript->RegisterSelf();
+
+    newscript = new Script;
+    newscript->Name = "npc_wormhole";
+    newscript->pGossipHello = &GossipHello_npc_wormhole;
+    newscript->pGossipSelect = &GossipSelect_npc_wormhole;
+    newscript->GetAI = &GetAI_npc_wormhole;
+    newscript->RegisterSelf();
+
+    newscript = new Script;
+    newscript->Name = "npc_time_lost_drake_controller";
+    newscript->pGossipHello = &GossipHello_npc_time_lost_drake_controller;
+    newscript->pGossipSelect = &GossipSelect_npc_time_lost_drake_controller;
+    newscript->GetAI = &GetAI_npc_time_lost_drake_controller;
+    newscript->RegisterSelf();
+
+    newscript = new Script;
+    newscript->Name = "npc_runeblade";
+    newscript->GetAI = &GetAI_npc_rune_blade;
+    newscript->RegisterSelf();
+
+    newscript = new Script;
+    newscript->Name = "mob_mirror_image";
+    newscript->GetAI = &GetAI_mob_mirror_image;
     newscript->RegisterSelf();
 }

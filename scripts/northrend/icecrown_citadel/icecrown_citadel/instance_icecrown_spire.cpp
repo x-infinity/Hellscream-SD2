@@ -19,8 +19,8 @@
 
 static Locations SpawnLoc[]=
 {
-    {-446.788971, 2003.362915, 191.233948},  // 0 Horde ship enter
-    {-428.140503, 2421.336914, 191.233078},  // 1 Alliance ship enter
+    {-446.788971f, 2003.362915f, 191.233948f},  // 0 Horde ship enter
+    {-428.140503f, 2421.336914f, 191.233078f},  // 1 Alliance ship enter
 };
 
 struct MANGOS_DLL_DECL instance_icecrown_spire : public ScriptedInstance

@@ -229,6 +229,16 @@ void instance_naxxramas::OnObjectCreate(GameObject* pGo)
     }
 }
  
+void instance_naxxramas::SwitchDoor(uint32 uiData, uint64 doorGUID)
+{
+    if (GameObject* pDoor = instance->GetGameObject(doorGUID))
+    {
+        if (uiData == IN_PROGRESS)
+            pDoor->SetGoState(GO_STATE_READY);
+        else
+            pDoor->SetGoState(GO_STATE_ACTIVE);
+    }
+}
 bool instance_naxxramas::IsEncounterInProgress()
 {
     for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
@@ -244,72 +254,87 @@ void instance_naxxramas::SetData(uint32 uiType, uint32 uiData)
     {
         case TYPE_ANUB_REKHAN:
             m_auiEncounter[0] = uiData;
-            DoUseDoorOrButton(m_uiAnubDoorGUID);
+            SwitchDoor(uiData, m_uiAnubDoorGUID);
             if (uiData == DONE)
-                DoUseDoorOrButton(m_uiAnubGateGUID);
+                SwitchDoor(uiData, m_uiAnubGateGUID);
             break;
         case TYPE_FAERLINA:
             m_auiEncounter[1] = uiData;
-            DoUseDoorOrButton(m_uiFaerWebGUID);
+            SwitchDoor(uiData, m_uiFaerWebGUID);
             if (uiData == DONE)
             {
-                DoUseDoorOrButton(m_uiFaerDoorGUID);
-                DoUseDoorOrButton(m_uiMaexOuterGUID);
+                SwitchDoor(uiData, m_uiFaerDoorGUID);
+                SwitchDoor(uiData, m_uiMaexOuterGUID);
             }
             break;
         case TYPE_MAEXXNA:
             m_auiEncounter[2] = uiData;
-            DoUseDoorOrButton(m_uiMaexInnerGUID, uiData);
+            SwitchDoor(uiData, m_uiMaexInnerGUID);
             if (uiData == DONE)
             {
-                DoUseDoorOrButton(m_uiAracEyeRampGUID);
+                SwitchDoor(uiData, m_uiAracEyeRampGUID);
                 DoRespawnGameObject(m_uiAracPortalGUID, 30*MINUTE);
             }
             break;
         case TYPE_NOTH:
             m_auiEncounter[3] = uiData;
-            DoUseDoorOrButton(m_uiNothEntryDoorGUID);
+            SwitchDoor(uiData, m_uiNothEntryDoorGUID);
             if (uiData == DONE)
             {
-                DoUseDoorOrButton(m_uiNothExitDoorGUID);
-                DoUseDoorOrButton(m_uiHeigEntryDoorGUID);
+                SwitchDoor(uiData, m_uiNothExitDoorGUID);
+                SwitchDoor(uiData, m_uiHeigEntryDoorGUID);
             }
             break;
         case TYPE_HEIGAN:
             m_auiEncounter[4] = uiData;
-            DoUseDoorOrButton(m_uiHeigEntryDoorGUID);
+            SwitchDoor(uiData, m_uiHeigEntryDoorGUID);
             if (uiData == DONE)
-                DoUseDoorOrButton(m_uiHeigExitDoorGUID);
+                SwitchDoor(uiData, m_uiMiliEyeRampGUID);
+				SwitchDoor(uiData, m_uiHeigExitDoorGUID);				
             break;
         case TYPE_LOATHEB:
             m_auiEncounter[5] = uiData;
-            DoUseDoorOrButton(m_uiLoathebDoorGUID);
+            SwitchDoor(uiData, m_uiLoathebDoorGUID);
             if (uiData == DONE)
             {
-                DoUseDoorOrButton(m_uiPlagEyeRampGUID);
+                SwitchDoor(uiData, m_uiPlagEyeRampGUID);
                 DoRespawnGameObject(m_uiPlagPortalGUID, 30*MINUTE);
             }
             break;
         case TYPE_RAZUVIOUS:
             m_auiEncounter[6] = uiData;
             if (uiData == DONE)
-                DoUseDoorOrButton(m_uiGothikEntryDoorGUID);
+                SwitchDoor(uiData, m_uiGothikEntryDoorGUID);
             break;
         case TYPE_GOTHIK:
-            m_auiEncounter[7] = uiData;
-            DoUseDoorOrButton(m_uiGothikEntryDoorGUID);
-            if (uiData == DONE)
-            {
-                DoUseDoorOrButton(m_uiGothikExitDoorGUID);
-                DoUseDoorOrButton(m_uiHorsemenDoorGUID);
-            }
+            switch(uiData)
+			{
+                 case IN_PROGRESS:
+                    SwitchDoor(uiData, m_uiGothikEntryDoorGUID);
+                    SwitchDoor(uiData, m_uiGothCombatGateGUID);	
+                     break;
+                 case SPECIAL:
+					SwitchDoor(uiData, m_uiGothCombatGateGUID);
+                     break;					
+                 case FAIL:
+                     if (m_auiEncounter[7] == IN_PROGRESS)
+	                SwitchDoor(uiData, m_uiGothCombatGateGUID);
+                    SwitchDoor(uiData, m_uiGothikEntryDoorGUID);
+                     break;
+                 case DONE:
+                    SwitchDoor(uiData, m_uiGothikEntryDoorGUID);
+                    SwitchDoor(uiData, m_uiGothikExitDoorGUID);
+                    SwitchDoor(uiData, m_uiHorsemenDoorGUID);
+                     break;
+             }
+             m_auiEncounter[7] = uiData;
             break;
         case TYPE_FOUR_HORSEMEN:
             m_auiEncounter[8] = uiData;
-            DoUseDoorOrButton(m_uiHorsemenDoorGUID);
+            SwitchDoor(uiData, m_uiHorsemenDoorGUID);
             if (uiData == DONE)
             {
-                DoUseDoorOrButton(m_uiMiliEyeRampGUID);
+                SwitchDoor(uiData, m_uiMiliEyeRampGUID);
                 DoRespawnGameObject(m_uiMiliPortalGUID, 30*MINUTE);
                 DoRespawnGameObject(m_uiHorsemenChestGUID, 30*MINUTE);
             }
@@ -317,7 +342,7 @@ void instance_naxxramas::SetData(uint32 uiType, uint32 uiData)
         case TYPE_PATCHWERK:
             m_auiEncounter[9] = uiData;
             if (uiData == DONE)
-                DoUseDoorOrButton(m_uiPathExitDoorGUID);
+                SwitchDoor(uiData, m_uiPathExitDoorGUID);
             break;
         case TYPE_GROBBULUS:
             m_auiEncounter[10] = uiData;
@@ -326,23 +351,23 @@ void instance_naxxramas::SetData(uint32 uiType, uint32 uiData)
             m_auiEncounter[11] = uiData;
             if (uiData == DONE)
             {
-                DoUseDoorOrButton(m_uiGlutExitDoorGUID);
-                DoUseDoorOrButton(m_uiThadDoorGUID);
+                SwitchDoor(uiData, m_uiGlutExitDoorGUID);
+                SwitchDoor(uiData, m_uiThadDoorGUID);
             }
             break;
         case TYPE_THADDIUS:
             m_auiEncounter[12] = uiData;
-            DoUseDoorOrButton(m_uiThadDoorGUID, uiData);
+            SwitchDoor(uiData, m_uiThadDoorGUID);
             if (uiData == DONE)
             {
-                DoUseDoorOrButton(m_uiConsEyeRampGUID);
+                SwitchDoor(uiData, m_uiConsEyeRampGUID);
                 DoRespawnGameObject(m_uiConsPortalGUID, 30*MINUTE);
             }
             break;
         case TYPE_SAPPHIRON:
             m_auiEncounter[13] = uiData;
             if (uiData == DONE)
-                DoUseDoorOrButton(m_uiKelthuzadDoorGUID);
+                SwitchDoor(uiData, m_uiKelthuzadDoorGUID);
             break;
         case TYPE_KELTHUZAD:
             switch(uiData)

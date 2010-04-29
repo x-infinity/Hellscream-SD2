@@ -9,12 +9,12 @@ enum
     TYPE_GAFROST                 = 0,
     TYPE_KRICK                    = 1,
     TYPE_ICK                      = 2,
-    TYPE_TIRANNUS                 = 3,
+    TYPE_TYRANNUS                 = 3,
 
     NPC_GAFROST                 = 36494,
     NPC_KRICK                    = 36477,
     NPC_ICK                      = 36476,
-    NPC_TIRANNUS                 = 36658
+    NPC_TYRANNUS                 = 36658
 
 //    GO_1                        = 194232
 

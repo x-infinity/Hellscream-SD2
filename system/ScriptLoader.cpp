@@ -19,6 +19,7 @@ extern void AddSC_custom_npc_spellmaster();
 extern void AddSC_custom_npc_teleportmaster();
 extern void AddSC_custom_npc_titlemaster();
 extern void AddSC_custom_npc_tokenvendor();
+extern void AddSC_custom_script_training_dummy();
 
 //examples
 extern void AddSC_example_creature();
@@ -336,7 +337,7 @@ extern void AddSC_halls_of_stone();
 extern void AddSC_boss_krystallus();
 extern void AddSC_instance_halls_of_stone();
 extern void AddSC_boss_algalon();							//ulduar
-extern void AddSC_boss_asembly_of_iron();
+extern void AddSC_boss_assembly_of_iron();
 extern void AddSC_boss_auriaya();
 extern void AddSC_boss_flameleviathan();
 extern void AddSC_boss_freya();
@@ -349,7 +350,7 @@ extern void AddSC_boss_mimiron();
 extern void AddSC_boss_razorscale();
 extern void AddSC_boss_thorim();
 extern void AddSC_boss_xt002();
-extern void AddSC_boss_yoggsaron();
+extern void AddSC_boss_yogg_saron();
 extern void AddSC_instance_ulduar();
 
 extern void AddSC_boss_ingvar();                            //utgarde_keep
@@ -401,7 +402,7 @@ extern void AddSC_boss_devourer_of_souls();
 extern void AddSC_instance_pit_of_saron();                  // Pit_of_saron
 extern void AddSC_boss_forgemaster_gafrost();
 extern void AddSC_boss_krick();
-extern void AddSC_boss_scourgelord_tirannus();
+extern void AddSC_boss_scourgelord_tyrannus();
 
 extern void AddSC_instance_halls_of_reflection();           // Halls_of_reflection
 extern void AddSC_boss_falryn();
@@ -503,7 +504,8 @@ void AddScripts()
 	AddSC_custom_npc_teleportmaster();
 	AddSC_custom_npc_titlemaster();
 	AddSC_custom_npc_tokenvendor();
-	
+	AddSC_custom_script_training_dummy();
+
     //examples
     AddSC_example_creature();
     AddSC_example_escort();
@@ -825,7 +827,7 @@ void AddScripts()
     AddSC_instance_halls_of_stone();
 
     AddSC_boss_algalon(); 									//ulduar
-    AddSC_boss_asembly_of_iron();
+    AddSC_boss_assembly_of_iron();
     AddSC_boss_auriaya();
     AddSC_boss_flameleviathan();
     AddSC_boss_freya();
@@ -838,7 +840,7 @@ void AddScripts()
     AddSC_boss_razorscale();
     AddSC_boss_thorim();
     AddSC_boss_xt002();
-    AddSC_boss_yoggsaron();
+    AddSC_boss_yogg_saron();
     AddSC_instance_ulduar();
 
     AddSC_boss_ingvar();                                    //utgarde_keep
@@ -890,7 +892,7 @@ void AddScripts()
     AddSC_instance_pit_of_saron();                          // Pit_of_saron
     AddSC_boss_forgemaster_gafrost();
     AddSC_boss_krick();
-    AddSC_boss_scourgelord_tirannus();
+    AddSC_boss_scourgelord_tyrannus();
 
     AddSC_instance_halls_of_reflection();                   // Halls_of_reflection
     AddSC_boss_falryn();

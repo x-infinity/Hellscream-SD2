@@ -17,7 +17,7 @@
 /* ScriptData
 SDName: Storm_Peaks
 SD%Complete: 100
-SDComment: Vendor Support (31247). Quest support: 12970, 12684
+SDComment: Vendor Support (31247). Quest support: 12970, 12684, 12843
 SDCategory: Storm Peaks
 EndScriptData */
 
@@ -245,9 +245,41 @@ bool GossipSelect_npc_roxi_ramrocket(Player* pPlayer, Creature* pCreature, uint3
     return true;
 }
 
+/*#####
+## go_rusty_cage
+#####*/
+
+enum
+{
+    QUEST_THEY_TOOK_OUR_MEN    = 12843,
+    NPC_GOBLIN_PRISONER     = 29466,
+    SPELL_DESPAWN_SELF      = 43014,
+    SAY_THANKS_1            = -1999778,
+    SAY_THANKS_2            = -1999777
+};
+
+bool GOHello_go_rusty_cage(Player* pPlayer, GameObject* pGo)
+{
+    if (pPlayer->GetQuestStatus(QUEST_THEY_TOOK_OUR_MEN) == QUEST_STATUS_INCOMPLETE)
+    {
+        if(Creature *pGoblin = GetClosestCreatureWithEntry(pPlayer, NPC_GOBLIN_PRISONER, INTERACTION_DISTANCE))
+        {
+            pPlayer->KilledMonsterCredit(NPC_GOBLIN_PRISONER, pGoblin->GetGUID());
+            DoScriptText(urand(0, 1) ? SAY_THANKS_1 : SAY_THANKS_2, pGoblin);
+            pGoblin->CastSpell(pGoblin, SPELL_DESPAWN_SELF, false);
+        }
+    }
+    return false;
+};
+
 void AddSC_storm_peaks()
 {
     Script* newscript;
+
+    newscript = new Script;
+    newscript->Name = "go_rusty_cage";
+    newscript->pGOHello = &GOHello_go_rusty_cage;
+    newscript->RegisterSelf();
 
     newscript = new Script;
     newscript->Name = "npc_frostborn_scout";

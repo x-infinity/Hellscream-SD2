@@ -174,7 +174,7 @@ bool GOHello_custom_gameobject_morph(Player* pPlayer, GameObject* pGo)
 // Transformer
 bool GOHello_custom_gameobject_transform(Player* pPlayer, GameObject* pGo)
 {
-    uint16 spellId;
+    uint32 spellId;
     uint32 select = urand(0, 17);
     switch(select)
     {

@@ -27,7 +27,7 @@ go_ulduar_teleporter
 EndContentData */
 
 #include "precompiled.h"
-#include "ulduar.h"
+#include "def_ulduar.h"
 
 #define GOSSIP_BASE_CAMP     "Expedition Base Camp"
 #define GOSSIP_FORMATION_GROUNDS     "Formation Grounds"
